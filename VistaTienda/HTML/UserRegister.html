@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../CSS/styles.css"/>
+</head>
+<body>
+    <header class="Header">
+        <div class="Logo-container">
+            <img src="" alt="Logo de la empresa" class="Logo">
+            <h1 class="Nombre-empresa">Nombre empresa</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html">Inicio</a>
+            <a href="#">Productos</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Blogs</a>
+            <a href="#">Contactos</a>
+        </nav>
+        <div class="Carrito">
+            <button class="button-carrito">
+                <img src="" alt="Icono del carrito" class="icono-carrito">
+            </button>
+        </div>
+    </header>
+
+    <main class="Registro-container">
+        <h1>Registro de usuario</h1>
+        <form class="Registro-formulario">
+            
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" requiered>
+            
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" required>
+            
+            <label for="region">Seleccione la región:</label>
+            
+            <select id="region" name="region" required>
+                <option value="">--Seleccione una región--</option>
+                <option value="region1">Región 1</option>
+                <option value="region2">Región 2</option>
+            </select>
+            <label for="comuna">Seleccione la comuna:</label>
+            
+            <select id="comuna" name="comuna" required>
+                <option value="">--Seleccione una comuna--</option>
+                <option value="comuna1">Comuna 1</option>
+                <option value="comuna2">Comuna 2</option>
+            </select>
+            
+            <button type="submit">Registrarse</button>
+        </form>
+
+
+
+    </main>
+
+
+
+
+</body>
+</html>
