@@ -1,0 +1,50 @@
+.InicioSesion-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0 20px 0;
+    color: white;
+    font-size: 24px;
+}
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1E90FF;   /* mismo azul que header */
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    margin: 0 auto;               /* centra horizontalmente */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.form-login label {
+    align-self: flex-start;
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+}
+
+.form-login input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.form-login button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-login button:hover {
+    background-color: #333;
+}
