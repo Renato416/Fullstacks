@@ -37,14 +37,14 @@ body{
 
 .Carrito {
     display: flex;
-    flex-direction: column;  /* carrito arriba, enlaces abajo */
-    align-items: flex-end;   /* todo a la derecha */
+    flex-direction: column;  
+    align-items: flex-end;  
 }
 
 .button-carrito {
     display: flex;
     align-items: center;
-    gap: 8px;                /* espacio entre texto y icono */
+    gap: 8px;                
     background: none;
     border: none;
     cursor: pointer;
@@ -76,13 +76,13 @@ body{
 .InicioLink:hover{
     text-decoration: underline;
 }
-/* TITULO PRINCIPAL */
+
 h2 {
   text-align: center;
   margin: 30px 0;
 }
 
-/* CARDS */
+
 .card {
   font-family: Arial, sans-serif; color:#D3D3D3;
   background: #1E90FF;
@@ -105,7 +105,7 @@ h2 {
   display: block;
 }
 
-/* BOTONES */
+
 button {
   font-family: Arial, sans-serif; color:black;
   margin-top: 15px;

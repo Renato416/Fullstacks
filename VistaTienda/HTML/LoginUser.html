@@ -52,13 +52,12 @@
         const loginForm = document.getElementById('loginForm');
 
         loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // Evita recargar la página
+            e.preventDefault(); 
 
             const correo = document.getElementById('correo').value.trim();
 
-            // Verificar si el correo termina en @levelUp.cl
             if (correo.endsWith('@levelUp.cl')) {
-                // Redirigir a home
+                
                 window.location.href = '../../VistaAdministrador/HTML/Home_ad.html';
             } else {
                 alert('Acceso denegado: solo usuarios @levelUp.cl pueden entrar en esta demo.');
@@ -66,4 +65,19 @@
         });
     </script>
 </body>
+<script>
+
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const contador = document.querySelector('.carrito-text');
+    if(contador) {
+        contador.textContent = `Productos (${totalItems})`;
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+</script>
+
 </html>

@@ -124,4 +124,19 @@
         </div>
     </footer>
 </body>
+<script>
+// Función para actualizar el contador del carrito en el header
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const contador = document.querySelector('.carrito-text');
+    if(contador) {
+        contador.textContent = `Productos (${totalItems})`;
+    }
+}
+
+// Llamamos a la función al cargar la página
+document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+</script>
+
 </html>

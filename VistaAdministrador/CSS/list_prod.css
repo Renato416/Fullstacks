@@ -1,28 +1,24 @@
-/* --- Reset --- */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* --- Body --- */
 body {
   font-family: Arial, sans-serif;
   color: white;
   background-color: black;
 }
 
-/* --- Container principal --- */
 .container {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
 }
 
-/* --- Sidebar --- */
 .sidebar {
-  width: 18%;          /* % para escalar */
-  min-width: 180px;    /* evita que se achique demasiado */
+  width: 18%;          
+  min-width: 180px;   
   background: #111;
   height: 100vh;
   position: fixed;
@@ -85,16 +81,14 @@ body {
   font-size: 0.95rem;
 }
 
-/* --- Main Content --- */
 .main-content,
 .main {
   margin-left: 18%;
   padding: 1rem;
   flex: 1;
-  min-width: 0; /* importante para tablas dentro de flex */
+  min-width: 0; 
 }
 
-/* Header principal */
 .main-header,
 .header {
   display: flex;
@@ -114,7 +108,6 @@ body {
   min-width: 150px;
 }
 
-/* Botón nuevo producto */
 .btn-nuevo {
   background: black;
   color: white;
@@ -130,22 +123,20 @@ body {
   background: #444;
 }
 
-/* Sección principal con tabla responsive */
 .content-box {
   flex: 1;
   padding: 1rem;
   background: #222;
   border-radius: 8px;
-  overflow-x: auto; /* permite scroll horizontal en tablas grandes */
+  overflow-x: auto; 
   margin-top: 1rem;
 }
 
-/* --- Tabla productos (responsive) --- */
 table {
   width: 100%;
   border-collapse: collapse;
   background: #111;
-  min-width: 500px; /* evita deformaciones en pantallas pequeñas */
+  min-width: 500px; 
 }
 
 thead {
@@ -165,7 +156,6 @@ tbody tr:hover {
   background: #333;
 }
 
-/* --- Paginación --- */
 .pagination {
   margin-top: 1rem;
   display: flex;
@@ -194,7 +184,6 @@ tbody tr:hover {
   background: #333;
 }
 
-/* ===== Responsividad ===== */
 @media (max-width: 1024px) {
   .sidebar {
     width: 20%;

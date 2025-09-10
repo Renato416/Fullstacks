@@ -1,19 +1,17 @@
 :root {
   --sidebar-width: 220px;
-  --panel-max-width: 100%; /* ancho máximo del panel se adapta al viewport */
+  --panel-max-width: 100%; 
   --main-padding: 2rem;
   --border-radius: 0.5rem;
   --btn-padding: 0.6rem 1.2rem;
 }
 
-/* --- Reset --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* --- Body --- */
 body {
   font-family: Arial, sans-serif;
   background-color: black;
@@ -22,10 +20,9 @@ body {
   line-height: 1.5;
 }
 
-/* --- Sidebar --- */
 .sidebar {
   width: var(--sidebar-width);
-  max-width: 25vw; /* nunca más del 25% de la pantalla */
+  max-width: 25vw; 
   background: #111;
   height: 100vh;
   position: fixed;
@@ -54,7 +51,6 @@ body {
   object-fit: contain;
 }
 
-/* Menú lateral */
 .menu a,
 .bottom-menu a {
   display: block;
@@ -64,7 +60,7 @@ body {
   margin: 0.25rem 0;
   border-radius: var(--border-radius);
   font-weight: bold;
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
 }
 
 .menu a.active {
@@ -76,7 +72,6 @@ body {
   background: #333;
 }
 
-/* Bottom menu y perfil */
 .bottom-menu {
   margin-top: auto;
 }
@@ -90,14 +85,12 @@ body {
   font-size: 0.875rem;
 }
 
-/* --- Main content --- */
 .main {
   margin-left: var(--sidebar-width);
   padding: var(--main-padding);
   width: calc(100% - var(--sidebar-width));
 }
 
-/* Header principal */
 .header {
   display: flex;
   flex-wrap: wrap;
@@ -110,10 +103,9 @@ body {
 }
 
 .header h1 {
-  font-size: 1.375rem; /* 22px */
+  font-size: 1.375rem;
 }
 
-/* Botones */
 .btn-submit {
   background: black;
   color: white;
@@ -130,7 +122,6 @@ body {
   background: #444;
 }
 
-/* --- Formulario --- */
 .form-container {
   max-width: var(--panel-max-width);
   margin: 1rem 0;
@@ -186,7 +177,6 @@ body {
   box-shadow: 0 0 0 3px rgba(30,144,255,0.2);
 }
 
-/* --- Select row --- */
 .select-row {
   display: flex;
   gap: 1rem;
@@ -195,7 +185,7 @@ body {
 }
 
 .select-row > div {
-  flex: 1 1 200px; /* mínimo ancho adaptable */
+  flex: 1 1 200px; 
 }
 
 .select-row select {
@@ -203,7 +193,6 @@ body {
   padding: 0.4rem;
 }
 
-/* --- Media Queries --- */
 @media (max-width: 768px) {
   .sidebar {
     position: relative;

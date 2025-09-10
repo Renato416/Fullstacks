@@ -4,14 +4,12 @@
   --gap: 1rem;
 }
 
-/* --- Reset --- */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* --- Body --- */
 body {
   font-family: Arial, sans-serif;
   background-color: black;
@@ -19,7 +17,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- Sidebar --- */
 .sidebar {
   width: var(--sidebar-width);
   background: #111;
@@ -94,14 +91,12 @@ body {
   text-align: center;
 }
 
-/* --- Main content --- */
 .main {
   margin-left: var(--sidebar-width);
   padding: var(--gap) calc(var(--gap) * 2);
   min-height: 100vh;
 }
 
-/* Header principal */
 .header {
   display: flex;
   flex-wrap: wrap;
@@ -136,7 +131,6 @@ body {
   background: #444;
 }
 
-/* --- Formulario --- */
 .form-container {
   max-width: var(--panel-max-width);
   width: 100%;
@@ -190,7 +184,6 @@ body {
   box-shadow: 0 0 0 3px rgba(30,144,255,0.2);
 }
 
-/* --- Select row --- */
 .select-row {
   display: flex;
   flex-wrap: wrap;
@@ -207,7 +200,6 @@ body {
   padding: 0.5rem;
 }
 
-/* ===== Responsividad ===== */
 @media (max-width: 1024px) {
   .sidebar {
     width: 20%;

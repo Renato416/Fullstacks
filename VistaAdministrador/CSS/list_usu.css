@@ -1,19 +1,19 @@
 :root {
-  --sidebar-width: 220px;       /* ancho del sidebar */
-  --main-padding: 2rem;         /* padding general del main */
-  --border-radius: 0.5rem;      /* bordes redondeados */
-  --btn-padding: 0.6rem 1.2rem; /* padding botones */
-  --table-min-width: 20rem;     /* ancho mínimo tabla */
+  --sidebar-width: 220px;      
+  --main-padding: 2rem;       
+  --border-radius: 0.5rem;     
+  --btn-padding: 0.6rem 1.2rem; 
+  --table-min-width: 20rem;    
 }
 
-/* --- Reset --- */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* --- Body --- */
+
 body {
   font-family: Arial, sans-serif;
   color: white;
@@ -21,17 +21,15 @@ body {
   line-height: 1.5;
 }
 
-/* --- Container principal --- */
 .container {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
 }
 
-/* --- Sidebar --- */
 .sidebar {
   width: var(--sidebar-width);
-  max-width: 25vw; /* nunca más del 25% de la pantalla */
+  max-width: 25vw; 
   background: #111;
   height: 100vh;
   position: fixed;
@@ -60,7 +58,6 @@ body {
   object-fit: contain;
 }
 
-/* Menú lateral */
 .menu a,
 .bottom-menu a {
   display: block;
@@ -70,7 +67,7 @@ body {
   margin: 0.3rem 0;
   border-radius: var(--border-radius);
   font-weight: bold;
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem;
 }
 
 .menu a.active {
@@ -83,7 +80,6 @@ body {
   background: #333;
 }
 
-/* Bottom menu y perfil */
 .bottom-menu {
   margin-top: auto;
 }
@@ -97,7 +93,6 @@ body {
   font-size: 0.875rem;
 }
 
-/* --- Main Content --- */
 .main-content,
 .main {
   margin-left: var(--sidebar-width);
@@ -105,7 +100,6 @@ body {
   width: calc(100% - var(--sidebar-width));
 }
 
-/* Header principal */
 .main-header,
 .header {
   display: flex;
@@ -120,10 +114,9 @@ body {
 
 .main-header h1,
 .header h1 {
-  font-size: 1.375rem; /* 22px */
+  font-size: 1.375rem; 
 }
 
-/* Botón nuevo producto */
 .btn-nuevo {
   background: black;
   color: white;
@@ -139,17 +132,15 @@ body {
   background: #444;
 }
 
-/* Sección principal con tabla responsive */
 .content-box {
   flex: 1;
   padding: 1.25rem;
   background: #222;
   border-radius: var(--border-radius);
-  overflow-x: auto; /* scroll horizontal en tablas grandes */
+  overflow-x: auto;
   margin-top: 1.25rem;
 }
 
-/* --- Tabla productos (responsive) --- */
 table {
   width: 100%;
   max-width: 100%;
@@ -176,7 +167,6 @@ tbody tr:hover {
   background: #333;
 }
 
-/* --- Paginación --- */
 .pagination {
   margin-top: 1rem;
   display: flex;
@@ -205,7 +195,6 @@ tbody tr:hover {
   background: #333;
 }
 
-/* --- Media Queries para pantallas pequeñas --- */
 @media (max-width: 768px) {
   .sidebar {
     position: relative;

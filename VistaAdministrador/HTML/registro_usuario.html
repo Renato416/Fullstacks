@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../CSS/reg_usuario.css">
 </head>
 <body>
-  <!-- Sidebar -->
   <div class="sidebar">
     <div class="logo">
       <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo">Level-Up
@@ -29,7 +28,6 @@
     </div>
   </div>
 
-  <!-- Main -->
   <div class="main">
     <div class="header">
       <h1>NUEVO USUARIO</h1>
@@ -115,14 +113,12 @@
           fecha: new Date().toISOString().slice(0,10)
         };
 
-        // Guardar en localStorage
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
         usuarios.push(nuevoUsuario);
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
 
         alert('Usuario registrado con éxito ✅');
 
-        // Redirigir al listado de usuarios (ajusta la ruta según tu estructura)
         window.location.href = '../HTML/listado_usuario.html';
       });
     });

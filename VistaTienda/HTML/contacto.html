@@ -62,4 +62,19 @@
   </div>
 
 </body>
+<script>
+
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const contador = document.querySelector('.carrito-text');
+    if(contador) {
+        contador.textContent = `Productos (${totalItems})`;
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+</script>
+
 </html>
