@@ -7,69 +7,60 @@
   <link rel="stylesheet" href="../CSS/reg_usuario.css">
 </head>
 <body>
-
-
+  <!-- Sidebar -->
   <div class="sidebar">
-  <!-- Logo -->
-  <div class="logo">
-    <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo">Level-Up
+    <div class="logo">
+      <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo">Level-Up
+    </div>
+    <nav class="menu">
+      <a href="Home_ad.html">📊 Dashboard</a>
+      <a href="productos.html">📦 Productos</a>
+      <a href="#">📑 Reportes</a>
+      <a href="listado_usuario.html" class="active">👨‍💼 Empleados</a>
+      <a href="#">👥 Clientes</a>
+    </nav>
+    <div class="bottom-menu">
+      <a href="#">⚙️ Configuración</a>
+      <a href="#">🙍 Perfil</a>
+      <a href="#">❓ Help</a>
+    </div>
+    <div class="profile">
+      <span>👤</span> Admin
+    </div>
   </div>
 
-  <!-- Menú principal -->
-  <nav class="menu">
-    <a href="Home_ad.html">📊 Dashboard</a>
-    <a href="productos.html" class="active">📦 Productos</a>
-    <a href="#">📑 Reportes</a>
-    <a href="listado_usuario.html">👨‍💼 Empleados</a>
-    <a href="#">👥 Clientes</a>
-  </nav>
-
-  <!-- Menú inferior -->
-  <div class="bottom-menu">
-    <a href="#">⚙️ Configuración</a>
-    <a href="#">🙍 Perfil</a>
-    <a href="#">❓ Help</a>
-  </div>
-
-  <!-- Perfil -->
-  <div class="profile">
-    <span>👤</span> Admin
-  </div>
-</div>
-
-  
+  <!-- Main -->
   <div class="main">
     <div class="header">
       <h1>NUEVO USUARIO</h1>
     </div>
 
-    
     <div class="form-container">
       <form id="userForm">
         <h3>Registro de usuario</h3>
 
         <label for="nombre">Nombre completo</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <input type="text" id="nombre" required>
 
         <label for="correo">Correo</label>
-        <input type="email" id="correo" name="correo" required>
+        <input type="email" id="correo" required>
 
         <label for="usuario">Usuario</label>
-        <input type="text" id="usuario" name="usuario" required>
+        <input type="text" id="usuario" required>
 
         <label for="contrasena">Contraseña</label>
-        <input type="password" id="contrasena" name="contrasena" required>
+        <input type="password" id="contrasena" required>
 
         <label for="confirmar">Confirmar contraseña</label>
-        <input type="password" id="confirmar" name="confirmar" required>
+        <input type="password" id="confirmar" required>
 
         <label for="telefono">Teléfono (opcional)</label>
-        <input type="tel" id="telefono" name="telefono">
+        <input type="tel" id="telefono">
 
         <div class="select-row">
           <div>
             <label for="rol">Rol</label>
-            <select id="rol" name="rol">
+            <select id="rol">
               <option>Administrador</option>
               <option>Usuario estándar</option>
               <option>Invitado</option>
@@ -78,7 +69,7 @@
 
           <div>
             <label for="departamento">Departamento</label>
-            <select id="departamento" name="departamento">
+            <select id="departamento">
               <option>Ventas</option>
               <option>Marketing</option>
               <option>Soporte</option>
@@ -93,16 +84,47 @@
   </div>
 
   <script>
-    document.getElementById('userForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const pass = document.getElementById('contrasena').value;
-      const confirm = document.getElementById('confirmar').value;
-      if (pass !== confirm) {
-        alert('Las contraseñas no coinciden');
-        return;
-      }
-      alert('Usuario registrado con éxito ✅');
-      this.reset();
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('userForm');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre').value.trim();
+        const correo = document.getElementById('correo').value.trim();
+        const usuario = document.getElementById('usuario').value.trim();
+        const contrasena = document.getElementById('contrasena').value;
+        const confirmar = document.getElementById('confirmar').value;
+        const telefono = document.getElementById('telefono').value.trim();
+        const rol = document.getElementById('rol').value;
+        const departamento = document.getElementById('departamento').value;
+
+        if(contrasena !== confirmar){
+          alert('Las contraseñas no coinciden');
+          return;
+        }
+
+        const nuevoUsuario = {
+          nombre,
+          correo,
+          usuario,
+          contrasena,
+          telefono,
+          rol,
+          departamento,
+          fecha: new Date().toISOString().slice(0,10)
+        };
+
+        // Guardar en localStorage
+        const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+        usuarios.push(nuevoUsuario);
+        localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
+        alert('Usuario registrado con éxito ✅');
+
+        // Redirigir al listado de usuarios (ajusta la ruta según tu estructura)
+        window.location.href = '../HTML/listado_usuario.html';
+      });
     });
   </script>
 </body>

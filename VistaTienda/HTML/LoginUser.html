@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inicio de sesión</title>
     <link rel="stylesheet" href="../CSS/styles.css"/>
     <link rel="stylesheet" href="../CSS/inicioSesion.css"/>
 </head>
@@ -37,7 +37,8 @@
     </header>
     
     <main class="InicioSesion-container"><h1>Inicio de sesión</h1></main>
-    <form class="form-login">
+
+    <form class="form-login" id="loginForm">
         <label for="correo">Correo:</label>
         <input type="email" id="correo" name="correo" required>
 
@@ -47,6 +48,22 @@
         <button type="submit">Iniciar Sesión</button>
     </form>
 
+    <script>
+        const loginForm = document.getElementById('loginForm');
 
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Evita recargar la página
+
+            const correo = document.getElementById('correo').value.trim();
+
+            // Verificar si el correo termina en @levelUp.cl
+            if (correo.endsWith('@levelUp.cl')) {
+                // Redirigir a home
+                window.location.href = '../../VistaAdministrador/HTML/Home_ad.html';
+            } else {
+                alert('Acceso denegado: solo usuarios @levelUp.cl pueden entrar en esta demo.');
+            }
+        });
+    </script>
 </body>
 </html>

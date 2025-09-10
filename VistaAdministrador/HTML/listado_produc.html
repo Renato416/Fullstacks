@@ -9,7 +9,6 @@
 <body>
   <div class="container">
     
-    <!-- Sidebar copiado y adaptado -->
     <aside class="sidebar">
       <div class="logo">
         <img src="/VistaTienda/IMG/icon-level-up.png" alt="">Level-Up
@@ -33,12 +32,11 @@
       </div>
     </aside>
 
-    <!-- Main content -->
     <main class="main-content">
       <header class="main-header">
         <h1>Productos</h1>
         <a href="registro_producto.html">
-        <button class="btn-nuevo">NUEVO PRODUCTO</button>
+          <button class="btn-nuevo">NUEVO PRODUCTO</button>
         </a>
       </header>
 
@@ -56,24 +54,31 @@
           </thead>
           <tbody></tbody>
         </table>
-
         <div class="pagination" id="pagination"></div>
       </section>
     </main>
   </div>
 
-  <!-- Script de paginación -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const products = [
+      const storedProducts = JSON.parse(localStorage.getItem('productos')) || [];
+
+      const productsExample = [
         { date: '2024-06-01', id: 'P001', name: 'Teclado Mecánico', category: 'Electrónica', stock: 120, price: '$50.00' },
         { date: '2024-06-02', id: 'P002', name: 'Silla Gamer', category: 'Muebles', stock: 30, price: '$150.00' },
-        { date: '2024-06-03', id: 'P003', name: 'Audífonos Bluetooth', category: 'Electrónica', stock: 75, price: '$40.00' },
-        { date: '2024-06-04', id: 'P004', name: 'Mouse Inalámbrico', category: 'Electrónica', stock: 200, price: '$25.00' },
-        { date: '2024-06-05', id: 'P005', name: 'Escritorio de Madera', category: 'Muebles', stock: 15, price: '$300.00' },
-        { date: '2024-06-06', id: 'P006', name: 'Monitor 27"', category: 'Electrónica', stock: 40, price: '$220.00' },
-        { date: '2024-06-07', id: 'P007', name: 'Lámpara LED', category: 'Iluminación', stock: 60, price: '$35.00' },
-        { date: '2024-06-08', id: 'P008', name: 'Cámara Web HD', category: 'Electrónica', stock: 50, price: '$70.00' }
+        { date: '2024-06-03', id: 'P003', name: 'Audífonos Bluetooth', category: 'Electrónica', stock: 75, price: '$40.00' }
+      ];
+
+      const allProducts = [
+        ...productsExample,
+        ...storedProducts.map((p, index) => ({
+          date: p.fecha,
+          id: 'P' + String(productsExample.length + index + 1).padStart(3, '0'),
+          name: p.nombre,
+          category: p.categoria,
+          stock: p.stock,
+          price: `$${p.precio.toFixed(2)}`
+        }))
       ];
 
       const rowsPerPage = 5;
@@ -86,7 +91,7 @@
         tableBody.innerHTML = '';
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
-        const slice = products.slice(start, end);
+        const slice = allProducts.slice(start, end);
 
         slice.forEach(p => {
           const row = document.createElement('tr');
@@ -96,42 +101,34 @@
             <td>${p.name}</td>
             <td>${p.category}</td>
             <td>${p.stock}</td>
-            <td>${p.price}</td>`;
+            <td>${p.price}</td>
+          `;
           tableBody.appendChild(row);
         });
       }
 
       function setupPagination() {
         paginationDiv.innerHTML = '';
-        const pageCount = Math.ceil(products.length / rowsPerPage);
+        const pageCount = Math.ceil(allProducts.length / rowsPerPage);
 
         const prevButton = document.createElement('button');
         prevButton.textContent = '«';
         prevButton.disabled = currentPage === 1;
-        prevButton.onclick = () => {
-          currentPage--;
-          updateTableAndPagination();
-        };
+        prevButton.onclick = () => { currentPage--; updateTableAndPagination(); };
         paginationDiv.appendChild(prevButton);
 
         for (let i = 1; i <= pageCount; i++) {
           const btn = document.createElement('button');
           btn.textContent = i;
           if (i === currentPage) btn.classList.add('active');
-          btn.onclick = () => {
-            currentPage = i;
-            updateTableAndPagination();
-          };
+          btn.onclick = () => { currentPage = i; updateTableAndPagination(); };
           paginationDiv.appendChild(btn);
         }
 
         const nextButton = document.createElement('button');
         nextButton.textContent = '»';
         nextButton.disabled = currentPage === pageCount;
-        nextButton.onclick = () => {
-          currentPage++;
-          updateTableAndPagination();
-        };
+        nextButton.onclick = () => { currentPage++; updateTableAndPagination(); };
         paginationDiv.appendChild(nextButton);
       }
 
@@ -145,4 +142,3 @@
   </script>
 </body>
 </html>
-

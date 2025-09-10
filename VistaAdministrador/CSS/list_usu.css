@@ -1,3 +1,11 @@
+:root {
+  --sidebar-width: 220px;       /* ancho del sidebar */
+  --main-padding: 2rem;         /* padding general del main */
+  --border-radius: 0.5rem;      /* bordes redondeados */
+  --btn-padding: 0.6rem 1.2rem; /* padding botones */
+  --table-min-width: 20rem;     /* ancho mínimo tabla */
+}
+
 /* --- Reset --- */
 * {
   margin: 0;
@@ -10,41 +18,45 @@ body {
   font-family: Arial, sans-serif;
   color: white;
   background-color: black;
+  line-height: 1.5;
 }
 
 /* --- Container principal --- */
 .container {
   display: flex;
-  height: 100vh;
+  flex-direction: row;
+  min-height: 100vh;
 }
 
 /* --- Sidebar --- */
 .sidebar {
-  width: 220px;          /* mismo tamaño que en home */
-  background: #111;      /* color negro */
+  width: var(--sidebar-width);
+  max-width: 25vw; /* nunca más del 25% de la pantalla */
+  background: #111;
   height: 100vh;
-  position: fixed;       /* fijo en la izquierda */
+  position: fixed;
   top: 0;
   left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 15px 10px;
+  padding: 1rem 0.5rem;
   border-right: 1px solid #333;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.5rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
   color: white;
+  flex-wrap: wrap;
 }
 
 .logo img {
-  width: 50px;
-  height: 50px;
+  width: 3rem;
+  height: 3rem;
   object-fit: contain;
 }
 
@@ -52,13 +64,13 @@ body {
 .menu a,
 .bottom-menu a {
   display: block;
-  padding: 10px;
+  padding: 0.5rem 1rem;
   text-decoration: none;
   color: white;
-  margin: 5px 0;
-  border-radius: 5px;
+  margin: 0.3rem 0;
+  border-radius: var(--border-radius);
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.875rem; /* 14px */
 }
 
 .menu a.active {
@@ -77,27 +89,30 @@ body {
 }
 
 .profile {
-  margin-top: 20px;
-  padding: 10px;
+  margin-top: 1rem;
+  padding: 0.5rem;
   background: #222;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   text-align: center;
-  color: white;
+  font-size: 0.875rem;
 }
 
 /* --- Main Content --- */
 .main-content,
 .main {
-  margin-left: 220px; /* mismo ancho que el sidebar */
+  margin-left: var(--sidebar-width);
+  padding: var(--main-padding);
+  width: calc(100% - var(--sidebar-width));
 }
 
 /* Header principal */
 .main-header,
 .header {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 1rem 2rem;
   background: #1E90FF;
   color: white;
   border-bottom: 1px solid #333;
@@ -105,18 +120,19 @@ body {
 
 .main-header h1,
 .header h1 {
-  font-size: 22px;
+  font-size: 1.375rem; /* 22px */
 }
 
 /* Botón nuevo producto */
 .btn-nuevo {
   background: black;
   color: white;
-  padding: 10px 20px;
+  padding: var(--btn-padding);
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   cursor: pointer;
   font-weight: bold;
+  font-size: 0.875rem;
 }
 
 .btn-nuevo:hover {
@@ -126,12 +142,11 @@ body {
 /* Sección principal con tabla responsive */
 .content-box {
   flex: 1;
-  padding: 20px;
+  padding: 1.25rem;
   background: #222;
-  border-radius: 8px;
-  overflow-y: auto;
-  overflow-x: auto; /* permite scroll horizontal en tablas grandes */
-  margin-top: 20px;
+  border-radius: var(--border-radius);
+  overflow-x: auto; /* scroll horizontal en tablas grandes */
+  margin-top: 1.25rem;
 }
 
 /* --- Tabla productos (responsive) --- */
@@ -140,9 +155,8 @@ table {
   max-width: 100%;
   border-collapse: collapse;
   background: #111;
-  border-radius: 8px;
-  overflow: hidden;
-  min-width: 600px; /* evita deformaciones si la pantalla es muy pequeña */
+  border-radius: var(--border-radius);
+  min-width: var(--table-min-width);
 }
 
 thead {
@@ -151,10 +165,11 @@ thead {
 }
 
 th, td {
-  padding: 12px;
+  padding: 0.75rem;
   border: 1px solid #333;
   text-align: left;
   color: white;
+  font-size: 0.875rem;
 }
 
 tbody tr:hover {
@@ -163,20 +178,22 @@ tbody tr:hover {
 
 /* --- Paginación --- */
 .pagination {
-  margin-top: 15px;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
-  gap: 5px;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .pagination button {
-  padding: 6px 12px;
+  padding: 0.5rem 1rem;
   border: 1px solid #333;
   background: #111;
   color: white;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: var(--border-radius);
   font-weight: bold;
+  font-size: 0.875rem;
 }
 
 .pagination button.active {
@@ -186,4 +203,36 @@ tbody tr:hover {
 
 .pagination button:hover:not(.active) {
   background: #333;
+}
+
+/* --- Media Queries para pantallas pequeñas --- */
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-right: none;
+    padding: 0.5rem;
+  }
+  
+  .main-content,
+  .main {
+    margin-left: 0;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .menu a,
+  .bottom-menu a {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .main-header,
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
