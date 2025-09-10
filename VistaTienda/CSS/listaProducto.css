@@ -1,0 +1,186 @@
+/* RESET GENERAL */
+body {
+  font-family: Arial, sans-serif;background-color: Black;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.Logo-container{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.Logo{
+    width: 70px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+/* HEADER */
+header {
+  font-family: Arial, sans-serif; color:white;
+  background: #1E90FF;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icono-carrito{
+    width: 70px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    
+}
+.nav a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #0073e6;
+}
+.cart {
+  display: flex;
+  align-items: center;
+}
+
+/* TÍTULO */
+main h2 {
+  font-family: Arial, sans-serif; color:white;
+  margin: 30px 0;
+}
+
+/* GRID DE PRODUCTOS */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 0 40px 40px;
+}
+
+/* TARJETA PRODUCTO */
+.producto {
+  background: #1E90FF;
+  border: 1px solid black;
+  padding: 15px;
+  text-align: center;
+}
+.img-placeholder {
+  width: 100%;
+  height: 140px;
+  background: #ccc;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+.audifonos{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.audifonos{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.silla{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.silla{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.escritorio{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.escritorio{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.mandoxbox{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.mandoxbox{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.mouse{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.mouse{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.mousepad{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.mousepad{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.monitor{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.monitor{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.teclado{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.teclado{
+    width: 230px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.producto .titulo {
+  color: black;
+  margin: 5px 0;
+}
+.producto .precio {
+  margin: 5px 0;
+  font-weight: bold;
+}
+.producto button {
+  border: 1px solid black;
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.producto button:hover {
+  background: #e6e6e6;
+}

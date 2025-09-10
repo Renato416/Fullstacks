@@ -1,0 +1,90 @@
+/* RESET GENERAL */
+body {
+  font-family: Arial, sans-serif; color:white;
+  margin: 0;
+  padding: 0;
+  background-color:black
+}
+.Logo-container{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.Logo{
+    width: 70px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+/* HEADER */
+header {
+  background: #1E90FF;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icono-carrito{
+    width: 70px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.nav a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #FFFFFF;
+}
+.cart {
+  display: flex;
+  align-items: center;
+}
+
+/* TITULO PRINCIPAL */
+h2 {
+  text-align: center;
+  margin: 30px 0;
+}
+
+/* CARDS */
+.card {
+  font-family: Arial, sans-serif; color:#D3D3D3;
+  background: #1E90FF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
+}
+.card-text {
+  width: 45%;
+}
+.card img {
+  font-family: Arial, sans-serif; color:black;
+  width: 45%;
+  height: 200px;
+  border: 1px solid black;
+  background: white;
+  display: block;
+}
+
+/* BOTONES */
+button {
+  font-family: Arial, sans-serif; color:black;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+}

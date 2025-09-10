@@ -1,0 +1,113 @@
+/* RESET GENERAL */
+body {
+  font-family: Arial, sans-serif;background-color: Black;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.Logo-container{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.Logo{
+    width: 70px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+/* HEADER */
+header {
+  font-family: Arial, sans-serif; color:white;
+  background: #1E90FF;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.icono-carrito{
+    width: 70px;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+.nav a{
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+}
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #0073e6;
+}
+.cart {
+  display: flex;
+  align-items: center;
+}
+
+/* LOGO EMPRESA */
+.empresa {
+  color: white;
+  margin: 30px 0;
+}
+.empresa-logo {
+  width: 70px;
+  height: 80px;
+  margin: 0 auto;
+  border: 2px solid black;
+  background: #0073e6;
+}
+.empresa h2 {
+  margin-top: 15px;
+}
+
+/* FORMULARIO */
+.formulario {
+  width: 50%;
+  margin: 20px auto;
+  background: #0073e6;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: left;
+}
+.formulario h3 {
+  background: #1E90FF;
+  padding: 10px;
+  margin: -20px -20px 20px -20px;
+  text-align: center;
+}
+.formulario label {
+  display: block;
+  margin: 20px 0 5px;
+  font-size: 14px;
+}
+.formulario input,
+.formulario textarea {
+  width: 100%;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 25px;
+}
+.formulario textarea {
+  height: 100px;
+  resize: none;
+}
+
+/* BOTON */
+.formulario button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 25px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+}
+.formulario button:hover {
+  background: #e6e6e6;
+}
