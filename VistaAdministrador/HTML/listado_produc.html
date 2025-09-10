@@ -7,45 +7,62 @@
   <link rel="stylesheet" href="../CSS/list_prod.css">
 </head>
 <body>
+  <div class="container">
+    
+    <!-- Sidebar copiado y adaptado -->
+    <aside class="sidebar">
+      <div class="logo">
+        <img src="/VistaTienda/IMG/icon-level-up.png" alt="">Level-Up
+      </div>
+      <nav class="menu">
+        <a href="Home_ad.html">📊 Dashboard</a>
+        <a href="listado_produc.html" class="active">📦 Inventario</a>
+        <a href="#">📑 Reportes</a>
+        <a href="listado_usuario.html">👨‍💼 Empleados</a>
+        <a href="#">👥 Clientes</a>
+      </nav>
 
-  <div class="sidebar">
-    <h2>Company</h2>
-    <ul>
-      <li><a href="Home_ad.html">Dashboard</a></li>
-      <li><a href="listado_produc.html" class="active">Productos</a></li>
-      <li><a href="">Inventario</a></li>
-      <li><a href="#">Reportes</a></li>
-      <li><a href="#">Empleados</a></li>
-      <li><a href="#">Clientes</a></li>
-    </ul>
+      <div class="bottom-menu">
+        <a href="#">⚙️ Configuración</a>
+        <a href="#">🙍 Perfil</a>
+        <a href="#">❓ Help</a>
+      </div>
+
+      <div class="profile">
+        <span>👤</span> Profile
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+      <header class="main-header">
+        <h1>Productos</h1>
+        <a href="registro_producto.html">
+        <button class="btn-nuevo">NUEVO PRODUCTO</button>
+        </a>
+      </header>
+
+      <section class="content-box">
+        <table id="productsTable">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>ID Producto</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Stock</th>
+              <th>Precio</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="pagination" id="pagination"></div>
+      </section>
+    </main>
   </div>
 
-  <div class="main">
-    <div class="header">
-      <h1>Productos</h1>
-      <button class="btn-nuevo">NUEVO PRODUCTO</button>
-    </div>
-
-    <table id="productsTable">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>ID Producto</th>
-          <th>Nombre</th>
-          <th>Categoría</th>
-          <th>Stock</th>
-          <th>Precio</th>
-        </tr>
-      </thead>
-      <tbody>
-        
-      </tbody>
-    </table>
-
-    <div class="pagination" id="pagination"></div>
-  </div>
-
-  
+  <!-- Script de paginación -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const products = [
@@ -123,9 +140,9 @@
         setupPagination();
       }
 
-      
       updateTableAndPagination();
     });
   </script>
 </body>
 </html>
+

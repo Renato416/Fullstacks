@@ -1,94 +1,189 @@
-body {
+/* --- Reset --- */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f9;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+/* --- Body --- */
+body {
+  font-family: Arial, sans-serif;
+  color: white;
+  background-color: black;
+}
 
-.sidebar {
-  width: 220px;
-  background: #e8e8ec;
+/* --- Container principal --- */
+.container {
+  display: flex;
   height: 100vh;
-  position: fixed;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  width: 220px;          /* mismo tamaño que en home */
+  background: #111;      /* color negro */
+  height: 100vh;
+  position: fixed;       /* fijo en la izquierda */
   top: 0;
   left: 0;
-  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 10px;
+  border-right: 1px solid #333;
 }
-.sidebar h2 {
-  text-align: center;
-  margin-bottom: 30px;
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
 }
-.sidebar ul {
-  list-style: none;
-  padding: 0;
+
+.logo img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
-.sidebar ul li a {
+
+/* Menú lateral */
+.menu a,
+.bottom-menu a {
   display: block;
-  padding: 15px;
-  color: #333;
+  padding: 10px;
   text-decoration: none;
-}
-.sidebar ul li a:hover,
-.sidebar ul li a.active {
-  background: #d4d4d8;
-  border-radius: 6px;
+  color: white;
+  margin: 5px 0;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
 }
 
+.menu a.active {
+  background: #1E90FF;
+  color: white;
+}
 
+.menu a:hover,
+.bottom-menu a:hover {
+  background: #333;
+}
+
+/* Bottom menu y perfil */
+.bottom-menu {
+  margin-top: auto;
+}
+
+.profile {
+  margin-top: 20px;
+  padding: 10px;
+  background: #222;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+}
+
+/* --- Main Content --- */
+.main-content,
 .main {
-  margin-left: 220px;
-  padding: 20px;
+  margin-left: 220px; /* mismo ancho que el sidebar */
 }
+
+/* Header principal */
+.main-header,
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 15px 30px;
+  background: #1E90FF;
+  color: white;
+  border-bottom: 1px solid #333;
 }
+
+.main-header h1,
+.header h1 {
+  font-size: 22px;
+}
+
+/* Botón nuevo producto */
 .btn-nuevo {
-  background: #000;
-  color: #fff;
+  background: black;
+  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-weight: bold;
 }
+
 .btn-nuevo:hover {
   background: #444;
 }
 
-
-table {
-  width: 100%;
-  border-collapse: collapse;
+/* Sección principal con tabla responsive */
+.content-box {
+  flex: 1;
+  padding: 20px;
+  background: #222;
+  border-radius: 8px;
+  overflow-y: auto;
+  overflow-x: auto; /* permite scroll horizontal en tablas grandes */
   margin-top: 20px;
 }
-thead {
-  background: #f0f0f0;
+
+/* --- Tabla productos (responsive) --- */
+table {
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  background: #111;
+  border-radius: 8px;
+  overflow: hidden;
+  min-width: 600px; /* evita deformaciones si la pantalla es muy pequeña */
 }
+
+thead {
+  background: #1E90FF;
+  color: white;
+}
+
 th, td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   text-align: left;
+  color: white;
 }
 
+tbody tr:hover {
+  background: #333;
+}
 
+/* --- Paginación --- */
 .pagination {
   margin-top: 15px;
   display: flex;
   justify-content: center;
   gap: 5px;
 }
+
 .pagination button {
   padding: 6px 12px;
-  border: 1px solid #ccc;
-  background: #fff;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
   cursor: pointer;
   border-radius: 3px;
+  font-weight: bold;
 }
+
 .pagination button.active {
-  background: #000;
-  color: #fff;
+  background: #1E90FF;
+  border-color: #1E90FF;
 }
+
 .pagination button:hover:not(.active) {
-  background: #ddd;
+  background: #333;
 }
