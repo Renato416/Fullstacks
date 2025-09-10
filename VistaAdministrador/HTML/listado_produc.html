@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de Productos</title>
+  <link rel="stylesheet" href="../CSS/list_prod.css">
+</head>
+<body>
+
+  <div class="sidebar">
+    <h2>Company</h2>
+    <ul>
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="#" class="active">Productos</a></li>
+      <li><a href="#">Inventario</a></li>
+      <li><a href="#">Reportes</a></li>
+      <li><a href="#">Empleados</a></li>
+      <li><a href="#">Clientes</a></li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="header">
+      <h1>Productos</h1>
+      <button class="btn-nuevo">NUEVO PRODUCTO</button>
+    </div>
+
+    <table id="productsTable">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>ID Producto</th>
+          <th>Nombre</th>
+          <th>Categoría</th>
+          <th>Stock</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const products = [
+        { date: '2024-06-01', id: 'P001', name: 'Teclado Mecánico', category: 'Electrónica', stock: 120, price: '$50.00' },
+        { date: '2024-06-02', id: 'P002', name: 'Silla Gamer', category: 'Muebles', stock: 30, price: '$150.00' },
+        { date: '2024-06-03', id: 'P003', name: 'Audífonos Bluetooth', category: 'Electrónica', stock: 75, price: '$40.00' },
+        { date: '2024-06-04', id: 'P004', name: 'Mouse Inalámbrico', category: 'Electrónica', stock: 200, price: '$25.00' },
+        { date: '2024-06-05', id: 'P005', name: 'Escritorio de Madera', category: 'Muebles', stock: 15, price: '$300.00' },
+        { date: '2024-06-06', id: 'P006', name: 'Monitor 27"', category: 'Electrónica', stock: 40, price: '$220.00' },
+        { date: '2024-06-07', id: 'P007', name: 'Lámpara LED', category: 'Iluminación', stock: 60, price: '$35.00' },
+        { date: '2024-06-08', id: 'P008', name: 'Cámara Web HD', category: 'Electrónica', stock: 50, price: '$70.00' }
+      ];
+
+      const rowsPerPage = 5;
+      let currentPage = 1;
+
+      const tableBody = document.querySelector('#productsTable tbody');
+      const paginationDiv = document.getElementById('pagination');
+
+      function displayTablePage(page) {
+        tableBody.innerHTML = '';
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const slice = products.slice(start, end);
+
+        slice.forEach(p => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${p.date}</td>
+            <td>${p.id}</td>
+            <td>${p.name}</td>
+            <td>${p.category}</td>
+            <td>${p.stock}</td>
+            <td>${p.price}</td>`;
+          tableBody.appendChild(row);
+        });
+      }
+
+      function setupPagination() {
+        paginationDiv.innerHTML = '';
+        const pageCount = Math.ceil(products.length / rowsPerPage);
+
+        const prevButton = document.createElement('button');
+        prevButton.textContent = '«';
+        prevButton.disabled = currentPage === 1;
+        prevButton.onclick = () => {
+          currentPage--;
+          updateTableAndPagination();
+        };
+        paginationDiv.appendChild(prevButton);
+
+        for (let i = 1; i <= pageCount; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          if (i === currentPage) btn.classList.add('active');
+          btn.onclick = () => {
+            currentPage = i;
+            updateTableAndPagination();
+          };
+          paginationDiv.appendChild(btn);
+        }
+
+        const nextButton = document.createElement('button');
+        nextButton.textContent = '»';
+        nextButton.disabled = currentPage === pageCount;
+        nextButton.onclick = () => {
+          currentPage++;
+          updateTableAndPagination();
+        };
+        paginationDiv.appendChild(nextButton);
+      }
+
+      function updateTableAndPagination() {
+        displayTablePage(currentPage);
+        setupPagination();
+      }
+
+      
+      updateTableAndPagination();
+    });
+  </script>
+</body>
+</html>

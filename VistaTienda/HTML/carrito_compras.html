@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link rel="stylesheet" href="../CSS/carrito_com.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Site Name</div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Productos</a>
+            <a href="#">Nosotros</a>
+            <a href="#">Blogs</a>
+            <a href="#">Contacto</a>
+        </nav>
+        <div class="cart">Cart (3)</div>
+    </header>
+
+    <main>
+        <h1>Mi carrito de compras</h1>
+        <div class="cart-container">
+            <div class="products">
+                <div class="product">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h2>Producto #1</h2>
+                        <p>Pink lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    </div>
+                    <div class="product-price">
+                        <span>$ 8.000</span>
+                        <div class="quantity">
+                            <button>-</button>
+                            <input type="number" value="1" min="1">
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h2>Producto #2</h2>
+                        <p>Pink lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    </div>
+                    <div class="product-price">
+                        <span>$ 6.000</span>
+                        <div class="quantity">
+                            <button>-</button>
+                            <input type="number" value="1" min="1">
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product">
+                    <div class="product-image"></div>
+                    <div class="product-info">
+                        <h2>Producto #3</h2>
+                        <p>Pink lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+                    </div>
+                    <div class="product-price">
+                        <span>$ 10.000</span>
+                        <div class="quantity">
+                            <button>-</button>
+                            <input type="number" value="1" min="1">
+                            <button>+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary">
+                <h2>Total:</h2>
+                <p class="total-amount">$ 24.000</p>
+                <input type="text" placeholder="Ingrese el cupón de descuento">
+                <button class="apply">APLICAR</button>
+                <button class="pay">PAGAR</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nuevo Producto</title>
+  <link rel="stylesheet" href="..//CSS/reg_producto.css" />
+</head>
+<body>
+
+  
+  <div class="sidebar">
+    <h2>Company</h2>
+    <ul>
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="productos.html" class="active">Productos</a></li>
+      <li><a href="#">Inventario</a></li>
+      <li><a href="#">Reportes</a></li>
+      <li><a href="#">Empleados</a></li>
+      <li><a href="#">Clientes</a></li>
+    </ul>
+  </div>
+
+  
+  <div class="main">
+    <div class="header">
+      <h1>NUEVO PRODUCTO</h1>
+    </div>
+
+    <div class="form-container">
+      <form id="productForm">
+        <h3>Registro de producto</h3>
+
+        <label for="nombre">Nombre del producto</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="sku">SKU (código)</label>
+        <input type="text" id="sku" name="sku" required>
+
+        <label for="categoria">Categoría</label>
+        <input type="text" id="categoria" name="categoria" required>
+
+        <label for="precio">Precio</label>
+        <input type="number" id="precio" name="precio" step="0.01" min="0" required>
+
+        <label for="stock">Stock</label>
+        <input type="number" id="stock" name="stock" min="0" required>
+
+        <label for="descripcion">Descripción (opcional)</label>
+        <textarea id="descripcion" name="descripcion" rows="3"></textarea>
+
+        <div class="select-row">
+          <div>
+            <label for="proveedores">Proveedores</label>
+            
+            <select id="proveedores" name="proveedores" size="4">
+              <option>Proveedor A</option>
+              <option>Proveedor B</option>
+              <option>Proveedor C</option>
+              <option>Proveedor D</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="ubicacion">Ubicación / Almacén</label>
+            <select id="ubicacion" name="ubicacion" size="4">
+              <option>Bodega Central</option>
+              <option>Almacén Norte</option>
+              <option>Almacén Sur</option>
+              <option>Mostrador</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">AGREGAR PRODUCTO</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    
+    document.getElementById('productForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      const nuevoProducto = {
+        nombre: document.getElementById('nombre').value.trim(),
+        sku: document.getElementById('sku').value.trim(),
+        categoria: document.getElementById('categoria').value.trim(),
+        precio: parseFloat(document.getElementById('precio').value) || 0,
+        stock: parseInt(document.getElementById('stock').value) || 0,
+        descripcion: document.getElementById('descripcion').value.trim(),
+        proveedores: Array.from(document.getElementById('proveedores').selectedOptions).map(o => o.value),
+        ubicacion: Array.from(document.getElementById('ubicacion').selectedOptions).map(o => o.value),
+        fecha: new Date().toISOString().slice(0,10)
+      };
+
+      
+      const productos = JSON.parse(localStorage.getItem('productos')) || [];
+      productos.push(nuevoProducto);
+      localStorage.setItem('productos', JSON.stringify(productos));
+
+      alert('Producto agregado con éxito ✅');
+
+      
+      window.location.href = 'productos.html';
+    });
+  </script>
+</body>
+</html>

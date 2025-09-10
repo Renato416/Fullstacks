@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo Usuario</title>
+  <link rel="stylesheet" href="../CSS/reg_usuario.css">
+</head>
+<body>
+
+
+  <div class="sidebar">
+    <h2>Company</h2>
+    <ul>
+      <li><a href="index.html">Dashboard</a></li>
+      <li><a href="usuarios.html" class="active">Usuarios</a></li>
+      <li><a href="#">Inventario</a></li>
+      <li><a href="#">Reportes</a></li>
+      <li><a href="#">Empleados</a></li>
+      <li><a href="#">Clientes</a></li>
+    </ul>
+  </div>
+
+  
+  <div class="main">
+    <div class="header">
+      <h1>NUEVO USUARIO</h1>
+    </div>
+
+    
+    <div class="form-container">
+      <form id="userForm">
+        <h3>Registro de usuario</h3>
+
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" required>
+
+        <label for="correo">Correo</label>
+        <input type="email" id="correo" name="correo" required>
+
+        <label for="usuario">Usuario</label>
+        <input type="text" id="usuario" name="usuario" required>
+
+        <label for="contrasena">Contraseña</label>
+        <input type="password" id="contrasena" name="contrasena" required>
+
+        <label for="confirmar">Confirmar contraseña</label>
+        <input type="password" id="confirmar" name="confirmar" required>
+
+        <label for="telefono">Teléfono (opcional)</label>
+        <input type="tel" id="telefono" name="telefono">
+
+        <div class="select-row">
+          <div>
+            <label for="rol">Rol</label>
+            <select id="rol" name="rol">
+              <option>Administrador</option>
+              <option>Usuario estándar</option>
+              <option>Invitado</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="departamento">Departamento</label>
+            <select id="departamento" name="departamento">
+              <option>Ventas</option>
+              <option>Marketing</option>
+              <option>Soporte</option>
+              <option>IT</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">REGISTRAR</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('userForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const pass = document.getElementById('contrasena').value;
+      const confirm = document.getElementById('confirmar').value;
+      if (pass !== confirm) {
+        alert('Las contraseñas no coinciden');
+        return;
+      }
+      alert('Usuario registrado con éxito ✅');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
