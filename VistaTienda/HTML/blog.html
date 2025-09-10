@@ -4,34 +4,44 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Noticias Importantes</title>
-  <!-- Conexión al archivo CSS -->
+  
   <link rel="stylesheet" href="../CSS/blog.css">
 </head>
 <body>
 
-  <!-- HEADER -->
+ 
   <header class="Header">
         <div class="Logo-container">
-            <img src="../Imagenes/Imagenes/icon-level-up.png" alt="Logo de la empresa" class="Logo">
-            <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
+            <a href="index.html">
+                <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+            </a>
+        <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
         </div>
         <nav class="nav">
             <a href="index.html">Inicio</a>
-            <a href="#">Productos</a>
+            <a href="listaProducto.html">Productos</a>
             <a href="#">Nosotros</a>
-            <a href="#">Contactos</a>
+            <a href="blog.html">Blogs</a>
+            <a href="contacto.html">Contactos</a>
         </nav>
         <div class="Carrito">
             <button class="button-carrito">
-                <img src="../Imagenes/Imagenes/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
+                <span class="carrito-text">Productos (0)</span>
+                <a href="carrito_compras.html">
+                <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
+                </a>
             </button>
+            <div class="inicio-registrar">
+                <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
+                <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
+            </div>
         </div>
     </header>
 
-  <!-- TITULO PRINCIPAL -->
+ 
   <h2>ACTUALIZACIONES DEL CATAGOLO Y SISTEMA</h2>
 
-  <!-- CARD 1 -->
+  
   <div class="card">
     <div class="card-text">
       <h3>ACTUALIZACION CATALOGO</h3>
@@ -42,7 +52,7 @@
     </div>
   </div>
 
-  <!-- CARD 2 -->
+ 
   <div class="card">
     <div class="card-text">
       <h3>ACTUALIZACION SISTEMA</h3>

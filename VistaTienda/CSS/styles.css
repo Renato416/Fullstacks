@@ -37,14 +37,15 @@ body{
 
 .Carrito {
     display: flex;
-    flex-direction: column;  /* carrito arriba, enlaces abajo */
-    align-items: flex-end;   /* todo a la derecha */
+    flex-direction: column;  
+    align-items: flex-end;   
+    
 }
 
 .button-carrito {
     display: flex;
     align-items: center;
-    gap: 8px;                /* espacio entre texto y icono */
+    gap: 8px;                
     background: none;
     border: none;
     cursor: pointer;
@@ -54,6 +55,7 @@ body{
 
 .carrito-text {
     font-size: 14px;
+    
 }
 
 .icono-carrito {
