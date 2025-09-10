@@ -5,13 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../CSS/styles.css"/>
+    <link rel="stylesheet" href="../CSS/productos.css"/>
+    <link rel="stylesheet" href="../CSS/busqueda.css"/>
 </head>
 
 <body>
+    
     <header class="Header">
         <div class="Logo-container">
-            <img src="" alt="Logo de la empresa" class="Logo">
-            <h1 class="Nombre-empresa">Nombre empresa</h1>
+            <a href="index.html">
+                <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+            </a>
+        <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
         </div>
         <nav class="nav">
             <a href="index.html">Inicio</a>
@@ -22,18 +27,90 @@
         </nav>
         <div class="Carrito">
             <button class="button-carrito">
-                <img src="" alt="Icono del carrito" class="icono-carrito">
+                <span class="carrito-text">Productos (0)</span>
+                <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
             </button>
+            <div class="inicio-registrar">
+                <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
+                <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
+            </div>
         </div>
+        
     </header>
-    <section class="Inicio-Registro">
-        <a href="LoginUser.html" class ="InicioLink">Inicio de sesión</a>
-        <a href="UserRegister.html" class ="InicioLink">Registrar usuario</a>
+    
+    <section class="busqueda-container">
+        <input type="text" placeholder="Buscar productos..." class="busqueda-input">
+        <button class="busqueda-boton">
+        <img src="../IMG/lupa.png" alt="Buscar" class="icono-lupa">
+        </button>
     </section>
+
+
+    <section class="productos-container">
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/silla.jpeg" alt="Producto 1" class="producto-img">
+    <h3 class="producto-titulo">Silla Gamer</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$72.990</p>
+  </div>
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/Mando.webp" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Mando Xbox</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$79.990</p>
+  </div>
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/Escritorio.webp" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Escritorio Gamer</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$70.990</p>
+  </div>
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/audifonos.jpeg" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Audifonos con micrófono</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$64.990</p>
+  </div>
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/Teclado.webp" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Teclado gamer</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$15.990</p>
+  </div>
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/Mause.webp" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Mause Gamer</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$28.990</p>
+  </div>
+
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/monitor.jpeg" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Monitor gamer</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$134.990</p>
+
+  </div>
+  <div class="producto">
+    <img src="../IMG/IMG-PRODUCTOS/mausepad.avif" alt="Producto 2" class="producto-img">
+    <h3 class="producto-titulo">Mause pads</h3>
+    <p class="producto-cantidad">Cantidad: 1</p>
+    <p class="producto-valor">$6.990</p>
+  </div>
+    </section>
+    
+
+
 
     <footer>
         <div class="footer-nombre-div">
-            <h2 class="footer-nombre-h2">Nombre empresa</h2>
+            <h2 class="footer-nombre-h2">LEVEL-UP GAMER</h2>
         </div>
         <div class="footer-enlaces">
             <a hred="#">Categoria x</a>

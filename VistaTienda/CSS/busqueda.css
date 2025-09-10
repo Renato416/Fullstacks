@@ -1,0 +1,31 @@
+.busqueda-container {
+    display: flex;
+    justify-content: center;      /* centra horizontalmente en la página */
+    margin: 20px 0;               /* espacio arriba y abajo del header */
+    gap: 10px;                     /* espacio entre input y botón */
+}
+
+.busqueda-input {
+    padding: 10px 15px;
+    border-radius: 25px;           /* bordes redondeados */
+    border: 1px solid #ccc;        /* borde gris suave */
+    width: 300px;                   /* ancho de la barra */
+    font-size: 14px;
+    outline: none;                  /* quita el borde azul al enfocar */
+}
+
+.busqueda-boton {
+    padding: 10px 15px;
+    border-radius: 50%;            /* botón circular */
+    border: none;
+    background-color: #1E90FF;     /* mismo color que header */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.busqueda-boton .icono-lupa {
+    width: 16px;
+    height: 16px;
+}
