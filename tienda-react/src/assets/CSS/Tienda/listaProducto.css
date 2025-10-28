@@ -1,0 +1,204 @@
+:root {
+    --primary-color: #1E90FF;
+    --bg-color: black;
+    --panel-bg: #111;
+    --font-color: white;
+    --font-family: Arial, sans-serif;
+    --gap: 1rem;
+    --radius: 0.5rem;
+    --button-padding: 0.5rem 1rem;
+    --max-product-width: 250px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+/* Body */
+body {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+}
+
+/* Header */
+.Logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.Logo {
+    width: 4rem;
+    height: auto;
+    object-fit: contain;
+}
+
+header {
+    background: var(--primary-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.nav a {
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+/* Carrito e inicio de sesión */
+.Carrito {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.button-carrito {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--font-color);
+    font-weight: bold;
+}
+
+.icono-carrito {
+    width: 2rem;
+    height: 2rem;
+}
+
+.inicio-registrar {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.InicioLink {
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.InicioLink:hover {
+    text-decoration: underline;
+}
+
+/* Main */
+main {
+    padding: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+/* Grid de productos */
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(var(--max-product-width), 1fr));
+    gap: var(--gap);
+}
+
+.producto {
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    padding: var(--gap);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.producto:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.5);
+}
+
+.producto img {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+}
+
+.titulo {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+    font-weight: bold;
+    color: var(--font-color);
+}
+
+.precio {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.producto button {
+    padding: var(--button-padding);
+    background-color: var(--primary-color);
+    color: var(--font-color);
+    font-weight: bold;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.producto button:hover {
+    background-color: #005fa3;
+}
+
+/* Footer */
+footer {
+    background: var(--primary-color);
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-nombre-h2 {
+    font-size: 1.125rem;
+    color: var(--font-color);
+}
+
+.ingresar-gmail {
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    border: none;
+}
+
+.button-gmail {
+    padding: 0.5rem 1rem;
+    background: var(--bg-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}

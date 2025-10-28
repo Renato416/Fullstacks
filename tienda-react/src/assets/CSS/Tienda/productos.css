@@ -1,0 +1,31 @@
+.productos-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;                             
+  padding: 20px 30px;
+}
+
+.producto {
+  background-color: #f5f5f5; 
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+}
+
+.producto-img {
+  width: 100%;        
+  height: auto;       
+  border-radius: 5px;
+}
+
+.producto-titulo {
+  font-size: 16px;
+  margin: 10px 0 5px 0;
+}
+
+.producto-cantidad,
+.producto-valor {
+  margin: 3px 0;
+  font-size: 14px;
+}

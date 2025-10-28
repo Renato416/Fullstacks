@@ -1,0 +1,282 @@
+:root {
+    --primary-color: #1E90FF;
+    --danger-color: red;
+    --danger-hover: darkred;
+    --bg-color: black;
+    --panel-bg: #111;
+    --panel-secondary: #222;
+    --font-color: white;
+    --font-family: Arial, sans-serif;
+    --gap: 1rem;
+    --radius: 0.5rem;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+}
+
+.Logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.Logo {
+    width: 4rem;
+    height: auto;
+    object-fit: contain;
+}
+
+header {
+    background: var(--primary-color);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav a {
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 0.5rem;
+}
+
+
+.Carrito {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.button-carrito {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--font-color);
+    font-weight: bold;
+}
+
+.icono-carrito {
+    width: 2rem;
+    height: 2rem;
+}
+
+.inicio-registrar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.InicioLink {
+    color: var(--font-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.InicioLink:hover {
+    text-decoration: underline;
+}
+
+
+main {
+    padding: 2rem;
+}
+
+.cart-container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.products {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.75rem;
+    position: relative;
+    gap: 1rem;
+}
+
+.product-image {
+    width: 6rem;
+    height: 6rem;
+    object-fit: cover;
+    border-radius: var(--radius);
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h2 {
+    margin-bottom: 0.25rem;
+    color: var(--primary-color);
+    font-size: 1rem;
+}
+
+.product-price {
+    text-align: right;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+.quantity button {
+    width: 2rem;
+    height: 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    background: var(--primary-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: 0.25rem;
+}
+
+.quantity input {
+    width: 3rem;
+    text-align: center;
+    margin: 0 0.5rem;
+    background: var(--panel-bg);
+    border: 1px solid #444;
+    color: var(--font-color);
+    border-radius: 0.25rem;
+}
+
+
+.product .remove {
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--danger-color);
+    color: var(--font-color);
+    font-weight: bold;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%; 
+    text-align: center;
+}
+
+.product .remove:hover {
+    background-color: var(--danger-hover);
+}
+
+
+.summary {
+    flex: 1;
+    border: 1px solid #444;
+    padding: 1.25rem;
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    height: fit-content;
+}
+
+.summary h2 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.total-amount {
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+}
+
+.summary input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background: var(--panel-secondary);
+    color: var(--font-color);
+    border-radius: var(--radius);
+}
+
+.summary .apply {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--font-color);
+    font-weight: bold;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.summary .apply:hover {
+    background-color: #005fa3;
+}
+
+.summary .pay {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: green;
+    color: var(--font-color);
+    border: none;
+    font-weight: bold;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.summary .pay:hover {
+    background-color: darkgreen;
+}
+
+
+footer {
+    background: var(--primary-color);
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-nombre-h2 {
+    font-size: 1.125rem;
+    color: var(--font-color);
+}
+
+.ingresar-gmail {
+    padding: 0.5rem;
+    border-radius: var(--radius);
+    border: none;
+}
+
+.button-gmail {
+    padding: 0.5rem 1rem;
+    background: var(--bg-color);
+    color: var(--font-color);
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
