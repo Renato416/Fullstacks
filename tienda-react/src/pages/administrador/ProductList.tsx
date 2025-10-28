@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import "../../assets/css/administrador/listado_product.css";
+import React, { useEffect, useState } from "react";
+import "../../assets/CSS/administrador/listado_product.css";
 
 interface Product {
   date: string;
@@ -10,97 +10,118 @@ interface Product {
   price: string;
 }
 
-const ListadoProductos: React.FC = () => {
-  const [products] = useState<Product[]>([
-    { date: "2024-06-01", id: "P001", name: "Teclado Mecánico", category: "Electrónica", stock: 120, price: "$50.00" },
-    { date: "2024-06-02", id: "P002", name: "Silla Gamer", category: "Muebles", stock: 30, price: "$150.00" },
-    { date: "2024-06-03", id: "P003", name: "Audífonos Bluetooth", category: "Electrónica", stock: 75, price: "$40.00" },
-    { date: "2024-06-04", id: "P004", name: "Mouse Inalámbrico", category: "Electrónica", stock: 200, price: "$25.00" },
-    { date: "2024-06-05", id: "P005", name: "Escritorio de Madera", category: "Muebles", stock: 15, price: "$300.00" },
-    { date: "2024-06-06", id: "P006", name: "Monitor 27\"", category: "Electrónica", stock: 40, price: "$220.00" },
-    { date: "2024-06-07", id: "P007", name: "Lámpara LED", category: "Iluminación", stock: 60, price: "$35.00" },
-    { date: "2024-06-08", id: "P008", name: "Cámara Web HD", category: "Electrónica", stock: 50, price: "$70.00" }
-  ]);
-
-  const rowsPerPage = 5;
+export const ProductList: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentProducts, setCurrentProducts] = useState<Product[]>([]);
+  const rowsPerPage = 5;
 
   useEffect(() => {
-    const start = (currentPage - 1) * rowsPerPage;
-    const end = start + rowsPerPage;
-    setCurrentProducts(products.slice(start, end));
-  }, [currentPage, products]);
+    const storedProducts = JSON.parse(localStorage.getItem("productos") || "[]");
 
-  const totalPages = Math.ceil(products.length / rowsPerPage);
+    const productsExample: Product[] = [
+      { date: "2024-06-01", id: "P001", name: "Teclado Mecánico", category: "Electrónica", stock: 120, price: "$50.00" },
+      { date: "2024-06-02", id: "P002", name: "Silla Gamer", category: "Muebles", stock: 30, price: "$150.00" },
+      { date: "2024-06-03", id: "P003", name: "Audífonos Bluetooth", category: "Electrónica", stock: 75, price: "$40.00" }
+    ];
 
-  const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-    }
-  };
+    const allProducts: Product[] = [
+      ...productsExample,
+      ...storedProducts.map((p: any, index: number) => ({
+        date: p.fecha,
+        id: "P" + String(productsExample.length + index + 1).padStart(3, "0"),
+        name: p.nombre,
+        category: p.categoria,
+        stock: p.stock,
+        price: `$${p.precio.toFixed(2)}`
+      }))
+    ];
+
+    setProducts(allProducts);
+  }, []);
+
+  const pageCount = Math.ceil(products.length / rowsPerPage);
+  const displayProducts = products.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div className="admin-container">
-      <aside className="sidebar">
-        <h2>Company</h2>
-        <ul>
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#" className="active">Productos</a></li>
-          <li><a href="#">Inventario</a></li>
-          <li><a href="#">Reportes</a></li>
-          <li><a href="#">Empleados</a></li>
-          <li><a href="#">Clientes</a></li>
-        </ul>
-      </aside>
+    <div className="container-fluid product-list-container">
+      <div className="row g-0">
+        <aside className="col-md-3 col-lg-2 sidebar d-flex flex-column">
+          <div className="logo d-flex align-items-center mb-4">
+            <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo Level-Up" className="me-2" />
+            <span>Level-Up</span>
+          </div>
 
-      <main className="main">
-        <div className="header">
-          <h1>Productos</h1>
-          <button className="btn-nuevo">NUEVO PRODUCTO</button>
-        </div>
+          <nav className="menu flex-grow-1">
+            <a href="Home_ad.html">📊 Dashboard</a>
+            <a href="listado_produc.html" className="active">📦 Inventario</a>
+            <a href="#">📑 Reportes</a>
+            <a href="listado_usuario.html">👨‍💼 Empleados</a>
+            <a href="#">👥 Clientes</a>
+          </nav>
 
-        <table id="productsTable">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>ID Producto</th>
-              <th>Nombre</th>
-              <th>Categoría</th>
-              <th>Stock</th>
-              <th>Precio</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentProducts.map((p) => (
-              <tr key={p.id}>
-                <td>{p.date}</td>
-                <td>{p.id}</td>
-                <td>{p.name}</td>
-                <td>{p.category}</td>
-                <td>{p.stock}</td>
-                <td>{p.price}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+          <div className="bottom-menu mt-auto">
+            <a href="#">⚙️ Configuración</a>
+            <a href="#">🙍 Perfil</a>
+            <a href="#">❓ Help</a>
+          </div>
 
-        <div className="pagination">
-          <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>«</button>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              className={currentPage === i + 1 ? "active" : ""}
-              onClick={() => handlePageChange(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>»</button>
-        </div>
-      </main>
+          <div className="profile text-center mt-3">
+            <span>👤</span> Profile
+          </div>
+        </aside>
+
+        <main className="col-md-9 col-lg-10 main-content">
+          <header className="main-header d-flex justify-content-between align-items-center">
+            <h1>Productos</h1>
+            <a href="registro_producto.html">
+              <button className="btn-nuevo">NUEVO PRODUCTO</button>
+            </a>
+          </header>
+
+          <section className="content-box mt-4">
+            <div className="table-responsive">
+              <table className="table table-dark table-striped" id="productsTable">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>ID Producto</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Stock</th>
+                    <th>Precio</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {displayProducts.map((p, idx) => (
+                    <tr key={idx}>
+                      <td>{p.date}</td>
+                      <td>{p.id}</td>
+                      <td>{p.name}</td>
+                      <td>{p.category}</td>
+                      <td>{p.stock}</td>
+                      <td>{p.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="pagination mt-3 d-flex justify-content-center flex-wrap gap-2">
+              <button disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)}>«</button>
+              {Array.from({ length: pageCount }, (_, i) => (
+                <button
+                  key={i}
+                  className={currentPage === i + 1 ? "active" : ""}
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button disabled={currentPage === pageCount} onClick={() => setCurrentPage(prev => prev + 1)}>»</button>
+            </div>
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
-
-export default ListadoProductos;

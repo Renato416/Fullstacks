@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import HomeAdmin from "./pages/administrador/HomeAdmin"; // Ajusta la ruta si cambia
+import { HomeAdmin } from "./pages/administrador/HomeAdmin";
 import "./assets/CSS/administrador/home_admin.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 

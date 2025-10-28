@@ -1,50 +1,50 @@
-import React from "react"; // npm install --save-dev @types/react @types/react-dom
-
+import React from "react";
 import "../../assets/CSS/administrador/home_admin.css";
 
-// Ajusta la ruta según tu estructura no funciona
-const HomeAdmin: React.FC = () => {
+export const HomeAdmin: React.FC = () => {
   return (
-    <div className="container">
-      <aside className="sidebar">
-        <div className="logo">
-          <span>⚪</span> Company
-        </div>
-        <nav className="menu">
-          <a href="#" className="active">
-            📊 Dashboard
-          </a>
-          <a href="#">📁 Ordenes</a>
-          <a href="#">📦 Inventario</a>
-          <a href="#">📑 Reportes</a>
-          <a href="#">👨‍💼 Empleados</a>
-          <a href="#">👥 Clientes</a>
-        </nav>
+    <div className="container-fluid home-admin-container">
+      <div className="row g-0">
+        <aside className="col-md-3 col-lg-2 sidebar d-flex flex-column">
+          <div className="logo d-flex align-items-center mb-4">
+            <img
+              src="/VistaTienda/IMG/icon-level-up.png"
+              alt="Logo Level-Up"
+              className="me-2"
+            />
+            <span>Level-Up</span>
+          </div>
 
-        <div className="bottom-menu">
-          <a href="#">⚙️ Configuracion</a>
-          <a href="#">🙍 Perfil</a>
-          <a href="#">🔍 Search</a>
-          <a href="#">❓ Help</a>
-        </div>
+          <nav className="menu flex-grow-1">
+            <a href="#" className="active">📊 Dashboard</a>
+            <a href="listado_produc.html">📦 Inventario</a>
+            <a href="#">📑 Reportes</a>
+            <a href="listado_usuario.html">👨‍💼 Empleados</a>
+            <a href="#">👥 Clientes</a>
+          </nav>
 
-        <div className="profile">
-          <span>👤</span> Profile
-        </div>
-      </aside>
+          <div className="bottom-menu mt-auto">
+            <a href="#">⚙️ Configuración</a>
+            <a href="#">🙍 Perfil</a>
+            <a href="#">❓ Help</a>
+          </div>
 
-      <main className="main-content">
-        <header className="main-header">
-          <h1>¡HOLA Administrador!</h1>
-          <div className="icons">🔔</div>
-        </header>
+          <div className="profile text-center mt-3">
+            <span>👤</span> Profile
+          </div>
+        </aside>
 
-        <section className="content-box">
-          {/* Contenido adicional se puede colocar aquí */}
-        </section>
-      </main>
+        <main className="col-md-9 col-lg-10 main-content">
+          <header className="main-header d-flex justify-content-between align-items-center">
+            <h1>¡HOLA Administrador!</h1>
+            <div className="icons">🔔</div>
+          </header>
+
+          <section className="content-box mt-4">
+            {/* Contenido dinámico del dashboard aquí */}
+          </section>
+        </main>
+      </div>
     </div>
   );
 };
-
-export default HomeAdmin;

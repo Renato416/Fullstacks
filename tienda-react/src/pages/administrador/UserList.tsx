@@ -1,202 +1,108 @@
-import React, { useState, useEffect } from "react";
-import "../../assets/css/administrador/listado_usuario.css"; // Ajusta la ruta según tu estructura
+import React, { useEffect, useState } from "react";
+import "../../assets/CSS/administrador/listado_usuario.css";
 
 interface User {
   date: string;
   id: string;
   name: string;
-  status: string;
-  amount: string;
+  rol: string;
+  telefono: string;
 }
 
-const ListadoUsuarios: React.FC = () => {
-  const [users] = useState<User[]>([
-    {
-      date: "2024-06-01",
-      id: "U001",
-      name: "Arne Corporation",
-      status: "Shipped",
-      amount: "$2500.00",
-    },
-    {
-      date: "2024-06-02",
-      id: "U002",
-      name: "Bravo Solutions",
-      status: "Pending",
-      amount: "$1200.00",
-    },
-    {
-      date: "2024-06-03",
-      id: "U003",
-      name: "Derricks Workshop",
-      status: "Canceled",
-      amount: "$900.00",
-    },
-    {
-      date: "2024-06-04",
-      id: "U004",
-      name: "Delta Markt",
-      status: "Processing",
-      amount: "$1500.00",
-    },
-    {
-      date: "2024-06-05",
-      id: "U005",
-      name: "Echo Enterprises",
-      status: "Shipped",
-      amount: "$3200.00",
-    },
-    {
-      date: "2024-06-06",
-      id: "U006",
-      name: "Fastel Media",
-      status: "Pending",
-      amount: "$2100.00",
-    },
-    {
-      date: "2024-06-07",
-      id: "U007",
-      name: "Get Goods Inc.",
-      status: "Processing",
-      amount: "$1900.00",
-    },
-    {
-      date: "2024-06-08",
-      id: "U008",
-      name: "Indi IT Solutions",
-      status: "Canceled",
-      amount: "$850.00",
-    },
-    {
-      date: "2024-06-09",
-      id: "U009",
-      name: "Juliett Services",
-      status: "Shipped",
-      amount: "$2600.00",
-    },
-    {
-      date: "2024-06-10",
-      id: "U010",
-      name: "Kilo Real Group",
-      status: "Processing",
-      amount: "$1750.00",
-    },
-    {
-      date: "2024-06-11",
-      id: "U011",
-      name: "Lima Landscaping",
-      status: "Shipped",
-      amount: "$490.00",
-    },
-    {
-      date: "2024-06-12",
-      id: "U012",
-      name: "November Nightlife",
-      status: "Canceled",
-      amount: "$1210.00",
-    },
-  ]);
-
-  const rowsPerPage = 5;
+export const UserList: React.FC = () => {
+  const [users, setUsers] = useState<User[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentUsers, setCurrentUsers] = useState<User[]>([]);
+  const rowsPerPage = 5;
 
   useEffect(() => {
-    const updateCurrentUsers = () => {
-      const start = (currentPage - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-      setCurrentUsers(users.slice(start, end));
-    };
-    updateCurrentUsers();
-  }, [currentPage, users]);
+    const storedUsers = JSON.parse(localStorage.getItem("usuarios") || "[]");
+    const exampleUsers: User[] = [
+      { date: "2024-06-01", id: "U001", name: "Arne Corporation", rol: "Administrador", telefono: "$2500.00" },
+      { date: "2024-06-02", id: "U002", name: "Bravo Solutions", rol: "Usuario estándar", telefono: "$1200.00" },
+      { date: "2024-06-03", id: "U003", name: "Derricks Workshop", rol: "Invitado", telefono: "$900.00" }
+    ];
 
-  const totalPages = Math.ceil(users.length / rowsPerPage);
+    const allUsers: User[] = [
+      ...exampleUsers,
+      ...storedUsers.map((u: any, index: number) => ({
+        date: u.fecha,
+        id: "U" + String(exampleUsers.length + index + 1).padStart(3, "0"),
+        name: u.nombre,
+        rol: u.rol,
+        telefono: u.telefono || "---"
+      }))
+    ];
+    setUsers(allUsers);
+  }, []);
+
+  const pageCount = Math.ceil(users.length / rowsPerPage);
+  const displayedUsers = users.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div className="user-list-container">
+    <div className="product-list-container">
       <aside className="sidebar">
-        <h2>Company</h2>
-        <ul>
-          <li>
-            <a href="Home_ad.html">Dashboard</a>
-          </li>
-          <li>
-            <a href="#" className="active">
-              Usuarios
-            </a>
-          </li>
-          <li>
-            <a href="#">Inventario</a>
-          </li>
-          <li>
-            <a href="#">Reportes</a>
-          </li>
-          <li>
-            <a href="#">Empleados</a>
-          </li>
-          <li>
-            <a href="#">Clientes</a>
-          </li>
-        </ul>
+        <div className="logo">
+          <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo" />
+          <span>Level-Up</span>
+        </div>
+        <nav className="menu">
+          <a href="/administrador/HomeAdmin" >📊 Dashboard</a>
+          <a href="/administrador/ProductList">📦 Inventario</a>
+          <a href="#">📑 Reportes</a>
+          <a href="/administrador/UserList" className="active">👨‍💼 Empleados</a>
+          <a href="#">👥 Clientes</a>
+        </nav>
+        <div className="bottom-menu">
+          <a href="#">⚙️ Configuración</a>
+          <a href="#">🙍 Perfil</a>
+          <a href="#">❓ Help</a>
+        </div>
+        <div className="profile">
+          <span>👤</span> Profile
+        </div>
       </aside>
 
-      <main className="main">
-        <div className="header">
+      <main className="main-content">
+        <div className="main-header">
           <h1>Usuarios</h1>
-          <button className="btn-nuevo">NUEVO USUARIO</button>
+          <a href="/administrador/RegisterUser">
+            <button className="btn-nuevo">NUEVO USUARIO</button>
+          </a>
         </div>
 
-        <table id="usersTable">
-          <thead>
-            <tr>
-              <th>Fecha</th>
-              <th>ID Usuario</th>
-              <th>Nombre</th>
-              <th>Estado</th>
-              <th>Monto</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.date}</td>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.status}</td>
-                <td>{user.amount}</td>
+        <div className="content-box">
+          <table id="usersTable">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>ID Usuario</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+                <th>Teléfono</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {displayedUsers.map((u) => (
+                <tr key={u.id}>
+                  <td>{u.date}</td>
+                  <td>{u.id}</td>
+                  <td>{u.name}</td>
+                  <td>{u.rol}</td>
+                  <td>{u.telefono}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-        <div className="pagination">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-          >
-            «
-          </button>
-          {[...Array(totalPages)].map((_, i) => (
-            <button
-              key={i + 1}
-              className={currentPage === i + 1 ? "active" : ""}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
-          >
-            »
-          </button>
+          <div className="pagination">
+            <button onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))} disabled={currentPage === 1}>«</button>
+            {Array.from({ length: pageCount }, (_, i) => (
+              <button key={i} onClick={() => setCurrentPage(i + 1)} className={currentPage === i + 1 ? "active" : ""}>{i + 1}</button>
+            ))}
+            <button onClick={() => setCurrentPage((p) => Math.min(p + 1, pageCount))} disabled={currentPage === pageCount}>»</button>
+          </div>
         </div>
       </main>
     </div>
   );
 };
-
-export default ListadoUsuarios;
