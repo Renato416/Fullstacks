@@ -20,22 +20,23 @@
         </div>
         <nav class="nav">
             <a href="index.html">Inicio</a>
-            <a href="#">Productos</a>
+            <a href="listaProducto.html">Productos</a>
             <a href="#">Nosotros</a>
-            <a href="#">Blogs</a>
-            <a href="#">Contactos</a>
+            <a href="blog.html">Blogs</a>
+            <a href="contacto.html">Contactos</a>
         </nav>
         <div class="Carrito">
             <button class="button-carrito">
                 <span class="carrito-text">Productos (0)</span>
+                <a href="carrito_compras.html">
                 <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
+                </a>
             </button>
             <div class="inicio-registrar">
                 <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
                 <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
             </div>
         </div>
-        
     </header>
     
     <section class="busqueda-container">
@@ -123,4 +124,19 @@
         </div>
     </footer>
 </body>
+<script>
+// Función para actualizar el contador del carrito en el header
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const contador = document.querySelector('.carrito-text');
+    if(contador) {
+        contador.textContent = `Productos (${totalItems})`;
+    }
+}
+
+// Llamamos a la función al cargar la página
+document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+</script>
+
 </html>

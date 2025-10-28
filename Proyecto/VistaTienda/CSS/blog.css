@@ -38,8 +38,7 @@ body{
 .Carrito {
     display: flex;
     flex-direction: column;  
-    align-items: flex-end;   
-    
+    align-items: flex-end;  
 }
 
 .button-carrito {
@@ -55,7 +54,6 @@ body{
 
 .carrito-text {
     font-size: 14px;
-    
 }
 
 .icono-carrito {
@@ -79,27 +77,40 @@ body{
     text-decoration: underline;
 }
 
-footer{
-    background: #1E90FF;
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.footer-nombre-h2{
-    font-size: 18px;
+h2 {
+  text-align: center;
+  margin: 30px 0;
 }
 
-.ingresar-gmail {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
+
+.card {
+  font-family: Arial, sans-serif; color:#D3D3D3;
+  background: #1E90FF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%;
 }
-.button-gmail {
-    padding: 8px 12px;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.card-text {
+  width: 45%;
+}
+.card img {
+  font-family: Arial, sans-serif; color:black;
+  width: 45%;
+  height: 200px;
+  border: 1px solid black;
+  background: white;
+  display: block;
+}
+
+
+button {
+  font-family: Arial, sans-serif; color:black;
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
 }

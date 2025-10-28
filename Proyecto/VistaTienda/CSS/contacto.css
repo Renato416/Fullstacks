@@ -38,14 +38,13 @@ body{
 .Carrito {
     display: flex;
     flex-direction: column;  
-    align-items: flex-end;   
-    
+    align-items: flex-end;  
 }
 
 .button-carrito {
     display: flex;
     align-items: center;
-    gap: 8px;                
+    gap: 8px;               
     background: none;
     border: none;
     cursor: pointer;
@@ -55,7 +54,6 @@ body{
 
 .carrito-text {
     font-size: 14px;
-    
 }
 
 .icono-carrito {
@@ -79,27 +77,64 @@ body{
     text-decoration: underline;
 }
 
-footer{
-    background: #1E90FF;
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.empresa {
+  color: white;
+  margin: 30px 0;
 }
-.footer-nombre-h2{
-    font-size: 18px;
+.empresa-logo {
+  width: 70px;
+  height: 80px;
+  margin: 0 auto;
+  border: 2px solid black;
+  background: #0073e6;
+}
+.empresa h2 {
+  margin-top: 20px;
+  text-align: center;
+
 }
 
-.ingresar-gmail {
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
+
+.formulario {
+  width: 50%;
+  margin: 20px auto;
+  background: #0073e6;
+  border: 1px solid black;
+  padding: 20px;
+  text-align: left;
 }
-.button-gmail {
-    padding: 8px 12px;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.formulario h3 {
+  background: #1E90FF;
+  padding: 10px;
+  margin: -20px -20px 20px -20px;
+  text-align: center;
+}
+.formulario label {
+  display: block;
+  margin: 20px 0 5px;
+  font-size: 14px;
+}
+.formulario input,
+.formulario textarea {
+  width: 100%;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 25px;
+}
+.formulario textarea {
+  height: 100px;
+  resize: none;
+}
+
+
+.formulario button {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 25px;
+  border: 1px solid black;
+  background: white;
+  cursor: pointer;
+}
+.formulario button:hover {
+  background: #e6e6e6;
 }

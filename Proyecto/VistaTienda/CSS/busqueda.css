@@ -1,24 +1,24 @@
 .busqueda-container {
     display: flex;
-    justify-content: center;      /* centra horizontalmente en la página */
-    margin: 20px 0;               /* espacio arriba y abajo del header */
-    gap: 10px;                     /* espacio entre input y botón */
+    justify-content: center;     
+    margin: 20px 0;               
+    gap: 10px;                   
 }
 
 .busqueda-input {
     padding: 10px 15px;
-    border-radius: 25px;           /* bordes redondeados */
-    border: 1px solid #ccc;        /* borde gris suave */
-    width: 300px;                   /* ancho de la barra */
+    border-radius: 25px;          
+    border: 1px solid #ccc;      
+    width: 300px;                 
     font-size: 14px;
-    outline: none;                  /* quita el borde azul al enfocar */
+    outline: none;                  
 }
 
 .busqueda-boton {
     padding: 10px 15px;
-    border-radius: 50%;            /* botón circular */
+    border-radius: 50%;            
     border: none;
-    background-color: #1E90FF;     /* mismo color que header */
+    background-color: #1E90FF;     
     cursor: pointer;
     display: flex;
     align-items: center;
