@@ -1,0 +1,94 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f4f9;
+}
+
+
+.sidebar {
+  width: 220px;
+  background: #e8e8ec;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+}
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar ul li a {
+  display: block;
+  padding: 15px;
+  color: #333;
+  text-decoration: none;
+}
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+  background: #d4d4d8;
+  border-radius: 6px;
+}
+
+
+.main {
+  margin-left: 220px;
+  padding: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.btn-nuevo {
+  background: #000;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-nuevo:hover {
+  background: #444;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+thead {
+  background: #f0f0f0;
+}
+th, td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+
+.pagination {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.pagination button {
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.pagination button.active {
+  background: #000;
+  color: #fff;
+}
+.pagination button:hover:not(.active) {
+  background: #ddd;
+}

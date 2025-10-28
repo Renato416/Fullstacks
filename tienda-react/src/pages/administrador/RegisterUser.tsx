@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/css/administrador/reg_usuario.css"; // Ajusta la ruta según tu estructura
+import "../../assets/css/administrador/registro_usuario.css"; // Ajusta la ruta según tu estructura
 
 const RegistroUsuario: React.FC = () => {
   const [formData, setFormData] = useState({

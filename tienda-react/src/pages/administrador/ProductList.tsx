@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../assets/css/administrador/list_prod.css";
+import "../../assets/css/administrador/listado_product.css";
 
 interface Product {
   date: string;

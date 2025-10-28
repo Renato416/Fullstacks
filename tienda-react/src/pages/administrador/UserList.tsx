@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "../../assets/css/administrador/list_usu.css"; // Ajusta la ruta según tu estructura
+import "../../assets/css/administrador/listado_usuario.css"; // Ajusta la ruta según tu estructura
 
 interface User {
   date: string;

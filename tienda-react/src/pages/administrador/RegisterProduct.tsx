@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../assets/css/administrador/reg_producto.css";
+import "../../assets/css/administrador/registro_producto.css";
 
 interface ProductForm {
   nombre: string;
