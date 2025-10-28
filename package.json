@@ -3,5 +3,8 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "vitest": "^4.0.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8"
   }
 }
