@@ -1,99 +1,137 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="../CSS/carrito_com.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito de Compras - LEVEL-UP GAMER</title>
+  <link rel="stylesheet" href="../CSS/carrito_com.css">
 </head>
 <body>
-    <header class="Header">
-        <div class="Logo-container">
-            <a href="index.html">
-                <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+
+<header class="Header">
+    <div class="Logo-container">
+        <a href="index.html">
+            <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+        </a>
+        <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
+    </div>
+    <nav class="nav">
+        <a href="index.html">Inicio</a>
+        <a href="listaProducto.html">Productos</a>
+        <a href="#">Nosotros</a>
+        <a href="blog.html">Blogs</a>
+        <a href="contacto.html">Contactos</a>
+    </nav>
+    <div class="Carrito">
+        <button class="button-carrito">
+            <span class="carrito-text">Productos (0)</span>
+            <a href="carrito_compras.html">
+            <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
             </a>
-            <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
+        </button>
+        <div class="inicio-registrar">
+            <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
+            <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
         </div>
-        <nav class="nav">
-            <a href="index.html">Inicio</a>
-            <a href="#">Productos</a>
-            <a href="#">Nosotros</a>
-            <a href="#">Blogs</a>
-            <a href="#">Contactos</a>
-        </nav>
-        <div class="Carrito">
-            <button class="button-carrito">
-                <span class="carrito-text">Productos (0)</span>
-                <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
-            </button>
-            <div class="inicio-registrar">
-                <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
-                <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
-            </div>
+    </div>
+</header>
+
+<main>
+  <h1>Mi carrito de compras</h1>
+  <div class="cart-container">
+    <div class="products" id="cartProducts"></div>
+
+    <div class="summary">
+      <h2>Total:</h2>
+      <p class="total-amount" id="totalAmount">$0</p>
+      <input type="text" placeholder="Ingrese el cupón de descuento" id="coupon">
+      <button class="apply" id="applyCoupon">APLICAR</button>
+      <button class="pay" id="payCart">PAGAR</button>
+    </div>
+  </div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const cartProductsDiv = document.getElementById('cartProducts');
+  const totalAmountP = document.getElementById('totalAmount');
+
+  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+  function renderCarrito() {
+    cartProductsDiv.innerHTML = '';
+    let total = 0;
+
+    carrito.forEach((p, i) => {
+      total += p.precio * p.cantidad;
+
+      const productDiv = document.createElement('div');
+      productDiv.classList.add('product');
+      productDiv.innerHTML = `
+        <img src="${p.img}" alt="${p.nombre}" class="product-image">
+        <div class="product-info">
+          <h2>${p.nombre}</h2>
         </div>
-    </header>
-
-    <main>
-        <h1>Mi carrito de compras</h1>
-        <div class="cart-container">
-            <div class="products">
-                <div class="product">
-                    <img src="../IMG/IMG-PRODUCTOS/audifonos.jpeg" alt="Audifonos con micrófono" class="product-image">
-                    <div class="product-info">
-                        <h2>Audifonos con micrófono</h2>
-                        <p>Audífonos con sonido envolvente y micrófono incorporado para gaming y llamadas.</p>
-                    </div>
-                    <div class="product-price">
-                        <span>$64.990</span>
-                        <div class="quantity">
-                            <button>-</button>
-                            <input type="number" value="1" min="1">
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <img src="../IMG/IMG-PRODUCTOS/Mause.webp" alt="Mause Gamer" class="product-image">
-                    <div class="product-info">
-                        <h2>Mause Gamer</h2>
-                        <p>Mouse ergonómico con iluminación RGB y alta precisión para juegos competitivos.</p>
-                    </div>
-                    <div class="product-price">
-                        <span>$28.990</span>
-                        <div class="quantity">
-                            <button>-</button>
-                            <input type="number" value="1" min="1">
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="product">
-                    <img src="../IMG/IMG-PRODUCTOS/silla.jpeg" alt="Silla Gamer" class="product-image">
-                    <div class="product-info">
-                        <h2>Silla Gamer</h2>
-                        <p>Silla ergonómica con soporte lumbar y reclinable, ideal para largas sesiones de juego.</p>
-                    </div>
-                    <div class="product-price">
-                        <span>$72.990</span>
-                        <div class="quantity">
-                            <button>-</button>
-                            <input type="number" value="1" min="1">
-                            <button>+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="summary">
-                <h2>Total:</h2>
-                <p class="total-amount">$ 24.000</p>
-                <input type="text" placeholder="Ingrese el cupón de descuento">
-                <button class="apply">APLICAR</button>
-                <button class="pay">PAGAR</button>
-            </div>
+        <div class="product-price">
+          <span>$${p.precio.toLocaleString()}</span>
+          <div class="quantity">
+            <button class="minus">-</button>
+            <input type="number" value="${p.cantidad}" min="1" data-index="${i}">
+            <button class="plus">+</button>
+            <button class="remove" data-index="${i}">Eliminar</button>
+          </div>
         </div>
-    </main>
+      `;
+      cartProductsDiv.appendChild(productDiv);
+    });
+
+    totalAmountP.textContent = `$ ${total.toLocaleString()}`;
+  }
+
+  cartProductsDiv.addEventListener('click', (e) => {
+    const target = e.target;
+    if(target.classList.contains('plus') || target.classList.contains('minus') || target.classList.contains('remove')){
+      const input = target.parentElement.querySelector('input');
+      const index = parseInt(input.dataset.index);
+
+      if(target.classList.contains('plus')){
+        carrito[index].cantidad++;
+      } else if(target.classList.contains('minus')){
+        if(carrito[index].cantidad > 1) carrito[index].cantidad--;
+      } else if(target.classList.contains('remove')){
+        carrito.splice(index, 1);
+      }
+
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      renderCarrito();
+    }
+  });
+
+  cartProductsDiv.addEventListener('change', (e) => {
+    if(e.target.tagName === 'INPUT'){
+      const index = parseInt(e.target.dataset.index);
+      let val = parseInt(e.target.value);
+      if(val < 1) val = 1;
+      carrito[index].cantidad = val;
+      localStorage.setItem('carrito', JSON.stringify(carrito));
+      renderCarrito();
+    }
+  });
+
+  renderCarrito();
+});
+function actualizarContadorCarrito() {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const contador = document.querySelector('.carrito-text');
+    if(contador) {
+        contador.textContent = `Productos (${totalItems})`;
+    }
+}
+
+
+document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
+</script>
+
 </body>
 </html>

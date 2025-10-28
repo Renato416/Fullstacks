@@ -4,24 +4,34 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Nuevo Producto</title>
-  <link rel="stylesheet" href="..//CSS/reg_producto.css" />
+  <link rel="stylesheet" href="../CSS/reg_producto.css" />
 </head>
 <body>
 
-  
   <div class="sidebar">
-    <h2>Company</h2>
-    <ul>
-      <li><a href="Home_ad.html">Dashboard</a></li>
-      <li><a href="productos.html" class="active">Productos</a></li>
-      <li><a href="#">Inventario</a></li>
-      <li><a href="#">Reportes</a></li>
-      <li><a href="#">Empleados</a></li>
-      <li><a href="#">Clientes</a></li>
-    </ul>
+    <div class="logo">
+      <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo">Level-Up
+    </div>
+
+    <nav class="menu">
+      <a href="Home_ad.html">📊 Dashboard</a>
+      <a href="listado_produc.html" class="active">📦 Productos</a>
+      <a href="#">📑 Reportes</a>
+      <a href="listado_usuario.html">👨‍💼 Empleados</a>
+      <a href="#">👥 Clientes</a>
+    </nav>
+
+    <div class="bottom-menu">
+      <a href="#">⚙️ Configuración</a>
+      <a href="#">🙍 Perfil</a>
+      <a href="#">❓ Help</a>
+    </div>
+
+    <div class="profile">
+      <span>👤</span> Admin
+    </div>
   </div>
 
-  
   <div class="main">
     <div class="header">
       <h1>NUEVO PRODUCTO</h1>
@@ -52,7 +62,6 @@
         <div class="select-row">
           <div>
             <label for="proveedores">Proveedores</label>
-            
             <select id="proveedores" name="proveedores" size="4">
               <option>Proveedor A</option>
               <option>Proveedor B</option>
@@ -78,7 +87,6 @@
   </div>
 
   <script>
-    
     document.getElementById('productForm').addEventListener('submit', function(e){
       e.preventDefault();
 
@@ -94,15 +102,13 @@
         fecha: new Date().toISOString().slice(0,10)
       };
 
-      
       const productos = JSON.parse(localStorage.getItem('productos')) || [];
       productos.push(nuevoProducto);
       localStorage.setItem('productos', JSON.stringify(productos));
 
       alert('Producto agregado con éxito ✅');
 
-      
-      window.location.href = 'productos.html';
+      window.location.href = 'listado_produc.html';
     });
   </script>
 </body>

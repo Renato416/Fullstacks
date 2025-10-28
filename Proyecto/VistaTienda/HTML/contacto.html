@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="../CSS/styles.css"/>
-    <link rel="stylesheet" href="../CSS/inicioSesion.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - Nombre Empresa</title>
+
+  <link rel="stylesheet" href="../CSS/contacto.css">
 </head>
 <body>
-   <header class="Header">
+
+  <header class="Header">
         <div class="Logo-container">
             <a href="index.html">
                 <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
@@ -35,35 +36,31 @@
             </div>
         </div>
     </header>
-    
-    <main class="InicioSesion-container"><h1>Inicio de sesión</h1></main>
 
-    <form class="form-login" id="loginForm">
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
+ 
+  <div class="empresa">
+    <div class="empresa-logo"><img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+</div>
+    <h2>LEVEL-UP GAMER</h2>
+  </div>
 
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required>
+ 
+  <div class="formulario">
+    <h3>FORMULARIO DE CONTACTOS</h3>
+    <form>
+      <label for="nombre">NOMBRE COMPLETO</label>
+      <input type="text" id="nombre" name="nombre">
 
-        <button type="submit">Iniciar Sesión</button>
+      <label for="correo">CORREO</label>
+      <input type="email" id="correo" name="correo">
+
+      <label for="contenido">CONTENIDO</label>
+      <textarea id="contenido" name="contenido"></textarea>
+
+      <button type="submit">ENVIAR MENSAJE</button>
     </form>
+  </div>
 
-    <script>
-        const loginForm = document.getElementById('loginForm');
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-
-            const correo = document.getElementById('correo').value.trim();
-
-            if (correo.endsWith('@levelUp.cl')) {
-                
-                window.location.href = '../../VistaAdministrador/HTML/Home_ad.html';
-            } else {
-                alert('Acceso denegado: solo usuarios @levelUp.cl pueden entrar en esta demo.');
-            }
-        });
-    </script>
 </body>
 <script>
 

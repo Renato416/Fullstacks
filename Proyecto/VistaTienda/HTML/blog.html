@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="../CSS/styles.css"/>
-    <link rel="stylesheet" href="../CSS/inicioSesion.css"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noticias Importantes</title>
+  
+  <link rel="stylesheet" href="../CSS/blog.css">
 </head>
 <body>
-   <header class="Header">
+
+ 
+  <header class="Header">
         <div class="Logo-container">
             <a href="index.html">
                 <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
@@ -35,35 +37,32 @@
             </div>
         </div>
     </header>
-    
-    <main class="InicioSesion-container"><h1>Inicio de sesión</h1></main>
 
-    <form class="form-login" id="loginForm">
-        <label for="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required>
+ 
+  <h2>ACTUALIZACIONES DEL CATAGOLO Y SISTEMA</h2>
 
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required>
+  
+  <div class="card">
+    <div class="card-text">
+      <h3>ACTUALIZACION CATALOGO</h3>
+      <p>
+        Catalogo actualizado para la espancion de variedad y gustos diversificados del ususario
+      </p>
+      <button>DETALLES ▼</button>
+    </div>
+  </div>
 
-        <button type="submit">Iniciar Sesión</button>
-    </form>
+ 
+  <div class="card">
+    <div class="card-text">
+      <h3>ACTUALIZACION SISTEMA</h3>
+      <p>
+        Sistema arreglado y preaparado para el uso del ususario
+      </p>
+      <button>DETALLES ▼</button>
+    </div>
+  </div>
 
-    <script>
-        const loginForm = document.getElementById('loginForm');
-
-        loginForm.addEventListener('submit', function(e) {
-            e.preventDefault(); 
-
-            const correo = document.getElementById('correo').value.trim();
-
-            if (correo.endsWith('@levelUp.cl')) {
-                
-                window.location.href = '../../VistaAdministrador/HTML/Home_ad.html';
-            } else {
-                alert('Acceso denegado: solo usuarios @levelUp.cl pueden entrar en esta demo.');
-            }
-        });
-    </script>
 </body>
 <script>
 
