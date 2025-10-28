@@ -1,19 +1,21 @@
 import React from "react";
 
 interface ProductoProps {
+  nombre: string;
+  precio: number;
   img: string;
-  titulo: string;
-  cantidad: number;
-  valor: string;
+  onAdd: (producto: ProductoProps) => void;
 }
 
-export const Producto: React.FC<ProductoProps> = ({ img, titulo, cantidad, valor }) => {
+export const Producto: React.FC<ProductoProps> = ({ nombre, precio, img, onAdd }) => {
   return (
     <div className="producto">
-      <img src={img} alt={titulo} className="producto-img" />
-      <h3 className="producto-titulo">{titulo}</h3>
-      <p className="producto-cantidad">Cantidad: {cantidad}</p>
-      <p className="producto-valor">{valor}</p>
+      <img src={img} alt={nombre} className="producto-img" />
+      <p className="titulo">{nombre}</p>
+      <p className="precio">${precio.toLocaleString()}</p>
+      <button className="add-cart" onClick={() => onAdd({ nombre, precio, img, onAdd })}>
+        Añadir
+      </button>
     </div>
   );
 };

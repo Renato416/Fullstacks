@@ -20,15 +20,28 @@ import mausepad from "../assets/IMG/IMG-PRODUCTOS/mausepad.avif";
 
 export const Home: React.FC = () => {
   const productos = [
-    { img: silla, titulo: "Silla Gamer", cantidad: 1, valor: "$72.990" },
-    { img: mando, titulo: "Mando Xbox", cantidad: 1, valor: "$79.990" },
-    { img: escritorio, titulo: "Escritorio Gamer", cantidad: 1, valor: "$70.990" },
-    { img: audifonos, titulo: "Audifonos con micrófono", cantidad: 1, valor: "$64.990" },
-    { img: teclado, titulo: "Teclado gamer", cantidad: 1, valor: "$15.990" },
-    { img: mause, titulo: "Mause Gamer", cantidad: 1, valor: "$28.990" },
-    { img: monitor, titulo: "Monitor gamer", cantidad: 1, valor: "$134.990" },
-    { img: mausepad, titulo: "Mause pads", cantidad: 1, valor: "$6.990" },
+    { img: silla, nombre: "Silla Gamer", precio: 72990 },
+    { img: mando, nombre: "Mando Xbox", precio: 79990 },
+    { img: escritorio, nombre: "Escritorio Gamer", precio: 70990 },
+    { img: audifonos, nombre: "Audifonos con micrófono", precio: 64990 },
+    { img: teclado, nombre: "Teclado gamer", precio: 15990 },
+    { img: mause, nombre: "Mause Gamer", precio: 28990 },
+    { img: monitor, nombre: "Monitor gamer", precio: 134990 },
+    { img: mausepad, nombre: "Mause pads", precio: 6990 },
   ];
+
+  // Función que maneja agregar producto al carrito
+  const handleAdd = (producto: any) => {
+    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+    const index = carrito.findIndex((p: any) => p.nombre === producto.nombre);
+    if (index >= 0) {
+      carrito[index].cantidad++;
+    } else {
+      carrito.push({ ...producto, cantidad: 1 });
+    }
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    alert(`${producto.nombre} agregado al carrito ✅`);
+  };
 
   return (
     <>
@@ -36,10 +49,17 @@ export const Home: React.FC = () => {
       <Busqueda />
       <section className="productos-container">
         {productos.map((prod, index) => (
-          <Producto key={index} {...prod} />
+          <Producto
+            key={index}
+            nombre={prod.nombre}
+            precio={prod.precio}
+            img={prod.img}
+            onAdd={() => handleAdd(prod)}
+          />
         ))}
       </section>
       <Footer />
     </>
   );
 };
+

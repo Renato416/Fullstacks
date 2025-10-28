@@ -2,17 +2,25 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/IMG/icon-level-up.png";
 import carritoIcon from "../assets/IMG/carrito-icon.png";
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  carritoCount?: number; // opcional, si se pasa se usa, sino se calcula desde localStorage
+}
+
+export const Header: React.FC<HeaderProps> = ({ carritoCount }) => {
   const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
-    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    const total = carrito.reduce(
-      (acc: number, producto: { cantidad: number }) => acc + producto.cantidad,
-      0
-    );
-    setTotalItems(total);
-  }, []);
+    if (typeof carritoCount === "number") {
+      setTotalItems(carritoCount);
+    } else {
+      const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+      const total = carrito.reduce(
+        (acc: number, producto: { cantidad: number }) => acc + producto.cantidad,
+        0
+      );
+      setTotalItems(total);
+    }
+  }, [carritoCount]);
 
   return (
     <header className="Header">
