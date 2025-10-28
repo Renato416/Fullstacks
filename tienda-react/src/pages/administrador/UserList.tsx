@@ -11,18 +11,90 @@ interface User {
 
 const ListadoUsuarios: React.FC = () => {
   const [users] = useState<User[]>([
-    { date: '2024-06-01', id: 'U001', name: 'Arne Corporation', status: 'Shipped', amount: '$2500.00' },
-    { date: '2024-06-02', id: 'U002', name: 'Bravo Solutions', status: 'Pending', amount: '$1200.00' },
-    { date: '2024-06-03', id: 'U003', name: 'Derricks Workshop', status: 'Canceled', amount: '$900.00' },
-    { date: '2024-06-04', id: 'U004', name: 'Delta Markt', status: 'Processing', amount: '$1500.00' },
-    { date: '2024-06-05', id: 'U005', name: 'Echo Enterprises', status: 'Shipped', amount: '$3200.00' },
-    { date: '2024-06-06', id: 'U006', name: 'Fastel Media', status: 'Pending', amount: '$2100.00' },
-    { date: '2024-06-07', id: 'U007', name: 'Get Goods Inc.', status: 'Processing', amount: '$1900.00' },
-    { date: '2024-06-08', id: 'U008', name: 'Indi IT Solutions', status: 'Canceled', amount: '$850.00' },
-    { date: '2024-06-09', id: 'U009', name: 'Juliett Services', status: 'Shipped', amount: '$2600.00' },
-    { date: '2024-06-10', id: 'U010', name: 'Kilo Real Group', status: 'Processing', amount: '$1750.00' },
-    { date: '2024-06-11', id: 'U011', name: 'Lima Landscaping', status: 'Shipped', amount: '$490.00' },
-    { date: '2024-06-12', id: 'U012', name: 'November Nightlife', status: 'Canceled', amount: '$1210.00' }
+    {
+      date: "2024-06-01",
+      id: "U001",
+      name: "Arne Corporation",
+      status: "Shipped",
+      amount: "$2500.00",
+    },
+    {
+      date: "2024-06-02",
+      id: "U002",
+      name: "Bravo Solutions",
+      status: "Pending",
+      amount: "$1200.00",
+    },
+    {
+      date: "2024-06-03",
+      id: "U003",
+      name: "Derricks Workshop",
+      status: "Canceled",
+      amount: "$900.00",
+    },
+    {
+      date: "2024-06-04",
+      id: "U004",
+      name: "Delta Markt",
+      status: "Processing",
+      amount: "$1500.00",
+    },
+    {
+      date: "2024-06-05",
+      id: "U005",
+      name: "Echo Enterprises",
+      status: "Shipped",
+      amount: "$3200.00",
+    },
+    {
+      date: "2024-06-06",
+      id: "U006",
+      name: "Fastel Media",
+      status: "Pending",
+      amount: "$2100.00",
+    },
+    {
+      date: "2024-06-07",
+      id: "U007",
+      name: "Get Goods Inc.",
+      status: "Processing",
+      amount: "$1900.00",
+    },
+    {
+      date: "2024-06-08",
+      id: "U008",
+      name: "Indi IT Solutions",
+      status: "Canceled",
+      amount: "$850.00",
+    },
+    {
+      date: "2024-06-09",
+      id: "U009",
+      name: "Juliett Services",
+      status: "Shipped",
+      amount: "$2600.00",
+    },
+    {
+      date: "2024-06-10",
+      id: "U010",
+      name: "Kilo Real Group",
+      status: "Processing",
+      amount: "$1750.00",
+    },
+    {
+      date: "2024-06-11",
+      id: "U011",
+      name: "Lima Landscaping",
+      status: "Shipped",
+      amount: "$490.00",
+    },
+    {
+      date: "2024-06-12",
+      id: "U012",
+      name: "November Nightlife",
+      status: "Canceled",
+      amount: "$1210.00",
+    },
   ]);
 
   const rowsPerPage = 5;
@@ -45,12 +117,26 @@ const ListadoUsuarios: React.FC = () => {
       <aside className="sidebar">
         <h2>Company</h2>
         <ul>
-          <li><a href="Home_ad.html">Dashboard</a></li>
-          <li><a href="#" className="active">Usuarios</a></li>
-          <li><a href="#">Inventario</a></li>
-          <li><a href="#">Reportes</a></li>
-          <li><a href="#">Empleados</a></li>
-          <li><a href="#">Clientes</a></li>
+          <li>
+            <a href="Home_ad.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="#" className="active">
+              Usuarios
+            </a>
+          </li>
+          <li>
+            <a href="#">Inventario</a>
+          </li>
+          <li>
+            <a href="#">Reportes</a>
+          </li>
+          <li>
+            <a href="#">Empleados</a>
+          </li>
+          <li>
+            <a href="#">Clientes</a>
+          </li>
         </ul>
       </aside>
 
@@ -71,7 +157,7 @@ const ListadoUsuarios: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {currentUsers.map(user => (
+            {currentUsers.map((user) => (
               <tr key={user.id}>
                 <td>{user.date}</td>
                 <td>{user.id}</td>
@@ -86,7 +172,7 @@ const ListadoUsuarios: React.FC = () => {
         <div className="pagination">
           <button
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           >
             «
           </button>
@@ -101,7 +187,9 @@ const ListadoUsuarios: React.FC = () => {
           ))}
           <button
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
           >
             »
           </button>
