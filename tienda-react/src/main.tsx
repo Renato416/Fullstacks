@@ -10,7 +10,6 @@ import Productos from "./pages/VistaAdministradorTsx/Productos";
 import Reportes from "./pages/VistaAdministradorTsx/Reportes";
 import Perfil from "./pages/VistaAdministradorTsx/Perfil";
 import Usuario from "./pages/VistaAdministradorTsx/Usuario";
-<<<<<<< HEAD
 import Home from "./pages/Tienda/Home";
 import Blog from "./pages/Tienda/Blog";
 import Carrito from "./pages/Tienda/Carrito";
@@ -22,12 +21,10 @@ import Nosotros from "./pages/Tienda/Nosotros";
 import Noticia1 from "./pages/Tienda/Noticia1";
 import Noticia2 from "./pages/Tienda/Noticia2";
 import UserRegister  from "./pages/Tienda/UserRegistro";
-=======
 import UsuarioNuevo from "./pages/VistaAdministradorTsx/UsuarioNuevo";
 import ProductoNuevo from "./pages/VistaAdministradorTsx/ProductoNuevo";
 import EditarUsuario from "./pages/VistaAdministradorTsx/EditarUsuario"; 
 
->>>>>>> 11848120f4da1bd1c6b4516e5d71a58ee33d058a
 
 // Renderizado principal
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -42,7 +39,6 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/reportes" element={<Reportes />} />
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/usuarios" element={<Usuario />} />
-<<<<<<< HEAD
 
         <Route path="/home" element ={<Home/>}/>
         <Route path="/blog" element ={<Blog/>}/>
@@ -55,14 +51,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/noticia1" element ={<Noticia1/>}/>
         <Route path="/noticia2" element ={<Noticia2/>}/>
         <Route path="/register" element ={<UserRegister/>}/>
-=======
         <Route path="/usuarios-nuevo" element={<UsuarioNuevo />} />
         <Route path="/producto-nuevo" element={<ProductoNuevo />} />
         <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
 
 
         
->>>>>>> 11848120f4da1bd1c6b4516e5d71a58ee33d058a
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
