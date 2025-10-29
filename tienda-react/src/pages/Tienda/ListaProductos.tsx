@@ -1,80 +1,67 @@
-import React, { useEffect, useState } from "react";
-import { Header } from "../../components/Tienda/Header";
-import { Producto } from "../../components/Tienda/Producto";
-import { Footer } from "../../components/Tienda/Footer";
+import React, { useState, useEffect } from "react";
+import Header from "../../components/Tienda/Header";
+import Footer from "../../components/Tienda/Footer";
+import ProductCard from "../../components/Tienda/ProductoCard";
 
-// Importa todas las imágenes desde /assets
-import audifonos from "../../assets/IMG/IMG-PRODUCTOS/audifonos.jpeg";
-import silla from "../../assets/IMG/IMG-PRODUCTOS/silla.jpeg";
-import escritorio from "../../assets/IMG/IMG-PRODUCTOS/Escritorio.webp";
-import mando from "../../assets/IMG/IMG-PRODUCTOS/Mando.webp";
-import mouse from "../../assets/IMG/IMG-PRODUCTOS/Mause.webp";
-import mousepad from "../../assets/IMG/IMG-PRODUCTOS/mausepad.avif";
-import monitor from "../../assets/IMG/IMG-PRODUCTOS/monitor.jpeg";
-import teclado from "../../assets/IMG/IMG-PRODUCTOS/Teclado.webp";
-
-interface ProductoCarrito {
-  nombre: string;
-  precio: number;
+interface Product {
   img: string;
-  cantidad: number;
+  title: string;
+  price: string;
 }
 
-export const ListaProductos: React.FC = () => {
-  const [carrito, setCarrito] = useState<ProductoCarrito[]>([]);
+const productsData: Product[] = [
+  { img: "/assets/IMG/audifonos.jpeg", title: "Audifonos GAMER", price: "$64.990" },
+  { img: "/assets/IMG/silla.jpeg", title: "Silla GAMER", price: "$72.990" },
+  { img: "/assets/IMG/Escritorio.webp", title: "Escritorio GAMER", price: "$70.990" },
+  { img: "/assets/IMG/Mando.webp", title: "Mando de Xbox GAMER", price: "$79.990" },
+  { img: "/assets/IMG/Mause.webp", title: "Mouse GAMER", price: "$28.990" },
+  { img: "/assets/IMG/mausepad.avif", title: "Mousepad GAMER", price: "$6.990" },
+  { img: "/assets/IMG/monitor.jpeg", title: "Monitor GAMER", price: "$134.990" },
+  { img: "/assets/IMG/Teclado.webp", title: "Teclado GAMER", price: "$15.990" },
+];
+
+const ListaProducto: React.FC = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(productsData);
 
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("carrito") || "[]");
-    setCarrito(stored);
-  }, []);
-
-  const agregarAlCarrito = (producto: Omit<ProductoCarrito, "cantidad">) => {
-    setCarrito((prev) => {
-      const index = prev.findIndex((p) => p.nombre === producto.nombre);
-      let updated;
-      if (index >= 0) {
-        updated = [...prev];
-        updated[index].cantidad += 1;
-      } else {
-        updated = [...prev, { ...producto, cantidad: 1 }];
-      }
-      localStorage.setItem("carrito", JSON.stringify(updated));
-      alert(`${producto.nombre} agregado al carrito ✅`);
-      return updated;
-    });
-  };
-
-  const productos = [
-    { nombre: "Audifonos GAMER", precio: 64990, img: audifonos },
-    { nombre: "Silla GAMER", precio: 72990, img: silla },
-    { nombre: "Escritorio GAMER", precio: 70990, img: escritorio },
-    { nombre: "Mando de Xbox GAMER", precio: 79990, img: mando },
-    { nombre: "Mouse GAMER", precio: 28990, img: mouse },
-    { nombre: "Mousepad GAMER", precio: 6990, img: mousepad },
-    { nombre: "Monitor GAMER", precio: 134990, img: monitor },
-    { nombre: "Teclado GAMER", precio: 15990, img: teclado },
-  ];
-
-  const totalProductos = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+    const filtered = productsData.filter((p) =>
+      p.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchTerm]);
 
   return (
     <>
-      <Header carritoCount={totalProductos} />
+      <Header />
+
       <main>
         <h2>PRODUCTOS</h2>
+
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Buscar productos..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
         <div className="productos-grid">
-          {productos.map((prod) => (
-            <Producto
-              key={prod.nombre}
-              nombre={prod.nombre}
-              precio={prod.precio}
-              img={prod.img}
-              onAdd={agregarAlCarrito}
+          {filteredProducts.map((product, index) => (
+            <ProductCard
+              key={index}
+              img={product.img}
+              title={product.title}
+              price={product.price}
             />
           ))}
         </div>
       </main>
+
       <Footer />
     </>
   );
 };
+
+export default ListaProducto;

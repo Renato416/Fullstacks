@@ -1,56 +1,70 @@
 import React, { useEffect } from "react";
-import { Header } from "../../components/Tienda/Header";
-import "../../assets/CSS/Tienda/blog.css";
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Tienda/Header";
+import Footer from "../../components/Tienda/Footer";
 
-export const Blog: React.FC = () => {
-  // 🔁 Actualiza el contador del carrito
-  const actualizarContadorCarrito = () => {
-    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    const totalItems = carrito.reduce(
-      (acc: number, producto: { cantidad: number }) => acc + producto.cantidad,
-      0
-    );
-    const contador = document.querySelector(".carrito-text");
-    if (contador) {
-      contador.textContent = `Productos (${totalItems})`;
-    }
-  };
+interface Noticia {
+  img: string;
+  titulo: string;
+  descripcion: string;
+  fecha: string;
+  link: string;
+}
+
+const noticias: Noticia[] = [
+  {
+    img: "/assets/IMG-NOTICIAS/ofertas-gamer.jpg",
+    titulo: "¡Semana de Ofertas Gamer!",
+    descripcion: "Descuentos especiales en periféricos, sillas y monitores. ¡Equipa tu setup al mejor precio!",
+    fecha: "Publicado el 25/10/2025",
+    link: "/noticia1",
+  },
+  {
+    img: "/assets/IMG-NOTICIAS/evento-gamer.jpg",
+    titulo: "Evento “LEVEL-UP EXPERIENCE”",
+    descripcion: "Ven a probar los últimos productos gamer y participa por premios exclusivos.",
+    fecha: "Publicado el 20/10/2025",
+    link: "/noticia2",
+  },
+];
+
+const Blog: React.FC = () => {
+  const navigate = useNavigate();
 
   useEffect(() => {
-    actualizarContadorCarrito();
+    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+    const totalItems = carrito.reduce((acc: number, producto: any) => acc + producto.cantidad, 0);
+    const contador = document.querySelector(".carrito-text");
+    if (contador) contador.textContent = `Productos (${totalItems})`;
   }, []);
 
   return (
     <>
       <Header />
-
       <main className="blog-container">
-        <h2>ACTUALIZACIONES DEL CATÁLOGO Y SISTEMA</h2>
+        <h2 className="blog-titulo">📰 Noticias y Actualizaciones</h2>
 
-        {/* Tarjeta 1 */}
-        <div className="card">
-          <div className="card-text">
-            <h3>ACTUALIZACIÓN CATÁLOGO</h3>
-            <p>
-              Catálogo actualizado para la expansión de variedad y gustos
-              diversificados del usuario.
-            </p>
-            <button>DETALLES ▼</button>
-          </div>
-        </div>
-
-        {/* Tarjeta 2 */}
-        <div className="card">
-          <div className="card-text">
-            <h3>ACTUALIZACIÓN SISTEMA</h3>
-            <p>
-              Sistema arreglado y preparado para el uso del usuario con mejoras
-              de rendimiento y estabilidad.
-            </p>
-            <button>DETALLES ▼</button>
-          </div>
+        <div className="noticias-grid">
+          {noticias.map((n, index) => (
+            <div
+              key={index}
+              className="noticia-card"
+              onClick={() => navigate(n.link)}
+              style={{ cursor: "pointer" }}
+            >
+              <img src={n.img} alt={n.titulo} className="noticia-img" />
+              <div className="noticia-texto">
+                <h3>{n.titulo}</h3>
+                <p>{n.descripcion}</p>
+                <span className="noticia-fecha">{n.fecha}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </main>
+      <Footer />
     </>
   );
 };
+
+export default Blog;

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Header } from "../../components/Tienda/Header";
+import Header from "../../components/Tienda/Header";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/registroUsuario.css";
 
