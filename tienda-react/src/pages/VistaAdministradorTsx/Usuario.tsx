@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
-
+import { usuarios } from "../../assets/data/data.ts";
 
 export default function Usuarios() {
+  const navigate = useNavigate();
+
   return (
     <div className="admin-app">
       <aside className="sidebar">
@@ -37,47 +39,51 @@ export default function Usuarios() {
         <header className="topbar">
           <h1>Vista Administrador - Usuarios</h1>
         </header>
+
         <section className="content">
-          <table className="user-table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Gmail</th>
-                <th>Edad</th>
-                <th>Teléfono</th>
-                <th>Dirección</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>U001</td>
-                <td>Juan Pérez</td>
-                <td>juan@Gmail.com</td>
-                <td>25</td>
-                <td>+56912345678</td>
-                <td>Santiago, Chile</td>
-                <td>
-                  <button className="btn-edit">Editar Usuario</button>
-                  <button className="btn-history">Ver Historial</button>
-                </td>
-              </tr>
-              <tr>
-                <td>U002</td>
-                <td>María López</td>
-                <td>maria@Gmail.com</td>
-                <td>30</td>
-                <td>+56987654321</td>
-                <td>Valparaíso, Chile</td>
-                <td>
-                  <button className="btn-edit">Editar Usuario</button>
-                  <button className="btn-history">Ver Historial</button>
-                </td>
-              </tr>
-              {/* Más usuarios */}
-            </tbody>
-          </table>
+          <div className="table-container">
+            <button
+              className="btn-add-user"
+              onClick={() => navigate("/usuarios-nuevo")}
+            >
+              Agregar Usuario
+            </button>
+
+            <table className="user-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Edad</th>
+                  <th>Teléfono</th>
+                  <th>Dirección</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.id}</td>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.edad}</td>
+                    <td>{usuario.telefono}</td>
+                    <td>{usuario.direccion}</td>
+                    <td>
+                      <button
+                        className="btn-edit"
+                        onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
+                      >
+                        Editar Usuario
+                      </button>
+                      <button className="btn-history">Ver Historial</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

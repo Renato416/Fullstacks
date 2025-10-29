@@ -57,3 +57,11 @@ export function agregarUsuario(usuario: Usuario) {
 export function obtenerUsuarios() {
   return usuarios;
 }
+
+// Función para actualizar usuario existente
+export function actualizarUsuario(id: string, datosActualizados: Partial<Usuario>) {
+  const index = usuarios.findIndex(u => u.id === id);
+  if (index !== -1) {
+    usuarios[index] = { ...usuarios[index], ...datosActualizados };
+  }
+}
