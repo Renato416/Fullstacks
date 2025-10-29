@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
+import "../../assets/CSS/Tienda/styles.css";
+import "../../assets/CSS/Tienda/blog.css";
 
 interface Noticia {
   img: string;

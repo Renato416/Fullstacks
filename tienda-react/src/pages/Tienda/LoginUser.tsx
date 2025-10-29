@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Tienda/Header";
+import Footer from "../../components/Tienda/Footer";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/inicioSesion.css";
 
-export const LoginUser: React.FC = () => {
+const LoginUser: React.FC = () => {
   // 🔁 Actualiza el contador de productos del carrito
   const actualizarContadorCarrito = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
@@ -26,8 +27,8 @@ export const LoginUser: React.FC = () => {
     const correo = (document.getElementById("correo") as HTMLInputElement).value.trim();
 
     if (correo.endsWith("@duocuc.cl")) {
-      // En una app real, usarías navigate("/ruta") o router.
-      window.location.href = "/admin/home";
+      // En una app real, usarías navigate("/ruta") de react-router-dom
+      window.location.href = "/dashboard";
     } else {
       alert("Acceso denegado: solo usuarios @duocuc.cl pueden entrar en esta demo.");
     }
@@ -39,17 +40,21 @@ export const LoginUser: React.FC = () => {
 
       <main className="InicioSesion-container">
         <h1>Inicio de sesión</h1>
+
+        <form className="form-login" id="loginForm" onSubmit={handleSubmit}>
+          <label htmlFor="correo">Correo:</label>
+          <input type="email" id="correo" name="correo" required />
+
+          <label htmlFor="contrasena">Contraseña:</label>
+          <input type="password" id="contrasena" name="contrasena" required />
+
+          <button type="submit">Iniciar Sesión</button>
+        </form>
       </main>
 
-      <form className="form-login" id="loginForm" onSubmit={handleSubmit}>
-        <label htmlFor="correo">Correo:</label>
-        <input type="email" id="correo" name="correo" required />
-
-        <label htmlFor="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required />
-
-        <button type="submit">Iniciar Sesión</button>
-      </form>
+      <Footer />
     </>
   );
 };
+
+export default LoginUser;

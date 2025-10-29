@@ -2,31 +2,18 @@ import React, { useState, useEffect } from "react";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
 import ProductCard from "../../components/Tienda/ProductoCard";
-
-interface Product {
-  img: string;
-  title: string;
-  price: string;
-}
-
-const productsData: Product[] = [
-  { img: "/assets/IMG/audifonos.jpeg", title: "Audifonos GAMER", price: "$64.990" },
-  { img: "/assets/IMG/silla.jpeg", title: "Silla GAMER", price: "$72.990" },
-  { img: "/assets/IMG/Escritorio.webp", title: "Escritorio GAMER", price: "$70.990" },
-  { img: "/assets/IMG/Mando.webp", title: "Mando de Xbox GAMER", price: "$79.990" },
-  { img: "/assets/IMG/Mause.webp", title: "Mouse GAMER", price: "$28.990" },
-  { img: "/assets/IMG/mausepad.avif", title: "Mousepad GAMER", price: "$6.990" },
-  { img: "/assets/IMG/monitor.jpeg", title: "Monitor GAMER", price: "$134.990" },
-  { img: "/assets/IMG/Teclado.webp", title: "Teclado GAMER", price: "$15.990" },
-];
+import { productos } from "../../assets/data/data";
+import type { Producto } from "../../assets/data/data"; // ✅ tipo importado correctamente
+import "../../assets/CSS/Tienda/styles.css";
+import "../../assets/CSS/Tienda/listaProducto.css";
 
 const ListaProducto: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>(productsData);
+  const [filteredProducts, setFilteredProducts] = useState<Producto[]>(productos);
 
   useEffect(() => {
-    const filtered = productsData.filter((p) =>
-      p.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = productos.filter((p) =>
+      p.nombre.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredProducts(filtered);
   }, [searchTerm]);
@@ -48,12 +35,12 @@ const ListaProducto: React.FC = () => {
         </div>
 
         <div className="productos-grid">
-          {filteredProducts.map((product, index) => (
+          {filteredProducts.map((product) => (
             <ProductCard
-              key={index}
-              img={product.img}
-              title={product.title}
-              price={product.price}
+              key={product.id}
+              img={product.imagen}
+              title={product.nombre}
+              price={`$${product.precio.toLocaleString()}`}
             />
           ))}
         </div>

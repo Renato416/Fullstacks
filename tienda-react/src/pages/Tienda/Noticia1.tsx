@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
+import "../../assets/CSS/Tienda/styles.css";
 
 const Noticia1: React.FC = () => {
   useEffect(() => {

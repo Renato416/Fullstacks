@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../../CSS/listaproducto.css";
-import "../../CSS/styles.css";
+import "../../assets/CSS/Tienda/listaProducto.css";
+import "../../assets/CSS/Tienda/styles.css";
 
 const Header: React.FC = () => {
   const [totalProductos, setTotalProductos] = useState(0);
@@ -39,8 +39,8 @@ const Header: React.FC = () => {
       </button>
 
       <nav className={`nav ${menuActivo ? "active" : ""}`}>
-        <Link to="/">Inicio</Link>
-        <Link to="/productos">Productos</Link>
+        <Link to="/dashboard">Inicio</Link>
+        <Link to="/listaproductos">Productos</Link>
         <Link to="/nosotros">Nosotros</Link>
         <Link to="/blog">Blogs</Link>
         <Link to="/contacto">Contactos</Link>
