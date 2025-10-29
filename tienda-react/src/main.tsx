@@ -53,6 +53,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/register" element ={<UserRegister/>}/>
         <Route path="/usuarios-nuevo" element={<UsuarioNuevo />} />
         <Route path="/producto-nuevo" element={<ProductoNuevo />} />
+        <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
+
 
         
       </Routes>
