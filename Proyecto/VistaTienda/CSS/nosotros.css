@@ -1,0 +1,73 @@
+/* ======= ESTILOS NOSOTROS ======= */
+.nosotros-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start; /* asegura que texto e imagen se alineen arriba */
+  padding: 40px 60px;
+  gap: 30px;
+}
+
+.nosotros-info {
+  flex: 1 1 50%;
+  color: #fff;
+  line-height: 1.6;
+  min-width: 300px; /* evita que el texto se encoja demasiado */
+}
+
+.nosotros-info h2 {
+  font-size: 2rem;
+  color: #1E90FF;
+  margin-bottom: 10px;
+}
+
+.nosotros-info h3 {
+  color: #00BFFF;
+  margin-top: 20px;
+}
+
+.nosotros-info p, .nosotros-info ul {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.nosotros-info ul li {
+  margin-left: 20px;
+  list-style: disc;
+}
+
+/* Imagen lateral */
+.nosotros-img {
+  flex: 1 1 40%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* alineamos la parte superior de la imagen con el texto */
+  min-width: 250px; /* asegura que no se haga demasiado pequeña */
+}
+
+.img-nosotros {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  object-fit: contain; /* evita deformar la imagen */
+}
+
+/* Responsivo */
+@media (max-width: 900px) {
+  .nosotros-container {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    align-items: center; /* centramos todo en móviles */
+  }
+
+  .nosotros-img {
+    order: -1;
+    margin-bottom: 20px; /* espacio entre imagen y texto */
+  }
+
+  .img-nosotros {
+    max-width: 90%;
+  }
+}

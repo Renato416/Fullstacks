@@ -1,0 +1,81 @@
+/* ======= ESTILOS CHECKOUT ======= */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #121212;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, strong {
+  color: #1E90FF;
+}
+
+.checkout-container {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.checkout-products, .checkout-form {
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  margin-bottom: 20px;
+}
+
+.checkout-product {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.checkout-product:last-child {
+  border-bottom: none;
+}
+
+.checkout-form label {
+  display: block;
+  margin: 15px 0 5px 0;
+  font-weight: bold;
+}
+
+.checkout-form input, .checkout-form select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #2b2b2b;
+  color: #fff;
+}
+
+.checkout-form button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #1E90FF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.checkout-form button:hover {
+  background-color: #00BFFF;
+}
+
+.checkout-result {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .checkout-container {
+    padding: 20px;
+  }
+}
