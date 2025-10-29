@@ -29,3 +29,74 @@
   margin: 3px 0;
   font-size: 14px;
 }
+
+/* ======= ESTILOS PARA LOS PRODUCTOS ======= */
+
+.productos-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px 30px;
+}
+
+.producto {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.producto:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+/* 🔹 Contenedor de imagen con altura fija */
+.producto-img {
+  width: 100%;
+  height: 200px;           /* Espacio reservado igual para todas las imágenes */
+  object-fit: contain;     /* Mantiene proporciones sin recortar */
+  border-radius: 8px;
+  background-color: #ffffff; /* Opcional: fondo para imágenes pequeñas */
+}
+
+/* 🔹 Título alineado a la misma altura */
+.producto-titulo {
+  font-size: 16px;
+  margin: 10px 0 5px 0;
+  min-height: 45px; /* Misma altura para el texto del título */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* 🔹 Precio consistente en todas las tarjetas */
+.producto-valor {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1E90FF;
+  margin-top: auto;
+}
+
+
+/* ======= ESTILOS PARA EL TÍTULO "LAS MEJORES OFERTAS" ======= */
+
+.titulo-ofertas {
+  text-align: center;
+  background-color: #1E90FF;
+  color: white;
+  padding: 20px 0;
+  margin-top: 10px;
+}
+
+.titulo-ofertas h2 {
+  font-size: 2em;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}

@@ -11,6 +11,7 @@
     --radius: 0.5rem;
 }
 
+/* ======= RESET ======= */
 * {
     margin: 0;
     padding: 0;
@@ -23,6 +24,7 @@ body {
     color: var(--font-color);
 }
 
+/* ======= HEADER ======= */
 .Logo-container {
     display: flex;
     align-items: center;
@@ -49,7 +51,6 @@ header {
     font-weight: bold;
     margin: 0 0.5rem;
 }
-
 
 .Carrito {
     display: flex;
@@ -90,11 +91,12 @@ header {
     text-decoration: underline;
 }
 
-
+/* ======= MAIN ======= */
 main {
     padding: 2rem;
 }
 
+/* ======= CARRO DE COMPRAS ======= */
 .cart-container {
     display: flex;
     gap: 2rem;
@@ -171,7 +173,6 @@ main {
     border-radius: 0.25rem;
 }
 
-
 .product .remove {
     margin-top: 0.5rem;
     padding: 0.5rem 1rem;
@@ -182,7 +183,7 @@ main {
     border-radius: var(--radius);
     cursor: pointer;
     transition: background 0.2s;
-    width: 100%; 
+    width: 100%;
     text-align: center;
 }
 
@@ -190,7 +191,7 @@ main {
     background-color: var(--danger-hover);
 }
 
-
+/* ======= RESUMEN ======= */
 .summary {
     flex: 1;
     border: 1px solid #444;
@@ -237,7 +238,7 @@ main {
     background-color: #005fa3;
 }
 
-.summary .pay {
+.summary .buy {
     width: 100%;
     padding: 0.75rem;
     background-color: green;
@@ -248,11 +249,11 @@ main {
     cursor: pointer;
 }
 
-.summary .pay:hover {
+.summary .buy:hover {
     background-color: darkgreen;
 }
 
-
+/* ======= FOOTER ======= */
 footer {
     background: var(--primary-color);
     padding: 2rem;
@@ -279,4 +280,66 @@ footer {
     border: none;
     border-radius: var(--radius);
     cursor: pointer;
+}
+
+/* ======= CHECKOUT ======= */
+.checkout-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem;
+    background: var(--panel-bg);
+    border-radius: var(--radius);
+    border: 1px solid #444;
+    margin-top: 2rem;
+}
+
+.checkout-container label {
+    display: block;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.checkout-container input,
+.checkout-container select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    background: var(--panel-secondary);
+    color: var(--font-color);
+    border-radius: var(--radius);
+}
+
+.checkout-container .finish {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: green;
+    color: var(--font-color);
+    border: none;
+    font-weight: bold;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+.checkout-container .finish:hover {
+    background-color: darkgreen;
+}
+
+.checkout-result {
+    font-weight: bold;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: var(--radius);
+}
+
+.checkout-success {
+    background-color: green;
+    color: var(--font-color);
+}
+
+.checkout-fail {
+    background-color: var(--danger-color);
+    color: var(--font-color);
 }
