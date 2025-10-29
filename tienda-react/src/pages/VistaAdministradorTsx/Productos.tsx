@@ -1,6 +1,6 @@
 // Productos.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
@@ -14,8 +14,9 @@ import Mousepad from "../../assets/IMG/mausepad.avif";
 import Monitor from "../../assets/IMG/monitor.jpeg";
 import Teclado from "../../assets/IMG/Teclado.webp";
 
-
 export default function Productos() {
+  const navigate = useNavigate();
+
   const productos = [
     { codigo: "AC001", categoria: "Accesorios", imagen: Audifonos, nombre: "Audifonos GAMER", precio: "$64.990 CLP" },
     { codigo: "SG001", categoria: "Sillas Gamers", imagen: Silla, nombre: "Silla GAMER", precio: "$72.990 CLP" },
@@ -26,6 +27,10 @@ export default function Productos() {
     { codigo: "MO001", categoria: "Monitores", imagen: Monitor, nombre: "Monitor GAMER", precio: "$134.990 CLP" },
     { codigo: "TE001", categoria: "Teclados", imagen: Teclado, nombre: "Teclado GAMER", precio: "$15.990 CLP" },
   ];
+
+  const handleEliminar = (codigo: string) => {
+    console.log("Eliminar producto con código:", codigo);
+  };
 
   return (
     <div className="admin-app">
@@ -60,34 +65,57 @@ export default function Productos() {
           <h1>Vista Administrador - Productos</h1>
         </header>
         <section className="content">
-          <table className="product-table">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Categoría</th>
-                <th>Imagen</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {productos.map((prod) => (
-                <tr key={prod.codigo}>
-                  <td>{prod.codigo}</td>
-                  <td>{prod.categoria}</td>
-                  <td>
-                    <img src={prod.imagen} alt={prod.nombre} className="mini-img" />
-                  </td>
-                  <td>{prod.nombre}</td>
-                  <td>{prod.precio}</td>
-                  <td>
-                    <button className="btn-edit">Editar</button>
-                  </td>
+          <div className="table-wrapper">
+            {/* Botón Agregar Producto arriba */}
+            <div className="table-header">
+              <button
+                className="btn-add-user"
+                onClick={() => navigate("/producto-nuevo")}
+              >
+                Agregar Producto
+              </button>
+            </div>
+
+            <table className="product-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Categoría</th>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {productos.map((prod) => (
+                  <tr key={prod.codigo}>
+                    <td>{prod.codigo}</td>
+                    <td>{prod.categoria}</td>
+                    <td>
+                      <img src={prod.imagen} alt={prod.nombre} className="mini-img" />
+                    </td>
+                    <td>{prod.nombre}</td>
+                    <td>{prod.precio}</td>
+                    <td>
+                      <button
+                        className="btn-edit"
+                        onClick={() => navigate(`/producto-editar/${prod.codigo}`)}
+                      >
+                        Editar
+                      </button>
+                      <button
+                        className="btn-delete"
+                        onClick={() => handleEliminar(prod.codigo)}
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

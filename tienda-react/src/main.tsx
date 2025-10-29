@@ -11,7 +11,7 @@ import Reportes from "./pages/VistaAdministradorTsx/Reportes";
 import Perfil from "./pages/VistaAdministradorTsx/Perfil";
 import Usuario from "./pages/VistaAdministradorTsx/Usuario";
 import UsuarioNuevo from "./pages/VistaAdministradorTsx/UsuarioNuevo";
-// main.tsx o index.tsx donde defines las rutas
+import ProductoNuevo from "./pages/VistaAdministradorTsx/ProductoNuevo";
 import EditarUsuario from "./pages/VistaAdministradorTsx/EditarUsuario"; 
 
 
@@ -29,8 +29,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/perfil" element={<Perfil />} />
         <Route path="/usuarios" element={<Usuario />} />
         <Route path="/usuarios-nuevo" element={<UsuarioNuevo />} />
-        <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
+        <Route path="/producto-nuevo" element={<ProductoNuevo />} />
 
+        
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

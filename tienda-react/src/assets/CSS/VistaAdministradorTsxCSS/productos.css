@@ -134,7 +134,7 @@ body {
   color: #000000;
 }
 
-.btn-edit {
+.btn-edit, .btn-delete {
   padding: 5px 10px;
   border: none;
   border-radius: 4px;
@@ -154,4 +154,57 @@ body {
   height: 60px;
   object-fit: cover;
   border-radius: 5px;
+}
+/* Contenedor de botón + tabla */
+.table-wrapper {
+  display: flex;
+  flex-direction: column; /* esto fuerza que los elementos estén uno encima del otro */
+  gap: 10px; /* espacio entre botón y tabla */
+}
+
+.table-header {
+  display: flex;
+  justify-content: flex-start; /* botón alineado a la izquierda */
+}
+
+.btn-add-user {
+  padding: 10px 20px;
+  background-color: #1E90FF;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-add-user:hover {
+  background-color: #32CC11;
+}
+
+.form-producto {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  gap: 12px;
+}
+
+.form-producto label {
+  font-weight: bold;
+}
+
+.form-producto input,
+.form-producto select {
+  padding: 8px 10px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #000;
+  color: #fff;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
 }
