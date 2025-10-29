@@ -1,0 +1,95 @@
+<!-- CSS: ordenes.css -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Órdenes - Level-Up Gamer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/ordenes.css">
+</head>
+<body>
+<div class="admin-app">
+  <aside class="sidebar">
+    <div class="brand">
+      <a href="dashboard.html">
+        <img src="../IMG/icon-level-up.png" alt="Logo" class="logo">
+      </a>
+      <div class="brand-text">
+        <div class="title">Level-Up Gamer</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html">Dashboard</a>
+      <a class="nav-item active" href="ordenes.html">Órdenes</a>
+      <a class="nav-item" href="productos.html">Productos</a>
+      <a class="nav-item" href="categorias.html">Categorías</a>
+      <a class="nav-item" href="usuario.html">Usuarios</a>
+      <a class="nav-item" href="reportes.html">Reportes</a>
+    </nav>
+    <div class="nav-extra">
+      <a class="nav-item" href="perfil.html">Perfil</a>
+      <a class="nav-item" href="#">Tienda</a>
+    </div>
+    <div class="sidebar-foot">
+      <button class="btn-logout">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Vista Administrador - Órdenes</h1>
+    </header>
+    <section class="content">
+      <table class="orders-table">
+        <thead>
+          <tr>
+            <th>ID Orden</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>001</td>
+            <td>Juan Pérez</td>
+            <td>2025-10-28</td>
+            <td>$149.990 CLP</td>
+            <td>Pendiente</td>
+            <td>
+              <button class="btn-view">Ver Detalle</button>
+              <button class="btn-update">Marcar Entregada</button>
+            </td>
+          </tr>
+          <tr>
+            <td>002</td>
+            <td>María López</td>
+            <td>2025-10-27</td>
+            <td>$72.990 CLP</td>
+            <td>Entregado</td>
+            <td>
+              <button class="btn-view">Ver Detalle</button>
+              <button class="btn-update">Marcar Entregada</button>
+            </td>
+          </tr>
+          <tr>
+            <td>003</td>
+            <td>Carlos Gómez</td>
+            <td>2025-10-26</td>
+            <td>$134.990 CLP</td>
+            <td>En Proceso</td>
+            <td>
+              <button class="btn-view">Ver Detalle</button>
+              <button class="btn-update">Marcar Entregada</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+</body>
+</html>

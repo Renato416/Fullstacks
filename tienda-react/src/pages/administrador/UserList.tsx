@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../assets/CSS/administrador/listado_usuario.css";
+import { Link } from "react-router-dom";
+//import "../../assets/CSS/administrador/listado_usuario.css";
 
 interface User {
   date: string;
@@ -46,16 +47,16 @@ export const UserList: React.FC = () => {
           <span>Level-Up</span>
         </div>
         <nav className="menu">
-          <a href="/administrador/HomeAdmin" >📊 Dashboard</a>
-          <a href="/administrador/ProductList">📦 Inventario</a>
-          <a href="#">📑 Reportes</a>
-          <a href="/administrador/UserList" className="active">👨‍💼 Empleados</a>
-          <a href="#">👥 Clientes</a>
+          <Link to="/">📊 Dashboard</Link>
+          <Link to="/inventario">📦 Inventario</Link>
+          <Link to="#">📑 Reportes</Link>
+          <Link to="/usuarios" className="active">👨‍💼 Empleados</Link>
+          <Link to="#">👥 Clientes</Link>
         </nav>
         <div className="bottom-menu">
-          <a href="#">⚙️ Configuración</a>
-          <a href="#">🙍 Perfil</a>
-          <a href="#">❓ Help</a>
+          <Link to="#">⚙️ Configuración</Link>
+          <Link to="#">🙍 Perfil</Link>
+          <Link to="#">❓ Help</Link>
         </div>
         <div className="profile">
           <span>👤</span> Profile
@@ -65,9 +66,9 @@ export const UserList: React.FC = () => {
       <main className="main-content">
         <div className="main-header">
           <h1>Usuarios</h1>
-          <a href="/administrador/RegisterUser">
+          <Link to="/registrar-usuario">
             <button className="btn-nuevo">NUEVO USUARIO</button>
-          </a>
+          </Link>
         </div>
 
         <div className="content-box">

@@ -1,0 +1,96 @@
+<!-- CSS: categorias.css -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Categorías - Level-Up Gamer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/categorias.css">
+</head>
+<body>
+<div class="admin-app">
+  <aside class="sidebar">
+    <div class="brand">
+      <a href="dashboard.html">
+        <img src="../IMG/icon-level-up.png" alt="Logo" class="logo">
+      </a>
+      <div class="brand-text">
+        <div class="title">Level-Up Gamer</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html">Dashboard</a>
+      <a class="nav-item" href="ordenes.html">Órdenes</a>
+      <a class="nav-item" href="productos.html">Productos</a>
+      <a class="nav-item active" href="categorias.html">Categorías</a>
+      <a class="nav-item" href="usuario.html">Usuarios</a>
+      <a class="nav-item" href="reportes.html">Reportes</a>
+    </nav>
+    <div class="nav-extra">
+      <a class="nav-item" href="perfil.html">Perfil</a>
+      <a class="nav-item" href="#">Tienda</a>
+    </div>
+    <div class="sidebar-foot">
+      <button class="btn-logout">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Vista Administrador - Categorías</h1>
+    </header>
+    <section class="content">
+      <table class="category-table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Nombre de Categoría</th>
+            <th>Número de Productos</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>JM</td><td>Juegos de Mesa</td><td>2</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>AC</td><td>Accesorios</td><td>2</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>CO</td><td>Consolas</td><td>1</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>CG</td><td>Computadores Gamers</td><td>1</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>SG</td><td>Sillas Gamers</td><td>1</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>MS</td><td>Mouse</td><td>1</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>MP</td><td>Mousepad</td><td>1</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>PP</td><td>Poleras Personalizadas</td><td>1</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+          <tr>
+            <td>PL</td><td>Polerones Gamers Personalizados</td><td>0</td>
+            <td><button class="btn-edit">Editar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+</body>
+</html>

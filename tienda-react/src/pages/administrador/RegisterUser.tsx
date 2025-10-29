@@ -1,7 +1,9 @@
 import React from "react";
-import "../../assets/CSS/administrador/reg_usuario.css";
+import { Link, useNavigate } from "react-router-dom";
 
 export const RegisterUser: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -29,7 +31,7 @@ export const RegisterUser: React.FC = () => {
       telefono,
       rol,
       departamento,
-      fecha: new Date().toISOString().slice(0, 10)
+      fecha: new Date().toISOString().slice(0, 10),
     };
 
     const usuarios = JSON.parse(localStorage.getItem("usuarios") || "[]");
@@ -37,28 +39,31 @@ export const RegisterUser: React.FC = () => {
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     alert("Usuario registrado con éxito ✅");
-    window.location.href = "/administrador/UserList";
+    navigate("/usuarios");
   };
 
   return (
     <div className="user-register-container">
       <aside className="sidebar">
         <div className="logo">
-          <img src="/VistaTienda/IMG/icon-level-up.png" alt="Logo" />Level-Up
+          <img src="/IMG/icon-level-up.png" alt="Logo" />
+          Level-Up
         </div>
 
         <nav className="menu">
-          <a href="/administrador/HomeAdmin">📊 Dashboard</a>
-          <a href="/administrador/RegisterProduct">📦 Productos</a>
-          <a href="#">📑 Reportes</a>
-          <a href="/administrador/RegisterUser" className="active">👨‍💼 Empleados</a>
-          <a href="#">👥 Clientes</a>
+          <Link to="/">📊 Dashboard</Link>
+          <Link to="/inventario">📦 Productos</Link>
+          <Link to="#">📑 Reportes</Link>
+          <Link to="/registrar-usuario" className="active">
+            👨‍💼 Empleados
+          </Link>
+          <Link to="#">👥 Clientes</Link>
         </nav>
 
         <div className="bottom-menu">
-          <a href="#">⚙️ Configuración</a>
-          <a href="#">🙍 Perfil</a>
-          <a href="#">❓ Help</a>
+          <Link to="#">⚙️ Configuración</Link>
+          <Link to="#">🙍 Perfil</Link>
+          <Link to="#">❓ Help</Link>
         </div>
 
         <div className="profile">
@@ -114,7 +119,9 @@ export const RegisterUser: React.FC = () => {
               </div>
             </div>
 
-            <button type="submit" className="btn-submit">REGISTRAR</button>
+            <button type="submit" className="btn-submit">
+              REGISTRAR
+            </button>
           </form>
         </div>
       </main>

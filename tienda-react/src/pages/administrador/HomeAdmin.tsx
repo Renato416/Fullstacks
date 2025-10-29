@@ -1,5 +1,6 @@
 import React from "react";
-import "../../assets/CSS/administrador/home_admin.css";
+import { Link } from "react-router-dom";
+//import "../../assets/CSS/administrador/home_admin.css";
 
 export const HomeAdmin: React.FC = () => {
   return (
@@ -16,17 +17,17 @@ export const HomeAdmin: React.FC = () => {
           </div>
 
           <nav className="menu flex-grow-1">
-            <a href="#" className="active">📊 Dashboard</a>
-            <a href="listado_produc.html">📦 Inventario</a>
-            <a href="#">📑 Reportes</a>
-            <a href="listado_usuario.html">👨‍💼 Empleados</a>
-            <a href="#">👥 Clientes</a>
+            <Link to="/" className="active">📊 Dashboard</Link>
+            <Link to="/inventario">📦 Inventario</Link>
+            <Link to="#">📑 Reportes</Link>
+            <Link to="/usuarios">👨‍💼 Empleados</Link>
+            <Link to="#">👥 Clientes</Link>
           </nav>
 
           <div className="bottom-menu mt-auto">
-            <a href="#">⚙️ Configuración</a>
-            <a href="#">🙍 Perfil</a>
-            <a href="#">❓ Help</a>
+            <Link to="#">⚙️ Configuración</Link>
+            <Link to="#">🙍 Perfil</Link>
+            <Link to="#">❓ Help</Link>
           </div>
 
           <div className="profile text-center mt-3">

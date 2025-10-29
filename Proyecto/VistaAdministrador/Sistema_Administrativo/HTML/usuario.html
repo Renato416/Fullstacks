@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuarios - Level-Up Gamer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../CSS/usuario.css">
+</head>
+<body>
+  <div class="admin-app">
+    <aside class="sidebar">
+      <div class="brand">
+        <a href="dashboard.html">
+          <img src="../IMG/icon-level-up.png" alt="Logo" class="logo">
+        </a>
+        <div class="brand-text">
+          <div class="title">Level-Up Gamer</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="nav-item" href="dashboard.html">Dashboard</a>
+        <a class="nav-item" href="ordenes.html">Órdenes</a>
+        <a class="nav-item" href="productos.html">Productos</a>
+        <a class="nav-item" href="categorias.html">Categorías</a>
+        <a class="nav-item active" href="usuario.html">Usuarios</a>
+        <a class="nav-item" href="reportes.html">Reportes</a>
+      </nav>
+      <div class="nav-extra">
+        <a class="nav-item" href="perfil.html">Perfil</a>
+        <a class="nav-item" href="#">Tienda</a>
+      </div>
+      <div class="sidebar-foot">
+        <button class="btn-logout">Cerrar sesión</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1>Vista Administrador - Usuarios</h1>
+      </header>
+      <section class="content">
+        <table class="user-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Gmail</th>
+              <th>Edad</th>
+              <th>Teléfono</th>
+              <th>Dirección</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>U001</td>
+              <td>Juan Pérez</td>
+              <td>juan@Gmail.com</td>
+              <td>25</td>
+              <td>+56912345678</td>
+              <td>Santiago, Chile</td>
+              <td>
+                <button class="btn-edit">Editar Usuario</button>
+                <button class="btn-history">Ver Historial</button>
+              </td>
+            </tr>
+            <tr>
+              <td>U002</td>
+              <td>María López</td>
+              <td>maria@Gmail.com</td>
+              <td>30</td>
+              <td>+56987654321</td>
+              <td>Valparaíso, Chile</td>
+              <td>
+                <button class="btn-edit">Editar Usuario</button>
+                <button class="btn-history">Ver Historial</button>
+              </td>
+            </tr>
+            <!-- Más usuarios -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

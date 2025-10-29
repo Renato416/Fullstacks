@@ -1,7 +1,10 @@
 import React from "react";
-import "../../assets/CSS/administrador/reg_producto.css";
+import { Link, useNavigate } from "react-router-dom";
+//import "../../assets/CSS/administrador/registro_producto.css";
 
 export const RegisterProduct: React.FC = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -25,7 +28,7 @@ export const RegisterProduct: React.FC = () => {
     localStorage.setItem("productos", JSON.stringify(productos));
 
     alert("Producto agregado con éxito ✅");
-    window.location.href = "/administrador/ProductList";
+    navigate("/inventario");
   };
 
   return (
@@ -36,17 +39,17 @@ export const RegisterProduct: React.FC = () => {
         </div>
 
         <nav className="menu">
-          <a href="/administrador/HomeAdmin">📊 Dashboard</a>
-          <a href="/administrador/RegisterProduct" className="active">📦 Productos</a>
-          <a href="#">📑 Reportes</a>
-          <a href="/administrador/UserList">👨‍💼 Empleados</a>
-          <a href="#">👥 Clientes</a>
+          <Link to="/">📊 Dashboard</Link>
+          <Link to="/inventario" className="active">📦 Productos</Link>
+          <Link to="#">📑 Reportes</Link>
+          <Link to="/usuarios">👨‍💼 Empleados</Link>
+          <Link to="#">👥 Clientes</Link>
         </nav>
 
         <div className="bottom-menu">
-          <a href="#">⚙️ Configuración</a>
-          <a href="#">🙍 Perfil</a>
-          <a href="#">❓ Help</a>
+          <Link to="#">⚙️ Configuración</Link>
+          <Link to="#">🙍 Perfil</Link>
+          <Link to="#">❓ Help</Link>
         </div>
 
         <div className="profile">

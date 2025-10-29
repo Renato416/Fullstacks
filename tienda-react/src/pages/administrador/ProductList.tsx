@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import "../../assets/CSS/administrador/listado_product.css";
+//import "../../assets/CSS/administrador/listado_product.css";
+import { Link } from "react-router-dom";
 
 interface Product {
   date: string;
@@ -52,17 +53,17 @@ export const ProductList: React.FC = () => {
           </div>
 
           <nav className="menu flex-grow-1">
-            <a href="Home_ad.html">📊 Dashboard</a>
-            <a href="listado_produc.html" className="active">📦 Inventario</a>
-            <a href="#">📑 Reportes</a>
-            <a href="listado_usuario.html">👨‍💼 Empleados</a>
-            <a href="#">👥 Clientes</a>
+            <Link to="/" className="">📊 Dashboard</Link>
+            <Link to="/inventario" className="active">📦 Inventario</Link>
+            <Link to="#">📑 Reportes</Link>
+            <Link to="/usuarios">👨‍💼 Empleados</Link>
+            <Link to="#">👥 Clientes</Link>
           </nav>
 
           <div className="bottom-menu mt-auto">
-            <a href="#">⚙️ Configuración</a>
-            <a href="#">🙍 Perfil</a>
-            <a href="#">❓ Help</a>
+            <Link to="#">⚙️ Configuración</Link>
+            <Link to="#">🙍 Perfil</Link>
+            <Link to="#">❓ Help</Link>
           </div>
 
           <div className="profile text-center mt-3">
@@ -73,9 +74,9 @@ export const ProductList: React.FC = () => {
         <main className="col-md-9 col-lg-10 main-content">
           <header className="main-header d-flex justify-content-between align-items-center">
             <h1>Productos</h1>
-            <a href="registro_producto.html">
-              <button className="btn-nuevo">NUEVO PRODUCTO</button>
-            </a>
+            <Link to="/registrar-producto">
+               <button className="btn-nuevo">NUEVO PRODUCTO</button>
+            </Link> 
           </header>
 
           <section className="content-box mt-4">

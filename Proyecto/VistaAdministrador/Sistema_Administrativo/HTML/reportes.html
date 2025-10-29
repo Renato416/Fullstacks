@@ -1,0 +1,95 @@
+<!-- CSS: reportes.css -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reportes - Level-Up Gamer</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../CSS/reportes.css">
+</head>
+<body>
+<div class="admin-app">
+  <aside class="sidebar">
+    <div class="brand">
+      <a href="dashboard.html">
+        <img src="../IMG/icon-level-up.png" alt="Logo" class="logo">
+      </a>
+      <div class="brand-text">
+        <div class="title">Level-Up Gamer</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" href="dashboard.html">Dashboard</a>
+      <a class="nav-item" href="ordenes.html">Órdenes</a>
+      <a class="nav-item" href="productos.html">Productos</a>
+      <a class="nav-item" href="categorias.html">Categorías</a>
+      <a class="nav-item" href="usuario.html">Usuarios</a>
+      <a class="nav-item active" href="reportes.html">Reportes</a>
+    </nav>
+    <div class="nav-extra">
+      <a class="nav-item" href="perfil.html">Perfil</a>
+      <a class="nav-item" href="#">Tienda</a>
+    </div>
+    <div class="sidebar-foot">
+      <button class="btn-logout">Cerrar sesión</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <h1>Vista Administrador - Reportes</h1>
+    </header>
+    <section class="content">
+      <h2>Ventas por Categoría</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Categoría</th>
+            <th>Productos Vendidos</th>
+            <th>Total en CLP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Juegos de Mesa</td><td>10</td><td>$249.900</td></tr>
+          <tr><td>Accesorios</td><td>15</td><td>$1.199.850</td></tr>
+          <tr><td>Consolas</td><td>5</td><td>$2.749.950</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Ventas por Producto</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad Vendida</th>
+            <th>Total en CLP</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Audifonos GAMER</td><td>5</td><td>$324.950</td></tr>
+          <tr><td>Silla GAMER</td><td>3</td><td>$218.970</td></tr>
+          <tr><td>Monitor GAMER</td><td>2</td><td>$269.980</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Usuarios con Compras</h2>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Usuario</th>
+            <th>Email</th>
+            <th>Total Comprado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Juan Pérez</td><td>juan@email.com</td><td>$64.990</td></tr>
+          <tr><td>María López</td><td>maria@email.com</td><td>$72.990</td></tr>
+          <tr><td>Carlos Soto</td><td>carlos@email.com</td><td>$134.990</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+</body>
+</html>
