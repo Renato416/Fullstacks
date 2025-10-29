@@ -1,39 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrito de Compras - LEVEL-UP GAMER</title>
   <link rel="stylesheet" href="../CSS/carrito_com.css">
+  <link rel="stylesheet" href="../CSS/styles.css"/>
 </head>
 <body>
 
 <header class="Header">
-    <div class="Logo-container">
-        <a href="index.html">
-            <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
-        </a>
-        <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
-    </div>
-    <nav class="nav">
-        <a href="index.html">Inicio</a>
-        <a href="listaProducto.html">Productos</a>
-        <a href="#">Nosotros</a>
-        <a href="blog.html">Blogs</a>
-        <a href="contacto.html">Contactos</a>
-    </nav>
-    <div class="Carrito">
-        <button class="button-carrito">
-            <span class="carrito-text">Productos (0)</span>
-            <a href="carrito_compras.html">
-            <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
-            </a>
-        </button>
-        <div class="inicio-registrar">
-            <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
-            <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
-        </div>
-    </div>
+  <div class="Logo-container">
+      <a href="index.html">
+          <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+      </a>
+      <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
+  </div>
+  <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="listaProducto.html">Productos</a>
+      <a href="#">Nosotros</a>
+      <a href="blog.html">Blogs</a>
+      <a href="contacto.html">Contactos</a>
+  </nav>
 </header>
 
 <main>
@@ -46,7 +35,7 @@
       <p class="total-amount" id="totalAmount">$0</p>
       <input type="text" placeholder="Ingrese el cupón de descuento" id="coupon">
       <button class="apply" id="applyCoupon">APLICAR</button>
-      <button class="pay" id="payCart">PAGAR</button>
+      <button class="buy" id="buyCart">COMPRAR</button>
     </div>
   </div>
 </main>
@@ -55,15 +44,27 @@
 document.addEventListener('DOMContentLoaded', () => {
   const cartProductsDiv = document.getElementById('cartProducts');
   const totalAmountP = document.getElementById('totalAmount');
+  const couponInput = document.getElementById('coupon');
+  const applyCouponBtn = document.getElementById('applyCoupon');
+  const buyCartBtn = document.getElementById('buyCart');
 
   let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  let discountApplied = false;
 
   function renderCarrito() {
     cartProductsDiv.innerHTML = '';
     let total = 0;
 
+    if (carrito.length === 0) {
+      cartProductsDiv.innerHTML = '<p style="text-align:center; color:white;">Tu carrito está vacío 🛒</p>';
+      totalAmountP.textContent = "$0";
+      return;
+    }
+
     carrito.forEach((p, i) => {
-      total += p.precio * p.cantidad;
+      const precioNumerico = parseFloat(p.precio);
+      const subtotal = precioNumerico * p.cantidad;
+      total += subtotal;
 
       const productDiv = document.createElement('div');
       productDiv.classList.add('product');
@@ -71,66 +72,80 @@ document.addEventListener('DOMContentLoaded', () => {
         <img src="${p.img}" alt="${p.nombre}" class="product-image">
         <div class="product-info">
           <h2>${p.nombre}</h2>
+          <p class="unit-price">Precio: $${precioNumerico.toLocaleString()}</p>
         </div>
-        <div class="product-price">
-          <span>$${p.precio.toLocaleString()}</span>
+        <div class="product-actions">
           <div class="quantity">
-            <button class="minus">-</button>
+            <button class="minus" data-index="${i}">-</button>
             <input type="number" value="${p.cantidad}" min="1" data-index="${i}">
-            <button class="plus">+</button>
-            <button class="remove" data-index="${i}">Eliminar</button>
+            <button class="plus" data-index="${i}">+</button>
           </div>
+          <p class="subtotal">Subtotal: $${subtotal.toLocaleString()}</p>
+          <button class="remove" data-index="${i}">Eliminar</button>
         </div>
       `;
       cartProductsDiv.appendChild(productDiv);
     });
 
-    totalAmountP.textContent = `$ ${total.toLocaleString()}`;
+    if (discountApplied) total *= 0.8; // 20% de descuento
+    totalAmountP.textContent = `$${total.toLocaleString()}`;
   }
 
+  // Aumentar, disminuir y eliminar
   cartProductsDiv.addEventListener('click', (e) => {
     const target = e.target;
-    if(target.classList.contains('plus') || target.classList.contains('minus') || target.classList.contains('remove')){
-      const input = target.parentElement.querySelector('input');
-      const index = parseInt(input.dataset.index);
+    const index = parseInt(target.dataset.index);
+    if (isNaN(index)) return;
 
-      if(target.classList.contains('plus')){
-        carrito[index].cantidad++;
-      } else if(target.classList.contains('minus')){
-        if(carrito[index].cantidad > 1) carrito[index].cantidad--;
-      } else if(target.classList.contains('remove')){
-        carrito.splice(index, 1);
-      }
-
-      localStorage.setItem('carrito', JSON.stringify(carrito));
-      renderCarrito();
+    if (target.classList.contains('plus')) {
+      carrito[index].cantidad++;
+    } else if (target.classList.contains('minus')) {
+      if (carrito[index].cantidad > 1) carrito[index].cantidad--;
+    } else if (target.classList.contains('remove')) {
+      carrito.splice(index, 1);
     }
+
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    renderCarrito();
   });
 
+  // Cambiar cantidad manualmente
   cartProductsDiv.addEventListener('change', (e) => {
-    if(e.target.tagName === 'INPUT'){
+    if (e.target.tagName === 'INPUT') {
       const index = parseInt(e.target.dataset.index);
       let val = parseInt(e.target.value);
-      if(val < 1) val = 1;
+      if (val < 1 || isNaN(val)) val = 1;
       carrito[index].cantidad = val;
       localStorage.setItem('carrito', JSON.stringify(carrito));
       renderCarrito();
     }
   });
 
+  // Aplicar cupón
+  applyCouponBtn.addEventListener('click', () => {
+    const code = couponInput.value.trim();
+    if (code === "Level-up") {
+      discountApplied = true;
+      alert("Cupón aplicado: 20% de descuento ✅");
+    } else {
+      discountApplied = false;
+      alert("Cupón inválido ❌");
+    }
+    renderCarrito();
+  });
+
+  // Comprar
+  buyCartBtn.addEventListener('click', () => {
+    if (carrito.length === 0) {
+      alert("Tu carrito está vacío 😅");
+      return;
+    }
+    localStorage.setItem('descuento', discountApplied);
+    window.location.href = "checkout.html";
+  });
+
   renderCarrito();
 });
-function actualizarContadorCarrito() {
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const totalItems = carrito.reduce((acc, producto) => acc + producto.cantidad, 0);
-    const contador = document.querySelector('.carrito-text');
-    if(contador) {
-        contador.textContent = `Productos (${totalItems})`;
-    }
-}
-
-
-document.addEventListener('DOMContentLoaded', actualizarContadorCarrito);
 </script>
 
 </body>

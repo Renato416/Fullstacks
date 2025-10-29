@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Productos - LEVEL-UP GAMER</title>
-<link rel="stylesheet" href="../CSS/listaProducto.css">
+<link rel="stylesheet" href="../CSS/listaproducto.css">
+<link rel="stylesheet" href="../CSS/styles.css"/>
 </head>
 <body>
 
@@ -15,13 +16,15 @@
     </a>
     <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
   </div>
+
   <nav class="nav">
     <a href="index.html">Inicio</a>
     <a href="listaProducto.html">Productos</a>
-    <a href="#">Nosotros</a>
+    <a href="nosotros.html">Nosotros</a>
     <a href="blog.html">Blogs</a>
     <a href="contacto.html">Contactos</a>
   </nav>
+
   <div class="Carrito">
     <button class="button-carrito">
       <span class="carrito-text">Productos (0)</span>
@@ -29,68 +32,75 @@
         <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
       </a>
     </button>
-    <div class="inicio-registrar">
-      <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
-      <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
+    <div class="user-buttons">
+      <a href="LoginUser.html" class="btn-login">Inicio de sesión</a>
+      <a href="UserRegister.html" class="btn-register">Registrar usuario</a>
     </div>
   </div>
 </header>
 
 <main>
   <h2>PRODUCTOS</h2>
-  <div class="productos-grid">
 
-    <div class="producto" data-nombre="Audifonos GAMER" data-precio="64990" data-img="../IMG/IMG-PRODUCTOS/audifonos.jpeg">
-      <img src="../IMG/IMG-PRODUCTOS/audifonos.jpeg" alt="audifonos GAMER" class="audifonos">
+  <!-- Barra de búsqueda -->
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Buscar productos...">
+  </div>
+
+  <div class="productos-grid" id="productosGrid">
+
+    <!-- Productos -->
+    <div class="producto" data-nombre="Audifonos GAMER" data-precio="64990">
+      <img src="../IMG/IMG-PRODUCTOS/audifonos.jpeg" alt="Audifonos GAMER">
       <p class="titulo">Audifonos GAMER</p>
       <p class="precio">$64.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Silla GAMER" data-precio="72990" data-img="../IMG/IMG-PRODUCTOS/silla.jpeg">
-      <img src="../IMG/IMG-PRODUCTOS/silla.jpeg" alt="silla GAMER" class="silla">
+    <div class="producto" data-nombre="Silla GAMER" data-precio="72990">
+      <img src="../IMG/IMG-PRODUCTOS/silla.jpeg" alt="Silla GAMER">
       <p class="titulo">Silla GAMER</p>
       <p class="precio">$72.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Escritorio GAMER" data-precio="70990" data-img="../IMG/IMG-PRODUCTOS/Escritorio.webp">
-      <img src="../IMG/IMG-PRODUCTOS/Escritorio.webp" alt="escritorio GAMER" class="escritorio">
+    <div class="producto" data-nombre="Escritorio GAMER" data-precio="70990">
+      <img src="../IMG/IMG-PRODUCTOS/Escritorio.webp" alt="Escritorio GAMER">
       <p class="titulo">Escritorio GAMER</p>
       <p class="precio">$70.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Mando de Xbox GAMER" data-precio="79990" data-img="../IMG/IMG-PRODUCTOS/Mando.webp">
-      <img src="../IMG/IMG-PRODUCTOS/Mando.webp" alt="mando GAMER" class="mandoxbox">
+    <div class="producto" data-nombre="Mando de Xbox GAMER" data-precio="79990">
+      <img src="../IMG/IMG-PRODUCTOS/Mando.webp" alt="Mando GAMER">
       <p class="titulo">Mando de Xbox GAMER</p>
       <p class="precio">$79.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Mouse GAMER" data-precio="28990" data-img="../IMG/IMG-PRODUCTOS/Mause.webp">
-      <img src="../IMG/IMG-PRODUCTOS/Mause.webp" alt="mouse GAMER" class="mouse">
+    <div class="producto" data-nombre="Mouse GAMER" data-precio="28990">
+      <img src="../IMG/IMG-PRODUCTOS/Mause.webp" alt="Mouse GAMER">
       <p class="titulo">Mouse GAMER</p>
       <p class="precio">$28.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Mousepad GAMER" data-precio="6990" data-img="../IMG/IMG-PRODUCTOS/mausepad.avif">
-      <img src="../IMG/IMG-PRODUCTOS/mausepad.avif" alt="mousepad GAMER" class="mousepad">
-      <p class="titulo">Mouse-pad GAMER</p>
+    <div class="producto" data-nombre="Mousepad GAMER" data-precio="6990">
+      <img src="../IMG/IMG-PRODUCTOS/mausepad.avif" alt="Mousepad GAMER">
+      <p class="titulo">Mousepad GAMER</p>
       <p class="precio">$6.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Monitor GAMER" data-precio="134990" data-img="../IMG/IMG-PRODUCTOS/monitor.jpeg">
-      <img src="../IMG/IMG-PRODUCTOS/monitor.jpeg" alt="monitor GAMER" class="monitor">
+    <div class="producto" data-nombre="Monitor GAMER" data-precio="134990">
+      <img src="../IMG/IMG-PRODUCTOS/monitor.jpeg" alt="Monitor GAMER">
       <p class="titulo">Monitor GAMER</p>
       <p class="precio">$134.990</p>
       <button class="add-cart">Añadir</button>
     </div>
 
-    <div class="producto" data-nombre="Teclado GAMER" data-precio="15990" data-img="../IMG/IMG-PRODUCTOS/Teclado.webp">
-      <img src="../IMG/IMG-PRODUCTOS/Teclado.webp" alt="teclado GAMER" class="teclado">
+    <div class="producto" data-nombre="Teclado GAMER" data-precio="15990">
+      <img src="../IMG/IMG-PRODUCTOS/Teclado.webp" alt="Teclado GAMER">
       <p class="titulo">Teclado GAMER</p>
       <p class="precio">$15.990</p>
       <button class="add-cart">Añadir</button>
@@ -99,7 +109,32 @@
   </div>
 </main>
 
+<footer>
+  <div class="footer-nombre-div">
+    <h2 class="footer-nombre-h2">SERVICIO AL CLIENTE</h2>
+    <p><strong>Teléfono:</strong> +56 9 3456 7890</p>
+    <p><strong>Correo:</strong> soporte@levelupgamer.cl</p>
+    <p><strong>Horario:</strong> Lunes a Viernes de 9:00 a 19:00 hrs</p>
+  </div>
+  <div class="footer-redes">
+    <p>Síguenos en:</p>
+    <a href="#">Facebook</a> |
+    <a href="#">Instagram</a> |
+    <a href="#">Twitter</a>
+  </div>
+</footer>
+
 <script>
+// Filtrar productos por barra de búsqueda
+document.getElementById('searchInput').addEventListener('keyup', function() {
+    const term = this.value.toLowerCase();
+    document.querySelectorAll('.producto').forEach(prod => {
+        const nombre = prod.dataset.nombre.toLowerCase();
+        prod.style.display = nombre.includes(term) ? 'flex' : 'none';
+    });
+});
+
+// Carrito localStorage
 function actualizarContador(){
   const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
   const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
@@ -114,8 +149,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const prodDiv = btn.parentElement;
       const producto = {
         nombre: prodDiv.dataset.nombre,
-        precio: parseFloat(prodDiv.dataset.precio),
-        img: prodDiv.dataset.img,
+        precio: Number(prodDiv.dataset.precio), // <-- ahora correcto
+        img: prodDiv.querySelector('img').src,
         cantidad: 1
       };
 

@@ -25,11 +25,11 @@ export const LoginUser: React.FC = () => {
 
     const correo = (document.getElementById("correo") as HTMLInputElement).value.trim();
 
-    if (correo.endsWith("@levelUp.cl")) {
+    if (correo.endsWith("@duocuc.cl")) {
       // En una app real, usarías navigate("/ruta") o router.
       window.location.href = "/admin/home";
     } else {
-      alert("Acceso denegado: solo usuarios @levelUp.cl pueden entrar en esta demo.");
+      alert("Acceso denegado: solo usuarios @duocuc.cl pueden entrar en esta demo.");
     }
   };
 

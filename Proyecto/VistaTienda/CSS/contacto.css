@@ -95,46 +95,37 @@ body{
 }
 
 
-.formulario {
-  width: 50%;
-  margin: 20px auto;
-  background: #0073e6;
-  border: 1px solid black;
+.info-contacto {
+  max-width: 600px;
+  margin: 40px auto;
   padding: 20px;
-  text-align: left;
+  background-color: #1c1c1c;
+  color: #f5f5f5;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
 }
-.formulario h3 {
-  background: #1E90FF;
-  padding: 10px;
-  margin: -20px -20px 20px -20px;
+
+.info-contacto h3, .redes-sociales h4 {
+  color: #ff4d00;
   text-align: center;
 }
-.formulario label {
-  display: block;
-  margin: 20px 0 5px;
-  font-size: 14px;
-}
-.formulario input,
-.formulario textarea {
-  width: 100%;
-  padding: 2px;
-  border: 1px solid black;
-  border-radius: 25px;
-}
-.formulario textarea {
-  height: 100px;
-  resize: none;
+
+.redes-sociales ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
 }
 
+.redes-sociales li {
+  margin: 8px 0;
+}
 
-.formulario button {
-  display: block;
-  margin: 0 auto;
-  padding: 10px 25px;
-  border: 1px solid black;
-  background: white;
-  cursor: pointer;
+.redes-sociales a {
+  color: #00b4ff;
+  text-decoration: none;
 }
-.formulario button:hover {
-  background: #e6e6e6;
+
+.redes-sociales a:hover {
+  text-decoration: underline;
 }
+

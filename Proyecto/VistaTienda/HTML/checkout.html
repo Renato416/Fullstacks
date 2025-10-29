@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - LEVEL-UP GAMER</title>
+  <link rel="stylesheet" href="../CSS/checkout.css">
+  <link rel="stylesheet" href="../CSS/styles.css"/>
+</head>
+<body>
+
+<!-- ======= HEADER ======= -->
+<header class="Header">
+  <div class="Logo-container">
+      <a href="index.html">
+          <img src="../IMG/icon-level-up.png" alt="Logo de la empresa" class="Logo">
+      </a>
+      <h1 class="Nombre-empresa">LEVEL-UP GAMER</h1>
+  </div>
+
+  <nav class="nav">
+      <a href="index.html">Inicio</a>
+      <a href="listaProducto.html">Productos</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="blog.html">Blogs</a>
+      <a href="contacto.html">Contactos</a>
+  </nav>
+
+  <div class="Carrito">
+      <button class="button-carrito">
+          <span class="carrito-text">Productos (0)</span>
+          <a href="carrito_compras.html">
+              <img src="../IMG/carrito-icon.png" alt="Icono del carrito" class="icono-carrito">
+          </a>
+      </button>
+      <div class="inicio-registrar">
+          <a href="LoginUser.html" class="InicioLink">Inicio de sesión</a>
+          <a href="UserRegister.html" class="InicioLink">Registrar usuario</a>
+      </div>
+  </div>
+</header>
+
+<!-- ======= MAIN CHECKOUT ======= -->
+<main class="checkout-container">
+  <h1>Finalizar Compra</h1>
+
+  <!-- Productos en el checkout -->
+  <div class="checkout-products" id="checkoutProducts"></div>
+
+  <!-- Formulario de checkout -->
+  <div class="checkout-form">
+    <label for="address">Dirección:</label>
+    <input type="text" id="address" placeholder="Ingrese su dirección">
+    
+    <label for="paymentMethod">Método de pago:</label>
+    <select id="paymentMethod">
+      <option value="">Seleccione</option>
+      <option value="tarjeta">Tarjeta de crédito</option>
+      <option value="paypal">PayPal</option>
+      <option value="transferencia">Transferencia bancaria</option>
+    </select>
+
+    <input type="text" id="cardNumber" placeholder="Número de tarjeta (solo si aplica)">
+    <button id="finalize">Finalizar Compra</button>
+  </div>
+
+  <!-- Resultado de la compra -->
+  <div id="result" class="checkout-result"></div>
+</main>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const checkoutProductsDiv = document.getElementById('checkoutProducts');
+  const addressInput = document.getElementById('address');
+  const paymentMethodSelect = document.getElementById('paymentMethod');
+  const cardNumberInput = document.getElementById('cardNumber');
+  const finalizeBtn = document.getElementById('finalize');
+  const resultDiv = document.getElementById('result');
+
+  // Obtener carrito y descuento
+  let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  const discountApplied = localStorage.getItem('descuento') === 'true';
+
+  // Render productos
+  let total = 0;
+  carrito.forEach(p => {
+    total += p.precio * p.cantidad;
+    const div = document.createElement('div');
+    div.classList.add('checkout-product');
+    div.innerHTML = `<span>${p.nombre} x ${p.cantidad} - $${(p.precio*p.cantidad).toLocaleString()}</span>`;
+    checkoutProductsDiv.appendChild(div);
+  });
+  if(discountApplied) total *= 0.8;
+
+  const totalDiv = document.createElement('div');
+  totalDiv.innerHTML = `<strong>Total a pagar: $${total.toLocaleString()}</strong>`;
+  checkoutProductsDiv.appendChild(totalDiv);
+
+  // Finalizar compra
+  finalizeBtn.addEventListener('click', () => {
+    const address = addressInput.value.trim();
+    const method = paymentMethodSelect.value;
+    const card = cardNumberInput.value.trim();
+
+    if(!address || !method || (method==='tarjeta' && card.length<16)){
+      resultDiv.innerHTML = "<p style='color:red;'>Compra fallida: revisa dirección o datos de pago</p>";
+    } else {
+      resultDiv.innerHTML = "<p style='color:green;'>¡Compra realizada con éxito!</p>";
+      localStorage.removeItem('carrito'); // Vaciar carrito
+      actualizarContadorCarrito(); // Actualizar header
+    }
+  });
+
+  // Actualiza contador de carrito en el header
+  function actualizarContadorCarrito() {
+    const carritoHeader = JSON.parse(localStorage.getItem('carrito')) || [];
+    const totalItems = carritoHeader.reduce((acc, producto) => acc + producto.cantidad, 0);
+    const contador = document.querySelector('.carrito-text');
+    if(contador) contador.textContent = `Productos (${totalItems})`;
+  }
+  actualizarContadorCarrito();
+});
+</script>
+
+</body>
+</html>
