@@ -1,10 +1,19 @@
 // src/pages/VistaAdministradorTsx/Dashboard.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/dashboard.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
+
+  const resumen = {
+    productos: 8,
+    ordenesPendientes: 5,
+    usuarios: 12,
+    ventasTotales: "$1.234.990",
+  };
+
   return (
     <div className="admin-app">
       <aside className="sidebar">
@@ -38,10 +47,36 @@ export default function Dashboard() {
 
       <main className="main">
         <header className="topbar">
-          <h1>Vista Administrador, Bienvenido Usuario</h1>
+          <h1>Vista Administrador - Dashboard</h1>
         </header>
+
         <section className="content">
-          {/* Contenido central vacío por ahora */}
+          <table className="dashboard-table">
+            <thead>
+              <tr>
+                <th>Sección</th>
+                <th>Resumen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr onClick={() => navigate("/productos")} className="clickable-row">
+                <td>Productos</td>
+                <td>{resumen.productos} registrados</td>
+              </tr>
+              <tr onClick={() => navigate("/ordenes")} className="clickable-row">
+                <td>Órdenes Pendientes</td>
+                <td>{resumen.ordenesPendientes} órdenes</td>
+              </tr>
+              <tr onClick={() => navigate("/usuarios")} className="clickable-row">
+                <td>Usuarios</td>
+                <td>{resumen.usuarios} usuarios</td>
+              </tr>
+              <tr onClick={() => navigate("/reportes")} className="clickable-row">
+                <td>Ventas Totales</td>
+                <td>{resumen.ventasTotales}</td>
+              </tr>
+            </tbody>
+          </table>
         </section>
       </main>
     </div>

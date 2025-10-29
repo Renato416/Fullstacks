@@ -1,10 +1,12 @@
 // src/pages/VistaAdministradorTsx/Categorias.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/categorias.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
 export default function Categorias() {
+  const navigate = useNavigate();
+
   const categorias = [
     { codigo: "JM", nombre: "Juegos de Mesa", productos: 2 },
     { codigo: "AC", nombre: "Accesorios", productos: 2 },
@@ -44,7 +46,12 @@ export default function Categorias() {
         </div>
 
         <div className="sidebar-foot">
-          <button className="btn-logout">Cerrar sesión</button>
+          <button
+            className="btn-logout"
+            onClick={() => navigate("/login-user")}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 
@@ -60,7 +67,6 @@ export default function Categorias() {
                 <th>Código</th>
                 <th>Nombre de Categoría</th>
                 <th>Número de Productos</th>
-                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -69,9 +75,6 @@ export default function Categorias() {
                   <td>{cat.codigo}</td>
                   <td>{cat.nombre}</td>
                   <td>{cat.productos}</td>
-                  <td>
-                    <button className="btn-edit">Editar</button>
-                  </td>
                 </tr>
               ))}
             </tbody>

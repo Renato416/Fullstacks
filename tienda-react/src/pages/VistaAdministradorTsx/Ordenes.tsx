@@ -1,4 +1,3 @@
-// src/pages/VistaAdministradorTsx/Ordenes.tsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/ordenes.css";
@@ -49,7 +48,6 @@ export default function Ordenes() {
                 <th>Fecha</th>
                 <th>Total</th>
                 <th>Estado</th>
-                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
@@ -59,10 +57,6 @@ export default function Ordenes() {
                 <td>2025-10-28</td>
                 <td>$149.990 CLP</td>
                 <td>Pendiente</td>
-                <td>
-                  <button className="btn-view">Ver Detalle</button>
-                  <button className="btn-update">Marcar Entregada</button>
-                </td>
               </tr>
               <tr>
                 <td>002</td>
@@ -70,10 +64,6 @@ export default function Ordenes() {
                 <td>2025-10-27</td>
                 <td>$72.990 CLP</td>
                 <td>Entregado</td>
-                <td>
-                  <button className="btn-view">Ver Detalle</button>
-                  <button className="btn-update">Marcar Entregada</button>
-                </td>
               </tr>
               <tr>
                 <td>003</td>
@@ -81,10 +71,6 @@ export default function Ordenes() {
                 <td>2025-10-26</td>
                 <td>$134.990 CLP</td>
                 <td>En Proceso</td>
-                <td>
-                  <button className="btn-view">Ver Detalle</button>
-                  <button className="btn-update">Marcar Entregada</button>
-                </td>
               </tr>
             </tbody>
           </table>

@@ -1,4 +1,4 @@
-/* Dashboard - CSS: dashboard.css */
+/* dashboard.css actualizado */
 
 body {
   margin: 0;
@@ -26,11 +26,10 @@ body {
   margin-bottom: 40px;
 }
 
-.logo {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 28px;
-  color: #1E90FF;
-  margin-bottom: 5px;
+.brand a .logo {
+  width: 60px;
+  height: auto;
+  cursor: pointer;
 }
 
 .brand-text .title {
@@ -108,18 +107,33 @@ body {
 .content {
   flex: 1;
   padding: 20px;
-}
-/* Logo como imagen botón */
-.brand a {
-  display: inline-block;
-  text-align: center;
-  margin-bottom: 10px;
+  overflow-x: auto;
 }
 
-.brand a .logo {
-  width: 60px; /* ajustar tamaño según imagen */
-  height: auto;
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+  padding: 15px;
+  border: 1px solid #333333;
+  text-align: left;
+}
+
+.dashboard-table th {
+  background-color: #1E90FF;
+  color: #000000;
+}
+
+.clickable-row {
   cursor: pointer;
-  display: block;
-  margin: 0 auto;
+  transition: 0.3s;
+}
+
+.clickable-row:hover {
+  background-color: #32CC11;
+  color: #000000;
 }

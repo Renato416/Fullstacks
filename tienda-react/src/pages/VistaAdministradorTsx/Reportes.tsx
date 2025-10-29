@@ -1,4 +1,4 @@
-// Reportes.tsx
+// src/pages/VistaAdministradorTsx/Reportes.tsx
 import React from "react";
 import { Link } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/reportes.css";
@@ -60,65 +60,71 @@ export default function Reportes() {
         </header>
 
         <section className="content">
-          <h2>Ventas por Categoría</h2>
-          <table className="report-table">
-            <thead>
-              <tr>
-                <th>Categoría</th>
-                <th>Productos Vendidos</th>
-                <th>Total en CLP</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ventasPorCategoria.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.categoria}</td>
-                  <td>{item.vendidos}</td>
-                  <td>{item.total}</td>
+          <div className="report-block">
+            <h2>Ventas por Categoría</h2>
+            <table className="report-table">
+              <thead>
+                <tr>
+                  <th>Categoría</th>
+                  <th>Productos Vendidos</th>
+                  <th>Total en CLP</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ventasPorCategoria.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.categoria}</td>
+                    <td>{item.vendidos}</td>
+                    <td>{item.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <h2>Ventas por Producto</h2>
-          <table className="report-table">
-            <thead>
-              <tr>
-                <th>Producto</th>
-                <th>Cantidad Vendida</th>
-                <th>Total en CLP</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ventasPorProducto.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.producto}</td>
-                  <td>{item.cantidad}</td>
-                  <td>{item.total}</td>
+          <div className="report-block">
+            <h2>Ventas por Producto</h2>
+            <table className="report-table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad Vendida</th>
+                  <th>Total en CLP</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ventasPorProducto.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.producto}</td>
+                    <td>{item.cantidad}</td>
+                    <td>{item.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-          <h2>Usuarios con Compras</h2>
-          <table className="report-table">
-            <thead>
-              <tr>
-                <th>Usuario</th>
-                <th>Email</th>
-                <th>Total Comprado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {usuariosConCompras.map((usuario, index) => (
-                <tr key={index}>
-                  <td>{usuario.nombre}</td>
-                  <td>{usuario.email}</td>
-                  <td>{usuario.total}</td>
+          <div className="report-block">
+            <h2>Usuarios con Compras</h2>
+            <table className="report-table">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Email</th>
+                  <th>Total Comprado</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {usuariosConCompras.map((usuario, index) => (
+                  <tr key={index}>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

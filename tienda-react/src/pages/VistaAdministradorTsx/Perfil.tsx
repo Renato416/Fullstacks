@@ -47,7 +47,7 @@ export default function Perfil() {
             </div>
             <div className="profile-info">
               <p><strong>Nombre:</strong> Renato Rojas</p>
-              <p><strong>Email:</strong> re.rojasc@duocuc.cl</p>
+              <p><strong>Gmail:</strong> re.rojasc@duocuc.cl</p>
               <p><strong>Rol:</strong> Administrador</p>
               <button className="btn-edit-profile">Editar Información</button>
             </div>
