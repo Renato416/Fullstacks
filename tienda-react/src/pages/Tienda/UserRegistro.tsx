@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Tienda/Header";
+import Footer from "../../components/Tienda/Footer";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/registroUsuario.css";
 
-export const UserRegister: React.FC = () => {
-  // Función para actualizar el contador del carrito desde localStorage
+const UserRegister: React.FC = () => {
+  // 🔁 Actualiza el contador de productos del carrito
   const actualizarContadorCarrito = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
     const totalItems = carrito.reduce(
@@ -19,7 +20,7 @@ export const UserRegister: React.FC = () => {
     actualizarContadorCarrito();
   }, []);
 
-  // Handler para el envío del formulario
+  // 🧾 Maneja el envío del formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Usuario registrado correctamente ✅");
@@ -56,6 +57,10 @@ export const UserRegister: React.FC = () => {
           <button type="submit">Registrarse</button>
         </form>
       </main>
+
+      <Footer />
     </>
   );
 };
+
+export default UserRegister;

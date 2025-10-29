@@ -1,4 +1,6 @@
 import React from "react";
+import "../../assets/CSS/Tienda/styles.css";
+import "../../assets/CSS/Tienda/productos.css";
 
 interface ProductCardProps {
   img: string;

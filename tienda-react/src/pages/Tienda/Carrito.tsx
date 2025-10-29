@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
 import { useNavigate } from "react-router-dom";
+import { productos } from "../../assets/data/data";
+import type { Producto } from "../../assets/data/data";
+import "../../assets/CSS/Tienda/styles.css";
+import "../../assets/CSS/Tienda/carrito_com.css";
 
 interface ProductoCarrito {
-  nombre: string;
-  precio: number;
-  img: string;
+  id: string;
   cantidad: number;
 }
 
@@ -15,38 +17,52 @@ const Carrito: React.FC = () => {
   const [discountApplied, setDiscountApplied] = useState(false);
   const navigate = useNavigate();
 
+  // 🔹 Cargar carrito desde localStorage
   useEffect(() => {
     const carritoLocal = JSON.parse(localStorage.getItem("carrito") || "[]");
     setCarrito(carritoLocal);
   }, []);
 
+  // 🔹 Guardar carrito en localStorage
   useEffect(() => {
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
 
-  const handleQuantityChange = (index: number, value: number) => {
+  // 🔹 Obtener información completa del producto desde la base de datos
+  const productosEnCarrito = carrito.map((item) => {
+    const productoInfo = productos.find((p) => p.id === item.id);
+    return productoInfo
+      ? { ...productoInfo, cantidad: item.cantidad }
+      : null;
+  }).filter(Boolean) as (Producto & { cantidad: number })[];
+
+  const handleQuantityChange = (id: string, value: number) => {
     if (value < 1) value = 1;
-    const newCarrito = [...carrito];
-    newCarrito[index].cantidad = value;
-    setCarrito(newCarrito);
+    const nuevoCarrito = carrito.map((item) =>
+      item.id === id ? { ...item, cantidad: value } : item
+    );
+    setCarrito(nuevoCarrito);
   };
 
-  const handleIncrement = (index: number) => {
-    const newCarrito = [...carrito];
-    newCarrito[index].cantidad++;
-    setCarrito(newCarrito);
+  const handleIncrement = (id: string) => {
+    const nuevoCarrito = carrito.map((item) =>
+      item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+    );
+    setCarrito(nuevoCarrito);
   };
 
-  const handleDecrement = (index: number) => {
-    const newCarrito = [...carrito];
-    if (newCarrito[index].cantidad > 1) newCarrito[index].cantidad--;
-    setCarrito(newCarrito);
+  const handleDecrement = (id: string) => {
+    const nuevoCarrito = carrito.map((item) =>
+      item.id === id && item.cantidad > 1
+        ? { ...item, cantidad: item.cantidad - 1 }
+        : item
+    );
+    setCarrito(nuevoCarrito);
   };
 
-  const handleRemove = (index: number) => {
-    const newCarrito = [...carrito];
-    newCarrito.splice(index, 1);
-    setCarrito(newCarrito);
+  const handleRemove = (id: string) => {
+    const nuevoCarrito = carrito.filter((item) => item.id !== id);
+    setCarrito(nuevoCarrito);
   };
 
   const handleApplyCoupon = (code: string) => {
@@ -68,10 +84,11 @@ const Carrito: React.FC = () => {
     navigate("/checkout");
   };
 
-  const total = carrito.reduce(
-    (acc, p) => acc + p.precio * p.cantidad,
-    0
-  ) * (discountApplied ? 0.8 : 1);
+  const total =
+    productosEnCarrito.reduce(
+      (acc, p) => acc + p.precio * p.cantidad,
+      0
+    ) * (discountApplied ? 0.8 : 1);
 
   return (
     <>
@@ -80,16 +97,20 @@ const Carrito: React.FC = () => {
         <h1>Mi carrito de compras</h1>
         <div className="cart-container">
           <div className="products">
-            {carrito.length === 0 ? (
+            {productosEnCarrito.length === 0 ? (
               <p style={{ textAlign: "center", color: "white" }}>
                 Tu carrito está vacío 🛒
               </p>
             ) : (
-              carrito.map((p, i) => {
+              productosEnCarrito.map((p) => {
                 const subtotal = p.precio * p.cantidad;
                 return (
-                  <div className="product" key={i}>
-                    <img src={p.img} alt={p.nombre} className="product-image" />
+                  <div className="product" key={p.id}>
+                    <img
+                      src={`/assets/IMG/${p.imagen}`}
+                      alt={p.nombre}
+                      className="product-image"
+                    />
                     <div className="product-info">
                       <h2>{p.nombre}</h2>
                       <p className="unit-price">
@@ -98,21 +119,21 @@ const Carrito: React.FC = () => {
                     </div>
                     <div className="product-actions">
                       <div className="quantity">
-                        <button onClick={() => handleDecrement(i)}>-</button>
+                        <button onClick={() => handleDecrement(p.id)}>-</button>
                         <input
                           type="number"
                           value={p.cantidad}
                           min={1}
                           onChange={(e) =>
-                            handleQuantityChange(i, parseInt(e.target.value))
+                            handleQuantityChange(p.id, parseInt(e.target.value))
                           }
                         />
-                        <button onClick={() => handleIncrement(i)}>+</button>
+                        <button onClick={() => handleIncrement(p.id)}>+</button>
                       </div>
                       <p className="subtotal">
                         Subtotal: ${subtotal.toLocaleString()}
                       </p>
-                      <button onClick={() => handleRemove(i)}>Eliminar</button>
+                      <button onClick={() => handleRemove(p.id)}>Eliminar</button>
                     </div>
                   </div>
                 );

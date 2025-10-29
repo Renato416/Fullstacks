@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import Header from "../../components/Tienda/Header";
-import "../../CSS/contacto.css";
+import "../../assets/CSS/Tienda/contacto.css";
+import "../../assets/CSS/Tienda/styles.css";
 
 const Contacto: React.FC = () => {
 
