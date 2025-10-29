@@ -1,17 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomeAdmin } from "./pages/administrador/HomeAdmin";
-import { ProductList } from "./pages/administrador/ProductList"; // asegúrate que el archivo exista
-import "./assets/CSS/administrador/home_admin.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 
+// Importar todas las vistas
+import Dashboard from "./pages/VistaAdministradorTsx/Dashboard";
+import Categorias from "./pages/VistaAdministradorTsx/Categorias";
+import Ordenes from "./pages/VistaAdministradorTsx/Ordenes";
+import Productos from "./pages/VistaAdministradorTsx/Productos";
+import Reportes from "./pages/VistaAdministradorTsx/Reportes";
+import Perfil from "./pages/VistaAdministradorTsx/Perfil";
+import Usuario from "./pages/VistaAdministradorTsx/Usuario";
+
+// Renderizado principal
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomeAdmin />} />
-        <Route path="/inventario" element={<ProductList />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/categorias" element={<Categorias />} />
+        <Route path="/ordenes" element={<Ordenes />} />
+        <Route path="/productos" element={<Productos />} />
+        <Route path="/reportes" element={<Reportes />} />
+        <Route path="/perfil" element={<Perfil />} />
+        <Route path="/usuarios" element={<Usuario />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
