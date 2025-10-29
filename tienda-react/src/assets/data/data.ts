@@ -65,3 +65,4 @@ export function actualizarUsuario(id: string, datosActualizados: Partial<Usuario
     usuarios[index] = { ...usuarios[index], ...datosActualizados };
   }
 }
+
