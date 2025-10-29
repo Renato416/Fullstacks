@@ -47,7 +47,6 @@ export function obtenerUsuarios() {
   return usuarios;
 }
 
-<<<<<<< HEAD
 export interface Producto {
   id: string;
   categoria: string;
@@ -66,7 +65,6 @@ export let productos: Producto[] = [
   { id: "P007", categoria: "Monitores", nombre: "Monitor GAMER", precio: 134990, imagen: "/assets/IMG/monitor.jpeg" },
   { id: "P008", categoria: "Periféricos", nombre: "Teclado GAMER", precio: 15990, imagen: "/assets/IMG/Teclado.webp" },
 ];
-=======
 // Función para actualizar usuario existente
 export function actualizarUsuario(id: string, datosActualizados: Partial<Usuario>) {
   const index = usuarios.findIndex(u => u.id === id);
@@ -74,4 +72,3 @@ export function actualizarUsuario(id: string, datosActualizados: Partial<Usuario
     usuarios[index] = { ...usuarios[index], ...datosActualizados };
   }
 }
->>>>>>> 11848120f4da1bd1c6b4516e5d71a58ee33d058a

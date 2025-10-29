@@ -26,7 +26,6 @@ header {
     position: relative;
 }
 
-/* Logo y nombre */
 .Logo-container {
     display: flex;
     align-items: center;
@@ -43,24 +42,25 @@ header {
     color: white;
 }
 
-/* Nav centrado */
 .nav {
     display: flex;
-    gap: 15px;
+    flex-direction: row;
     justify-content: center;
-    flex: 2;
+    gap: 15px;
 }
+
 .nav a {
+    display: inline-block;
     color: white;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.2s;
 }
+
 .nav a:hover {
     color: #000;
 }
 
-/* Contenedor derecha: carrito + texto + botones */
 .Carrito {
     display: flex;
     flex-direction: column;
@@ -69,7 +69,6 @@ header {
     flex: 1;
 }
 
-/* Texto y botón carrito */
 .button-carrito {
     display: flex;
     align-items: center;
@@ -88,7 +87,6 @@ header {
     height: 30px;
 }
 
-/* Botones de usuario debajo del carrito */
 .user-buttons {
     display: flex;
     gap: 10px;
@@ -116,7 +114,6 @@ header {
     background: #333;
 }
 
-/* Botón hamburguesa (solo móvil) */
 .nav-toggle {
     display: none;
     font-size: 2rem;
@@ -153,7 +150,8 @@ header {
 
 .producto-img {
     width: 100%;
-    height: 200px;
+    height: auto;
+    max-height: 250px;
     object-fit: contain;
     border-radius: 8px;
     background-color: #fff;
@@ -176,11 +174,16 @@ header {
     margin-top: auto;
 }
 
-/* ======= TITULO ======= */
+/* ======= TITULO OFERTAS ======= */
+.titulo-ofertas,
+.titulo-ofertas h2 {
+    color: white !important;
+    text-decoration: none !important;
+}
+
 .titulo-ofertas {
     text-align: center;
     background-color: #1E90FF;
-    color: white;
     padding: 20px 0;
     margin-top: 10px;
 }
@@ -190,7 +193,8 @@ header {
     text-transform: uppercase;
 }
 
-/* ======= FOOTER ======= */
+
+/* ======= FOOTER AJUSTADO PARA LINEAS LARGAS ======= */
 footer {
     background: #1E90FF;
     color: white;
@@ -201,26 +205,42 @@ footer {
     align-items: flex-start;
     margin-top: auto;
 }
+/* ======= FORZAR COLOR DE STRONG EN FOOTER ======= */
+footer strong {
+    color: white;        /* Fuerza que el texto sea blanco */
+    font-weight: bold;    /* Asegura que se vea más fuerte */
+}
+
 
 .footer-nombre-div {
-    max-width: 300px;
+    max-width: 300px; /* puedes aumentar a 350-400px si quieres más espacio */
+    text-align: left;
+    word-wrap: break-word; /* permite que el texto largo se ajuste */
+    overflow-wrap: break-word; /* compatibilidad cross-browser */
 }
+
 .footer-nombre-h2 {
     font-size: 20px;
     margin-bottom: 10px;
     text-transform: uppercase;
 }
+
 .footer-nombre-div p {
     margin: 5px 0;
     font-size: 14px;
+    line-height: 1.4; /* mejora lectura de párrafos */
+    white-space: normal; /* permite que el texto haga wrap */
 }
+
 .footer-redes {
     text-align: right;
 }
+
 .footer-redes p {
     font-weight: bold;
     margin-bottom: 5px;
 }
+
 .footer-redes a {
     color: white;
     text-decoration: none;
@@ -228,9 +248,33 @@ footer {
     font-size: 14px;
     transition: color 0.3s ease;
 }
+
 .footer-redes a:hover {
     color: #000;
 }
+
+/* ======= RESPONSIVE FOOTER ======= */
+@media screen and (max-width: 600px) {
+    footer {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .footer-nombre-div,
+    .footer-redes {
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .footer-redes a {
+        display: inline-block;
+        margin: 0 8px 5px;
+    }
+}
+
 
 /* ======= RESPONSIVE ======= */
 @media screen and (max-width: 900px) {
@@ -244,7 +288,35 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    /* Mostrar hamburguesa y colapsar nav */
+    .producto {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .producto-img {
+        max-height: 200px;
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .footer-nombre-div,
+    .footer-redes {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .footer-redes a {
+        display: inline-block;
+        margin: 0 8px 5px;
+    }
+
     .nav {
         display: none;
         flex-direction: column;
@@ -254,19 +326,24 @@ footer {
         top: 60px;
         left: 0;
         padding: 10px 0;
+        gap: 0;
     }
+
+    .nav.active {
+        display: flex;
+    }
+
     .nav a {
         padding: 10px 20px;
         text-align: center;
+        width: 100%;
     }
+
     .nav-toggle {
         display: block;
         position: absolute;
         top: 15px;
         right: 20px;
-    }
-    .nav.active {
-        display: flex;
     }
 
     header {

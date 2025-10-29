@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../../assets/CSS/Tienda/listaProducto.css";
 import "../../assets/CSS/Tienda/styles.css";
+import Logo from "../../assets/IMG/icon-level-up.png";
+import Carr from "../../assets/IMG/carrito-icon.png";
 
 const Header: React.FC = () => {
   const [totalProductos, setTotalProductos] = useState(0);
@@ -14,26 +15,21 @@ const Header: React.FC = () => {
     setTotalProductos(total);
   };
 
-  // Ejecuta al montar el componente
   useEffect(() => {
     actualizarContadorCarrito();
-    // Opcional: escuchar cambios en localStorage si deseas sincronizar entre pestañas
     window.addEventListener("storage", actualizarContadorCarrito);
-    return () => {
-      window.removeEventListener("storage", actualizarContadorCarrito);
-    };
+    return () => window.removeEventListener("storage", actualizarContadorCarrito);
   }, []);
 
   return (
-    <header className="Header">
+    <header> {/* <--- Quitar className="Header" para que use tu CSS existente */}
       <div className="Logo-container">
         <Link to="/">
-          <img src="/assets/IMG/icon-level-up.png" alt="Logo de la empresa" className="Logo" />
+          <img src={Logo} alt="Logo de la empresa" className="Logo" />
         </Link>
         <h1 className="Nombre-empresa">LEVEL-UP GAMER</h1>
       </div>
 
-      {/* Botón hamburguesa para móvil */}
       <button className="nav-toggle" onClick={() => setMenuActivo(!menuActivo)}>
         ☰
       </button>
@@ -50,7 +46,7 @@ const Header: React.FC = () => {
         <button className="button-carrito">
           <span className="carrito-text">Productos ({totalProductos})</span>
           <Link to="/carrito_compras">
-            <img src="/assets/IMG/carrito-icon.png" alt="Icono del carrito" className="icono-carrito" />
+            <img src={Carr} alt="Icono del carrito" className="icono-carrito" />
           </Link>
         </button>
 
