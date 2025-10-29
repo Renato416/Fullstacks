@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
+
 export default function Usuarios() {
   return (
     <div className="admin-app">

@@ -159,3 +159,21 @@ body {
 .btn-history:hover {
   background-color: #1877CC;
 }
+
+/* Nuevo estilo para botón Agregar Usuario */
+.btn-add-user {
+  display: block;        /* se muestra en línea separada */
+  margin-bottom: 15px;   /* espacio debajo del botón */
+  padding: 8px 16px;
+  background-color: #1E90FF;
+  color: #000000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-add-user:hover {
+  background-color: #0073e6;
+}
