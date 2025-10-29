@@ -1,5 +1,4 @@
-// Productos.tsx
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
@@ -17,7 +16,7 @@ import Teclado from "../../assets/IMG/Teclado.webp";
 export default function Productos() {
   const navigate = useNavigate();
 
-  const productos = [
+  const [productos, setProductos] = useState([
     { codigo: "AC001", categoria: "Accesorios", imagen: Audifonos, nombre: "Audifonos GAMER", precio: "$64.990 CLP" },
     { codigo: "SG001", categoria: "Sillas Gamers", imagen: Silla, nombre: "Silla GAMER", precio: "$72.990 CLP" },
     { codigo: "CG001", categoria: "Computadores Gamers", imagen: Escritorio, nombre: "Escritorio GAMER", precio: "$70.990 CLP" },
@@ -26,10 +25,12 @@ export default function Productos() {
     { codigo: "MP001", categoria: "Mousepad", imagen: Mousepad, nombre: "Mouse-pad GAMER", precio: "$6.990 CLP" },
     { codigo: "MO001", categoria: "Monitores", imagen: Monitor, nombre: "Monitor GAMER", precio: "$134.990 CLP" },
     { codigo: "TE001", categoria: "Teclados", imagen: Teclado, nombre: "Teclado GAMER", precio: "$15.990 CLP" },
-  ];
+  ]);
 
   const handleEliminar = (codigo: string) => {
-    console.log("Eliminar producto con código:", codigo);
+    if (window.confirm("¿Estás seguro de eliminar este producto?")) {
+      setProductos(productos.filter(prod => prod.codigo !== codigo));
+    }
   };
 
   return (
@@ -66,7 +67,6 @@ export default function Productos() {
         </header>
         <section className="content">
           <div className="table-wrapper">
-            {/* Botón Agregar Producto arriba */}
             <div className="table-header">
               <button
                 className="btn-add-user"

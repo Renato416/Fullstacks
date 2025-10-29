@@ -1,4 +1,4 @@
-/* Reportes - CSS: reportes.css */
+/* reportes.css */
 
 body {
   margin: 0;
@@ -107,22 +107,34 @@ body {
 .content {
   flex: 1;
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
   overflow-x: auto;
+}
+
+.report-block h2 {
+  margin-bottom: 10px;
+  color: #1E90FF;
 }
 
 .report-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 30px;
 }
 
 .report-table th, .report-table td {
   padding: 12px 15px;
-  border-bottom: 1px solid #333333;
+  border: 1px solid #333333;
   text-align: left;
 }
 
 .report-table th {
   background-color: #1E90FF;
   color: #000000;
+}
+
+.report-table td {
+  background-color: #111111;
+  color: #FFFFFF;
 }
