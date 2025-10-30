@@ -1,17 +1,17 @@
+// src/_tests_/Nosotros.spec.tsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { act } from "react"; // ✅ act desde 'react'
+import { act } from "react";
 import { MemoryRouter } from "react-router-dom";
-import Checkout from "../../pages/Tienda/Checkout";
+import Nosotros from "../../pages/Tienda/Nosotros";
 
-describe("Checkout component", () => {
+describe("Nosotros component", () => {
   let container: HTMLDivElement;
 
   beforeEach(() => {
     container = document.createElement("div");
     document.body.appendChild(container);
     localStorage.clear();
-    spyOn(window, "alert"); // ✅ mock alert
   });
 
   afterEach(() => {
@@ -25,7 +25,7 @@ describe("Checkout component", () => {
       const root = ReactDOM.createRoot(container);
       root.render(
         <MemoryRouter>
-          <Checkout />
+          <Nosotros />
         </MemoryRouter>
       );
       await Promise.resolve(); // asegura que useEffect se ejecute
@@ -34,38 +34,51 @@ describe("Checkout component", () => {
     expect(container.innerHTML).toBeTruthy();
   });
 
-  it("debe mostrar mensaje de carrito vacío si no hay productos", async () => {
+  it("debe mostrar el título 'Sobre Nosotros'", async () => {
     await act(async () => {
       const root = ReactDOM.createRoot(container);
       root.render(
         <MemoryRouter>
-          <Checkout />
+          <Nosotros />
         </MemoryRouter>
       );
       await Promise.resolve();
     });
 
-    const mensaje = container.querySelector(".checkout-products p")?.textContent;
-    expect(mensaje).toContain("Tu carrito está vacío 🛒");
+    const titulo = container.querySelector(".nosotros-info h2")?.textContent;
+    expect(titulo).toContain("Sobre Nosotros");
   });
 
-  it("debe mostrar mensaje de compra fallida si faltan datos", async () => {
+  it("debe actualizar el contador de carrito si hay productos en localStorage", async () => {
+    localStorage.setItem("carrito", JSON.stringify([{ id: "1", cantidad: 2 }, { id: "2", cantidad: 3 }]));
+
     await act(async () => {
       const root = ReactDOM.createRoot(container);
       root.render(
         <MemoryRouter>
-          <Checkout />
+          <Nosotros />
         </MemoryRouter>
       );
       await Promise.resolve();
     });
 
-    const btnFinalize = container.querySelector("#finalize") as HTMLButtonElement;
+    const contador = container.querySelector(".carrito-text")?.textContent;
+    expect(contador).toBe("Productos (5)");
+  });
+
+  it("debe mostrar la imagen de Nosotros", async () => {
     await act(async () => {
-      btnFinalize.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      const root = ReactDOM.createRoot(container);
+      root.render(
+        <MemoryRouter>
+          <Nosotros />
+        </MemoryRouter>
+      );
+      await Promise.resolve();
     });
 
-    const result = container.querySelector(".checkout-result p")?.textContent;
-    expect(result).toContain("Compra fallida");
+    const img = container.querySelector<HTMLImageElement>(".img-nosotros");
+    expect(img).toBeTruthy();
+    expect(img?.src).toContain("nosotros-banner.png");
   });
 });
