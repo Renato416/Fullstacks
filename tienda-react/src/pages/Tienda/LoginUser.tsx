@@ -1,108 +1,90 @@
+// src/pages/Tienda/LoginUser.tsx
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "../../assets/CSS/VistaAdministradorTsxCSS/perfil.css";
-import Logo from "../../assets/IMG/icon-level-up.png";
+import { useNavigate } from "react-router-dom";
+import Header from "../../components/Tienda/Header";
+import Footer from "../../components/Tienda/Footer";
+import "../../assets/CSS/Tienda/styles.css";
+import "../../assets/CSS/Tienda/inicioSesion.css";
+import { buscarUsuario } from "../../assets/data/data";
 
-interface Usuario {
-  nombre: string;
-  email: string;
-  rol: string;
-  imagen?: string;
-}
-
-export default function Perfil() {
+const LoginUser: React.FC = () => {
   const navigate = useNavigate();
-  const [usuario, setUsuario] = useState<Usuario | null>(null);
-  const [loading, setLoading] = useState(true); // Control de carga
+
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
+
+  const actualizarContadorCarrito = () => {
+    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
+    const totalItems = carrito.reduce(
+      (acc: number, producto: { cantidad: number }) => acc + producto.cantidad,
+      0
+    );
+    const contador = document.querySelector(".carrito-text");
+    if (contador) contador.textContent = `Productos (${totalItems})`;
+  };
 
   useEffect(() => {
-    const data = localStorage.getItem("usuarioActivo");
+    actualizarContadorCarrito();
+  }, []);
 
-    if (!data) {
-      // No hay usuario activo: redirigir a login
-      navigate("/login-user");
-    } else {
-      const usuarioActivo: Usuario = JSON.parse(data);
-      setUsuario(usuarioActivo);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-      // Redirigir si no es admin
-      if (usuarioActivo.rol !== "admin") {
-        navigate("/tienda");
-      }
+    const usuario = buscarUsuario(correo, contrasena);
+
+    if (!usuario) {
+      alert("Correo o contraseña incorrectos.");
+      return;
     }
 
-    setLoading(false);
-  }, [navigate]);
+    localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
 
-  if (loading) {
-    // Mostrar algo mientras valida
-    return (
-      <div style={{ textAlign: "center", marginTop: "50px", color: "#fff" }}>
-        Cargando usuario...
-      </div>
-    );
-  }
-
-  if (!usuario) return null; // Por seguridad
+    // Redirección interna usando useNavigate
+    if (
+      correo.endsWith("@duocuc.cl") ||
+      correo.endsWith("@profesorduoc.cl")
+    ) {
+      navigate("/dashboard");
+    } else {
+      navigate("/tienda");
+    }
+  };
 
   return (
-    <div className="admin-app">
-      <aside className="sidebar">
-        <div className="brand">
-          <Link to="/dashboard">
-            <img src={Logo} alt="Logo" className="logo" />
-          </Link>
-          <div className="brand-text">
-            <div className="title">Level-Up Gamer</div>
-          </div>
-        </div>
+    <>
+      <Header />
 
-        <nav className="nav">
-          <Link className="nav-item" to="/dashboard">Dashboard</Link>
-          <Link className="nav-item" to="/ordenes">Órdenes</Link>
-          <Link className="nav-item" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorias">Categorías</Link>
-          <Link className="nav-item" to="/usuarios">Usuarios</Link>
-          <Link className="nav-item" to="/reportes">Reportes</Link>
-        </nav>
+      <main className="InicioSesion-container">
+        <h1>Inicio de sesión</h1>
 
-        <div className="nav-extra">
-          <Link className="nav-item active" to="/perfil">Perfil</Link>
-          <Link className="nav-item" to="/tienda">Tienda</Link>
-        </div>
+        <form className="form-login" id="loginForm" onSubmit={handleSubmit}>
+          <label htmlFor="correo">Correo:</label>
+          <input
+            type="email"
+            id="correo"
+            name="correo"
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            required
+          />
 
-        <div className="sidebar-foot">
-          <button
-            className="btn-logout"
-            onClick={() => {
-              localStorage.removeItem("usuarioActivo");
-              navigate("/login-user");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
+          <label htmlFor="contrasena">Contraseña:</label>
+          <input
+            type="password"
+            id="contrasena"
+            name="contrasena"
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+            required
+          />
 
-      <main className="main">
-        <header className="topbar">
-          <h1>Vista Administrador - Perfil</h1>
-        </header>
-
-        <section className="content">
-          <div className="profile-container">
-            <div className="profile-image">
-              <img src={usuario.imagen || Logo} alt="Foto de perfil" />
-            </div>
-            <div className="profile-info">
-              <p><strong>Nombre:</strong> {usuario.nombre}</p>
-              <p><strong>Correo:</strong> {usuario.email}</p>
-              <p><strong>Rol:</strong> {usuario.rol}</p>
-              <button className="btn-edit-profile">Editar Información</button>
-            </div>
-          </div>
-        </section>
+          <button type="submit">Iniciar Sesión</button>
+        </form>
       </main>
-    </div>
+
+      <Footer />
+    </>
   );
-}
+};
+
+export default LoginUser;

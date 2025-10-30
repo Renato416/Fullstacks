@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
-import { obtenerUsuario, eliminarUsuario } from "../../assets/data/data";
+import { usuarios } from "../../assets/data/data.ts";
 
 export default function Usuarios() {
   const navigate = useNavigate();
-  const [usuarios, setUsuarios] = useState<any[]>([]);
-
-  // Cargar usuarios al inicio
-  useEffect(() => {
-    setUsuarios(obtenerUsuario());
-  }, []);
-
-  // Función para borrar usuario
-  const handleBorrar = (id: number) => {
-    const confirmar = window.confirm("¿Seguro que deseas eliminar este usuario?");
-    if (!confirmar) return;
-
-    eliminarUsuario(id);           // Borra el usuario de tu data/localStorage
-    setUsuarios(obtenerUsuario()); // Actualiza la lista
-  };
 
   return (
     <div className="admin-app">
@@ -92,12 +77,7 @@ export default function Usuarios() {
                       >
                         Editar Usuario
                       </button>
-                      <button
-                        className="btn-borrar"
-                        onClick={() => handleBorrar(usuario.id)}
-                      >
-                        Borrar Usuario
-                      </button>
+                      <button className="btn-history">Ver Historial</button>
                     </td>
                   </tr>
                 ))}
