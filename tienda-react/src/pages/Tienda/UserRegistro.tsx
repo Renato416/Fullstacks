@@ -3,6 +3,9 @@ import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/registroUsuario.css";
+import { registrarUsuario } from "../../assets/data/data";
+import type { Usuario } from "../../assets/data/data";
+
 
 const UserRegister: React.FC = () => {
   // 🔁 Actualiza el contador de productos del carrito
@@ -23,7 +26,37 @@ const UserRegister: React.FC = () => {
   // 🧾 Maneja el envío del formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    const nombre = (document.getElementById("nombre") as HTMLInputElement).value.trim();
+    const email = (document.getElementById("correo") as HTMLInputElement).value.trim();
+    const telefono = (document.getElementById("telefono") as HTMLInputElement).value.trim();
+    const direccion = (document.getElementById("direccion") as HTMLInputElement).value.trim();
+    const password = (document.getElementById("contrasena") as HTMLInputElement).value.trim();
+
+    if (!nombre || !email || !telefono || !direccion || !password) {
+      alert("Por favor, completa todos los campos.");
+      return;
+    }
+
+    const nuevoUsuario: Usuario = {
+      id: Date.now().toString(),
+      nombre,
+      email,
+      telefono,
+      direccion,
+      password,
+      rol: "cliente",
+    };
+
+    const exito = registrarUsuario(nuevoUsuario);
+
+    if (!exito) {
+      alert("El correo ingresado ya está registrado.");
+      return;
+    }
+
     alert("Usuario registrado correctamente ✅");
+    window.location.href = "/login"; // Redirige al login tras el registro
   };
 
   return (
@@ -37,22 +70,17 @@ const UserRegister: React.FC = () => {
           <label htmlFor="nombre">Nombre completo:</label>
           <input type="text" id="nombre" name="nombre" required />
 
+          <label htmlFor="correo">Correo electrónico:</label>
+          <input type="email" id="correo" name="correo" required />
+
+          <label htmlFor="telefono">Teléfono:</label>
+          <input type="tel" id="telefono" name="telefono" required />
+
+          <label htmlFor="direccion">Dirección:</label>
+          <input type="text" id="direccion" name="direccion" required />
+
           <label htmlFor="contrasena">Contraseña:</label>
           <input type="password" id="contrasena" name="contrasena" required />
-
-          <label htmlFor="region">Seleccione la región:</label>
-          <select id="region" name="region" required>
-            <option value="">--Seleccione una región--</option>
-            <option value="region1">Región 1</option>
-            <option value="region2">Región 2</option>
-          </select>
-
-          <label htmlFor="comuna">Seleccione la comuna:</label>
-          <select id="comuna" name="comuna" required>
-            <option value="">--Seleccione una comuna--</option>
-            <option value="comuna1">Comuna 1</option>
-            <option value="comuna2">Comuna 2</option>
-          </select>
 
           <button type="submit">Registrarse</button>
         </form>
