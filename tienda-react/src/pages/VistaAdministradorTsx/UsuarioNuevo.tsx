@@ -29,7 +29,7 @@ export default function UsuarioNuevo() {
 
     const newId = `U${(usuarios.length + 1).toString().padStart(3, "0")}`;
 
-    const nuevoUsuario = { id: newId, nombre, email, edad, telefono, direccion };
+    const nuevoUsuario = { id: newId, nombre, email, edad, telefono, direccion,password: "1234"};
 
     agregarUsuario(nuevoUsuario);
 

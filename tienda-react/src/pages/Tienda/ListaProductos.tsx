@@ -23,7 +23,7 @@ const ListaProducto: React.FC = () => {
   }, [searchTerm]);
 
   // 🔹 Estado local del carrito
-  const [carrito, setCarrito] = useState<ProductoCarrito[]>(() => {
+  const [_carrito, setCarrito] = useState<ProductoCarrito[]>(() => {
     return JSON.parse(localStorage.getItem("carrito") || "[]");
   });
 

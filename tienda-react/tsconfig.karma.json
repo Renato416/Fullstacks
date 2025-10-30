@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "isolatedModules": false,
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "types": ["jasmine", "node"],
+    "allowImportingTsExtensions": false
+  },
+  "include": ["src", "src/_tests_/**/*"]
+}

@@ -4,30 +4,30 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Vistas Administrador
-import Dashboard from "./pages/VistaAdministradorTsx/Dashboard";
-import Categorias from "./pages/VistaAdministradorTsx/Categorias";
-import Ordenes from "./pages/VistaAdministradorTsx/Ordenes";
-import Productos from "./pages/VistaAdministradorTsx/Productos";
-import Reportes from "./pages/VistaAdministradorTsx/Reportes";
-import Perfil from "./pages/VistaAdministradorTsx/Perfil";
-import Usuario from "./pages/VistaAdministradorTsx/Usuario";
-import UsuarioNuevo from "./pages/VistaAdministradorTsx/UsuarioNuevo";
-import ProductoNuevo from "./pages/VistaAdministradorTsx/ProductoNuevo";
-import EditarUsuario from "./pages/VistaAdministradorTsx/EditarUsuario";
+import Dashboard from "./src/pages/VistaAdministradorTsx/Dashboard";
+import Categorias from "./src/pages/VistaAdministradorTsx/Categorias";
+import Ordenes from "./src/pages/VistaAdministradorTsx/Ordenes";
+import Productos from "./src/pages/VistaAdministradorTsx/Productos";
+import Reportes from "./src/pages/VistaAdministradorTsx/Reportes";
+import Perfil from "./src/pages/VistaAdministradorTsx/Perfil";
+import Usuario from "./src/pages/VistaAdministradorTsx/Usuario";
+import UsuarioNuevo from "./src/pages/VistaAdministradorTsx/UsuarioNuevo";
+import ProductoNuevo from "./src/pages/VistaAdministradorTsx/ProductoNuevo";
+import EditarUsuario from "./src/pages/VistaAdministradorTsx/EditarUsuario";
 
 // Vistas Tienda
-import Home from "./pages/Tienda/Home";
-import Blog from "./pages/Tienda/Blog";
-import Carrito from "./pages/Tienda/Carrito";
-import Checkout from "./pages/Tienda/Checkout";
-import Contacto from "./pages/Tienda/Contacto";
-import ListaProducto from "./pages/Tienda/ListaProductos";
-import LoginUser from "./pages/Tienda/LoginUser";
-import Nosotros from "./pages/Tienda/Nosotros";
-import Noticia1 from "./pages/Tienda/Noticia1";
-import Noticia2 from "./pages/Tienda/Noticia2";
-import UserRegister from "./pages/Tienda/UserRegistro";
-import EditarProducto from "./pages/VistaAdministradorTsx/EditarProducto";
+import Home from "./src/pages/Tienda/Home";
+import Blog from "./src/pages/Tienda/Blog";
+import Carrito from "./src/pages/Tienda/Carrito";
+import Checkout from "./src/pages/Tienda/Checkout";
+import Contacto from "./src/pages/Tienda/Contacto";
+import ListaProducto from "./src/pages/Tienda/ListaProductos";
+import LoginUser from "./src/pages/Tienda/LoginUser";
+import Nosotros from "./src/pages/Tienda/Nosotros";
+import Noticia1 from "./src/pages/Tienda/Noticia1";
+import Noticia2 from "./src/pages/Tienda/Noticia2";
+import UserRegister from "./src/pages/Tienda/UserRegistro";
+import EditarProducto from "./src/pages/VistaAdministradorTsx/EditarProducto";
 
 // Renderizado principal
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

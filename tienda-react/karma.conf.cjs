@@ -1,31 +1,53 @@
-module.exports = function(config) {
+const path = require("path");
+
+module.exports = function (config) {
   config.set({
-    frameworks: ['jasmine'],
+    frameworks: ["jasmine"],
     files: [
-      'src/_tests_/**/*.spec.tsx' // Todos tus tests
+      "src/_tests_/**/*.spec.ts",
+      "src/_tests_/**/*.spec.tsx"
     ],
     preprocessors: {
-      'src/_tests_/**/*.spec.tsx': ['webpack', 'sourcemap']
+      "src/_tests_/**/*.spec.ts": ["webpack", "sourcemap"],
+      "src/_tests_/**/*.spec.tsx": ["webpack", "sourcemap"]
     },
     webpack: {
-      mode: 'development',
-      resolve: { extensions: ['.ts', '.tsx', '.js', '.jsx'] },
+      mode: "development",
+      devtool: "inline-source-map",
+      resolve: {
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
+        modules: [path.resolve(__dirname, "src"), "node_modules"]
+      },
       module: {
         rules: [
           {
             test: /\.tsx?$/,
-            loader: 'ts-loader',
+            use: [
+              {
+                loader: "ts-loader",
+                options: {
+                  configFile: "tsconfig.karma.json",
+                  transpileOnly: true
+                }
+              }
+            ],
             exclude: /node_modules/
+          },
+          // ✅ Soporte para CSS
+          {
+            test: /\.css$/,
+            use: ["style-loader", "css-loader"]
+          },
+          // ✅ Soporte para imágenes
+          {
+            test: /\.(png|jpe?g|gif|svg)$/i,
+            type: "asset/resource"
           }
         ]
-      },
-      devtool: 'inline-source-map'
+      }
     },
-    reporters: ['progress'],
-    browsers: ['ChromeHeadless'],
-    singleRun: true,
-    mime: {
-      'text/x-typescript': ['ts','tsx']
-    }
+    reporters: ["progress"],
+    browsers: ["ChromeHeadless"],
+    singleRun: true
   });
 };
