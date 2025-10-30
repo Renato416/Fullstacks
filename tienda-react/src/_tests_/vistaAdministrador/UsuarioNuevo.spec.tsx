@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { MemoryRouter } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
-import LoginUser from '../../pages/Tienda/LoginUser';
+import UsuarioNuevo from '../../pages/VistaAdministradorTsx/UsuarioNuevo';
 
-describe('LoginUser component', () => {
+describe('UsuarioNuevo component', () => {
   let container: HTMLDivElement;
 
   beforeEach(() => {
@@ -21,7 +21,7 @@ describe('LoginUser component', () => {
       const root = ReactDOM.createRoot(container);
       root.render(
         <MemoryRouter>
-          <LoginUser />
+          <UsuarioNuevo />
         </MemoryRouter>
       );
     });
@@ -29,29 +29,12 @@ describe('LoginUser component', () => {
     expect(container.innerHTML).toBeTruthy();
   });
 
-  it('debe mostrar inputs de correo y contraseña', () => {
+  it('debe mostrar mensaje de error si se envía formulario vacío', () => {
     act(() => {
       const root = ReactDOM.createRoot(container);
       root.render(
         <MemoryRouter>
-          <LoginUser />
-        </MemoryRouter>
-      );
-    });
-
-    const emailInput = container.querySelector('input[type="email"]');
-    const passwordInput = container.querySelector('input[type="password"]');
-
-    expect(emailInput).toBeTruthy();
-    expect(passwordInput).toBeTruthy();
-  });
-
-  it('debe mostrar mensaje de error si los campos están vacíos al hacer submit', () => {
-    act(() => {
-      const root = ReactDOM.createRoot(container);
-      root.render(
-        <MemoryRouter>
-          <LoginUser />
+          <UsuarioNuevo />
         </MemoryRouter>
       );
     });
