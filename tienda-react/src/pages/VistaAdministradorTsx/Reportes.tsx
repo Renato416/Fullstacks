@@ -1,10 +1,11 @@
-// src/pages/VistaAdministradorTsx/Reportes.tsx
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/reportes.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
 export default function Reportes() {
+  const navigate = useNavigate();
+
   const ventasPorCategoria = [
     { categoria: "Juegos de Mesa", vendidos: 10, total: "$249.900" },
     { categoria: "Accesorios", vendidos: 15, total: "$1.199.850" },
@@ -44,13 +45,16 @@ export default function Reportes() {
           <Link className="nav-item active" to="/reportes">Reportes</Link>
         </nav>
 
-        <div className="nav-extra">
-          <Link className="nav-item" to="/perfil">Perfil</Link>
-          <Link className="nav-item" to="#">Tienda</Link>
-        </div>
-
         <div className="sidebar-foot">
-          <button className="btn-logout">Cerrar sesión</button>
+          <button
+            className="btn-logout"
+            onClick={() => {
+              localStorage.removeItem("usuarioActivo");
+              navigate("/"); // Redirige a Home
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 

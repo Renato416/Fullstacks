@@ -1,9 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // <-- Importar useNavigate
 import "../../assets/CSS/VistaAdministradorTsxCSS/ordenes.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
 export default function Ordenes() {
+  const navigate = useNavigate(); // <-- Inicializar navigate
+
   return (
     <div className="admin-app">
       <aside className="sidebar">
@@ -25,13 +27,16 @@ export default function Ordenes() {
           <Link className="nav-item" to="/reportes">Reportes</Link>
         </nav>
 
-        <div className="nav-extra">
-          <Link className="nav-item" to="/perfil">Perfil</Link>
-          <Link className="nav-item" to="/tienda">Tienda</Link>
-        </div>
-
         <div className="sidebar-foot">
-          <button className="btn-logout">Cerrar sesión</button>
+          <button
+            className="btn-logout"
+            onClick={() => {
+              localStorage.removeItem("usuarioActivo"); // Borra la sesión
+              navigate("/"); // Redirige a Home de la tienda
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 

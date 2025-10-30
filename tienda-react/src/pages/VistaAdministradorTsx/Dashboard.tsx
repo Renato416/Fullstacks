@@ -59,21 +59,17 @@ export default function Dashboard() {
           </Link>
         </nav>
 
-        <div className="nav-extra">
-          <Link className="nav-item" to="/perfil">
-            Perfil
-          </Link>
-          <Link className="nav-item" to="/tienda">
-            Tienda
-          </Link>
-        </div>
+        
 
         <div className="sidebar-foot">
           <button
             className="btn-logout"
-            onClick={() => navigate("/login-user")}
-          >
-            Cerrar sesión
+  onClick={() => {
+    localStorage.removeItem("usuarioActivo"); // Borra la sesión
+    navigate("/"); // Redirige a Home de la tienda
+  }}
+>
+  Cerrar sesión
           </button>
         </div>
       </aside>
