@@ -1,0 +1,68 @@
+.editar-producto-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.editar-producto-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #222;
+}
+
+.editar-producto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editar-producto-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #333;
+}
+
+.editar-producto-form input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.editar-producto-form input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+.btn-guardar,
+.btn-cancelar {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn-guardar {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-guardar:hover {
+  background-color: #0056b3;
+}
+
+.btn-cancelar {
+  background-color: #ccc;
+  color: #222;
+}
+
+.btn-cancelar:hover {
+  background-color: #aaa;
+}

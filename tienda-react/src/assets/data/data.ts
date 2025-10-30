@@ -139,3 +139,37 @@ export function registrarUsuario(usuario: Usuario): boolean {
   actualizarLocalStorageUsuarios();
   return true;
 }
+// =============================
+// CRUD de Productos (con persistencia)
+// =============================
+
+// Guardar productos
+function actualizarLocalStorageProductos() {
+  guardarEnLocalStorage("productos", productos);
+}
+
+// Obtener todos los productos
+export function obtenerProductos() {
+  return productos;
+}
+
+// Agregar nuevo producto
+export function agregarProducto(producto: Producto) {
+  productos.push(producto);
+  actualizarLocalStorageProductos();
+}
+
+// Eliminar producto por id
+export function eliminarProducto(id: string) {
+  productos = productos.filter(p => p.id !== id);
+  actualizarLocalStorageProductos();
+}
+
+// Actualizar producto
+export function actualizarProducto(id: string, datosActualizados: Partial<Producto>) {
+  const index = productos.findIndex(p => p.id === id);
+  if (index !== -1) {
+    productos[index] = { ...productos[index], ...datosActualizados };
+    actualizarLocalStorageProductos();
+  }
+}

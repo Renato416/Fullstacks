@@ -1,35 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
+import { obtenerProductos, eliminarProducto } from "../../assets/data/data";
+import type { Producto } from "../../assets/data/data";
 
-// Imágenes de productos
-import Audifonos from "../../assets/IMG/audifonos.jpeg";
-import Silla from "../../assets/IMG/silla.jpeg";
-import Escritorio from "../../assets/IMG/Escritorio.webp";
-import Mando from "../../assets/IMG/Mando.webp";
-import Mouse from "../../assets/IMG/Mause.webp";
-import Mousepad from "../../assets/IMG/mausepad.avif";
-import Monitor from "../../assets/IMG/monitor.jpeg";
-import Teclado from "../../assets/IMG/Teclado.webp";
 
 export default function Productos() {
   const navigate = useNavigate();
+  const [productos, setProductos] = useState<Producto[]>([]);
 
-  const [productos, setProductos] = useState([
-    { codigo: "AC001", categoria: "Accesorios", imagen: Audifonos, nombre: "Audifonos GAMER", precio: "$64.990 CLP" },
-    { codigo: "SG001", categoria: "Sillas Gamers", imagen: Silla, nombre: "Silla GAMER", precio: "$72.990 CLP" },
-    { codigo: "CG001", categoria: "Computadores Gamers", imagen: Escritorio, nombre: "Escritorio GAMER", precio: "$70.990 CLP" },
-    { codigo: "AC002", categoria: "Accesorios", imagen: Mando, nombre: "Mando de Xbox GAMER", precio: "$79.990 CLP" },
-    { codigo: "MS001", categoria: "Mouse", imagen: Mouse, nombre: "Mouse GAMER", precio: "$28.990 CLP" },
-    { codigo: "MP001", categoria: "Mousepad", imagen: Mousepad, nombre: "Mouse-pad GAMER", precio: "$6.990 CLP" },
-    { codigo: "MO001", categoria: "Monitores", imagen: Monitor, nombre: "Monitor GAMER", precio: "$134.990 CLP" },
-    { codigo: "TE001", categoria: "Teclados", imagen: Teclado, nombre: "Teclado GAMER", precio: "$15.990 CLP" },
-  ]);
+  useEffect(() => {
+    setProductos(obtenerProductos());
+  }, []);
 
-  const handleEliminar = (codigo: string) => {
+  const handleEliminar = (id: string) => {
     if (window.confirm("¿Estás seguro de eliminar este producto?")) {
-      setProductos(productos.filter(prod => prod.codigo !== codigo));
+      eliminarProducto(id);
+      setProductos(obtenerProductos());
     }
   };
 
@@ -65,13 +53,11 @@ export default function Productos() {
         <header className="topbar">
           <h1>Vista Administrador - Productos</h1>
         </header>
+
         <section className="content">
           <div className="table-wrapper">
             <div className="table-header">
-              <button
-                className="btn-add-user"
-                onClick={() => navigate("/producto-nuevo")}
-              >
+              <button className="btn-add-user" onClick={() => navigate("/producto-nuevo")}>
                 Agregar Producto
               </button>
             </div>
@@ -79,7 +65,7 @@ export default function Productos() {
             <table className="product-table">
               <thead>
                 <tr>
-                  <th>Código</th>
+                  <th>ID</th>
                   <th>Categoría</th>
                   <th>Imagen</th>
                   <th>Nombre</th>
@@ -89,25 +75,17 @@ export default function Productos() {
               </thead>
               <tbody>
                 {productos.map((prod) => (
-                  <tr key={prod.codigo}>
-                    <td>{prod.codigo}</td>
+                  <tr key={prod.id}>
+                    <td>{prod.id}</td>
                     <td>{prod.categoria}</td>
-                    <td>
-                      <img src={prod.imagen} alt={prod.nombre} className="mini-img" />
-                    </td>
+                    <td><img src={prod.imagen} alt={prod.nombre} className="mini-img" /></td>
                     <td>{prod.nombre}</td>
-                    <td>{prod.precio}</td>
+                    <td>${prod.precio.toLocaleString()} CLP</td>
                     <td>
-                      <button
-                        className="btn-edit"
-                        onClick={() => navigate(`/producto-editar/${prod.codigo}`)}
-                      >
+                      <button className="btn-edit" onClick={() => navigate(`/producto-editar/${prod.id}`)}>
                         Editar
                       </button>
-                      <button
-                        className="btn-delete"
-                        onClick={() => handleEliminar(prod.codigo)}
-                      >
+                      <button className="btn-delete" onClick={() => handleEliminar(prod.id)}>
                         Eliminar
                       </button>
                     </td>

@@ -1,8 +1,8 @@
-// ProductoNuevo.tsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
+import { agregarProducto } from "../../assets/data/data";
 
 export default function ProductoNuevo() {
   const navigate = useNavigate();
@@ -25,7 +25,21 @@ export default function ProductoNuevo() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log({ categoria, imagen, nombre, precio });
+    if (!categoria || !nombre || !precio) {
+      alert("Por favor, completa todos los campos obligatorios.");
+      return;
+    }
+
+    const nuevoProducto = {
+      id: "P" + Date.now(),
+      categoria,
+      nombre,
+      precio: Number(precio),
+      imagen: imagen ? URL.createObjectURL(imagen) : "/assets/IMG/default.webp",
+    };
+
+    agregarProducto(nuevoProducto);
+    alert("Producto agregado correctamente.");
     navigate("/productos");
   };
 

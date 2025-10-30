@@ -27,6 +27,7 @@ import Nosotros from "./pages/Tienda/Nosotros";
 import Noticia1 from "./pages/Tienda/Noticia1";
 import Noticia2 from "./pages/Tienda/Noticia2";
 import UserRegister from "./pages/Tienda/UserRegistro";
+import EditarProducto from "./pages/VistaAdministradorTsx/EditarProducto";
 
 // Renderizado principal
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -61,6 +62,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/noticia1" element={<Noticia1 />} />
         <Route path="/noticia2" element={<Noticia2 />} />
         <Route path="/register" element={<UserRegister />} />
+        <Route path="/producto-editar/:id" element={<EditarProducto />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
