@@ -6,6 +6,8 @@
   font-family: 'Roboto', sans-serif;
   padding: 20px;
   border-radius: 8px;
+  max-width: 900px;
+  margin: 20px auto;
 }
 
 .editar-producto-container h2 {
@@ -17,6 +19,8 @@
 .editar-producto-form .form-label {
   font-weight: 500;
   color: #D3D3D3;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .editar-producto-form .form-control {
@@ -25,12 +29,19 @@
   color: #FFFFFF;
   border-radius: 4px;
   padding: 8px 10px;
+  width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .editar-producto-form .form-control:focus {
   border-color: #1E90FF;
   outline: none;
   box-shadow: 0 0 5px #1E90FF;
+}
+
+.editar-producto-form .col-12,
+.editar-producto-form .col-md-6 {
+  margin-bottom: 15px;
 }
 
 .btn-primary {
@@ -63,4 +74,10 @@
 
 .btn-secondary:hover {
   background-color: #1E90FF;
+}
+
+.editar-producto-form .d-flex {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
 }
