@@ -52,7 +52,7 @@ export default function UsuarioNuevo() {
           <Link className="nav-item" to="/dashboard">Dashboard</Link>
           <Link className="nav-item" to="/ordenes">Órdenes</Link>
           <Link className="nav-item" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorías">Categorías</Link>
+          <Link className="nav-item" to="/categorias">Categorías</Link>
           <Link className="nav-item active" to="/usuarios">Usuarios</Link>
           <Link className="nav-item" to="/reportes">Reportes</Link>
         </nav>

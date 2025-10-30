@@ -1,139 +1,143 @@
-/* dashboard.css actualizado */
-
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #000000;
-  color: #FFFFFF;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
 .admin-app {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
+  background-color: #000000;
+  font-family: 'Roboto', sans-serif;
+  color: #FFFFFF;
 }
 
 .sidebar {
   width: 220px;
-  background-color: #111111;
+  background-color: #000000;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 20px 0;
 }
 
 .brand {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.brand a .logo {
-  width: 60px;
-  height: auto;
-  cursor: pointer;
+.logo {
+  width: 80px;
+  margin-bottom: 10px;
 }
 
 .brand-text .title {
-  font-weight: bold;
-  font-size: 16px;
-  color: #39FF14;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  color: #1E90FF;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .nav-item {
-  color: #FFFFFF;
+  padding: 12px 20px;
+  color: #D3D3D3;
   text-decoration: none;
-  padding: 10px 20px;
+  margin-bottom: 5px;
+  position: relative;
   font-weight: 500;
-  transition: 0.3s;
 }
 
-.nav-item:hover, .nav-item.active {
+.nav-item:hover {
   background-color: #1E90FF;
   color: #000000;
-  border-radius: 5px;
 }
 
-.nav-extra {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.nav-item.active {
+  color: #1E90FF;
+  font-weight: 700;
+}
+
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 100%;
+  background-color: #1E90FF;
 }
 
 .sidebar-foot {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.btn-logout {
-  background-color: #FF3333;
-  color: #FFFFFF;
-  border: none;
+  margin-top: auto;
   padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: 0.3s;
 }
 
-.btn-logout:hover {
-  background-color: #FF5555;
+.btn {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-danger {
+  background-color: #1E90FF;
+  color: #000000;
+  width: 100%;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #39FF14;
 }
 
 .main {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.topbar {
   padding: 20px;
-  text-align: center;
-  background-color: #111111;
-  border-bottom: 1px solid #333333;
 }
 
 .topbar h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  margin: 0;
+  font-size: 1.8rem;
+  color: #1E90FF;
+  margin-bottom: 20px;
 }
 
 .content {
-  flex: 1;
-  padding: 20px;
+  width: 100%;
+}
+
+.table-responsive {
   overflow-x: auto;
 }
 
 .dashboard-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .dashboard-table th,
 .dashboard-table td {
-  padding: 15px;
-  border: 1px solid #333333;
+  border-bottom: 1px solid #FFFFFF;
+  padding: 12px 15px;
   text-align: left;
+  color: #FFFFFF;
 }
 
 .dashboard-table th {
-  background-color: #1E90FF;
-  color: #000000;
+  background-color: #000000;
+  font-weight: 700;
 }
 
 .clickable-row {
   cursor: pointer;
-  transition: 0.3s;
+  transition: background-color 0.2s ease;
 }
 
 .clickable-row:hover {
-  background-color: #32CC11;
+  background-color: #1E90FF;
   color: #000000;
 }

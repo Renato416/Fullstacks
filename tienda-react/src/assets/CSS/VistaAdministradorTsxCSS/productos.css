@@ -1,120 +1,99 @@
-/* Productos - CSS: productos.css */
-
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: #000000;
-  color: #FFFFFF;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
 .admin-app {
   display: flex;
-  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  background-color: #000000;
+  color: #FFFFFF;
+  min-height: 100vh;
 }
 
 .sidebar {
   width: 220px;
-  background-color: #111111;
+  background-color: #000000;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 20px 0;
+  padding: 20px 10px;
+  border-right: 1px solid #FFFFFF;
 }
 
 .brand {
-  text-align: center;
-  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
-.brand a {
-  display: inline-block;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.brand a .logo {
+.brand .logo {
   width: 60px;
-  height: auto;
-  cursor: pointer;
-  display: block;
-  margin: 0 auto;
+  height: 60px;
 }
 
 .brand-text .title {
-  font-weight: bold;
-  font-size: 16px;
-  color: #39FF14;
+  font-family: 'Orbitron', sans-serif;
+  color: #1E90FF;
+  margin-top: 10px;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 15px;
 }
 
 .nav-item {
-  color: #FFFFFF;
+  color: #D3D3D3;
   text-decoration: none;
-  padding: 10px 20px;
-  font-weight: 500;
-  transition: 0.3s;
+  padding: 10px 15px;
+  border-left: 5px solid transparent;
+  margin-bottom: 5px;
+  transition: all 0.3s ease;
 }
 
-.nav-item:hover, .nav-item.active {
+.nav-item:hover {
   background-color: #1E90FF;
   color: #000000;
-  border-radius: 5px;
 }
 
-.nav-extra {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.nav-item.active {
+  color: #1E90FF;
+  border-left: 5px solid #1E90FF;
+  font-weight: bold;
 }
 
 .sidebar-foot {
-  text-align: center;
-  margin-top: 20px;
+  margin-top: auto;
 }
 
 .btn-logout {
-  background-color: #FF3333;
-  color: #FFFFFF;
+  background-color: #1E90FF;
+  color: #000000;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: 0.3s;
+  border-radius: 4px;
+  width: 100%;
+  transition: background-color 0.3s ease;
 }
 
 .btn-logout:hover {
-  background-color: #FF5555;
+  background-color: #39FF14;
 }
 
 .main {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.topbar {
-  padding: 20px;
-  text-align: center;
-  background-color: #111111;
-  border-bottom: 1px solid #333333;
+  padding: 20px 30px;
 }
 
 .topbar h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 20px;
-  margin: 0;
+  color: #1E90FF;
+  margin-bottom: 20px;
 }
 
-.content {
-  flex: 1;
-  padding: 20px;
+.table-responsive {
   overflow-x: auto;
 }
 
@@ -123,88 +102,58 @@ body {
   border-collapse: collapse;
 }
 
-.product-table th, .product-table td {
+.product-table th,
+.product-table td {
+  border-bottom: 1px solid #FFFFFF;
   padding: 12px 15px;
-  border-bottom: 1px solid #333333;
   text-align: left;
 }
 
 .product-table th {
+  font-family: 'Orbitron', sans-serif;
+  color: #1E90FF;
+  background-color: #000000;
+}
+
+.product-table tr:hover {
   background-color: #1E90FF;
   color: #000000;
 }
 
-.btn-edit, .btn-delete {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  background-color: #1E90FF;
-  color: #000000;
-  transition: 0.3s;
-}
-
-.btn-edit:hover {
-  background-color: #32CC11;
-}
-/* Miniaturas */
 .mini-img {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   object-fit: cover;
-  border-radius: 5px;
-}
-/* Contenedor de botón + tabla */
-.table-wrapper {
-  display: flex;
-  flex-direction: column; /* esto fuerza que los elementos estén uno encima del otro */
-  gap: 10px; /* espacio entre botón y tabla */
-}
-
-.table-header {
-  display: flex;
-  justify-content: flex-start; /* botón alineado a la izquierda */
+  border-radius: 4px;
 }
 
 .btn-add-user {
-  padding: 10px 20px;
   background-color: #1E90FF;
-  color: #000;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.3s;
+  color: #000000;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
 }
 
 .btn-add-user:hover {
-  background-color: #32CC11;
+  background-color: #39FF14;
 }
 
-.form-producto {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
-  margin: 0 auto;
-  gap: 12px;
+.btn-edit {
+  background-color: #1E90FF;
+  color: #000000;
+  transition: background-color 0.3s ease;
 }
 
-.form-producto label {
-  font-weight: bold;
+.btn-edit:hover {
+  background-color: #39FF14;
 }
 
-.form-producto input,
-.form-producto select {
-  padding: 8px 10px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background-color: #000;
-  color: #fff;
+.btn-delete {
+  background-color: #FF4136;
+  color: #FFFFFF;
+  transition: background-color 0.3s ease;
 }
 
-.form-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
+.btn-delete:hover {
+  background-color: #FF0000;
 }
