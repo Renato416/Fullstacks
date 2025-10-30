@@ -15,14 +15,14 @@ interface Noticia {
 
 const noticias: Noticia[] = [
   {
-    img: "/assets/IMG-NOTICIAS/ofertas-gamer.jpg",
+    img: "/assets/IMG/ofertas-gamer.webp",
     titulo: "¡Semana de Ofertas Gamer!",
     descripcion: "Descuentos especiales en periféricos, sillas y monitores. ¡Equipa tu setup al mejor precio!",
     fecha: "Publicado el 25/10/2025",
     link: "/noticia1",
   },
   {
-    img: "/assets/IMG-NOTICIAS/evento-gamer.jpg",
+    img: "/assets/IMG/evento-gamer.jpg",
     titulo: "Evento “LEVEL-UP EXPERIENCE”",
     descripcion: "Ven a probar los últimos productos gamer y participa por premios exclusivos.",
     fecha: "Publicado el 20/10/2025",

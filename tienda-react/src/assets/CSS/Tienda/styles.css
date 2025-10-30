@@ -5,11 +5,28 @@
     box-sizing: border-box;
 }
 
-/* ======= BODY ======= */
+/* ======= ESTRUCTURA GLOBAL PARA PEGAR FOOTER ======= */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, sans-serif;
     color: white;
     background-color: black;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* Contenedor principal React/Vite */
+#root, body, .App {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -32,10 +49,12 @@ header {
     gap: 10px;
     flex: 1;
 }
+
 .Logo {
     width: 50px;
     height: auto;
 }
+
 .Nombre-empresa {
     font-size: 1.2rem;
     font-weight: bold;
@@ -79,9 +98,11 @@ header {
     color: white;
     font-weight: bold;
 }
+
 .carrito-text {
     font-size: 14px;
 }
+
 .icono-carrito {
     width: 30px;
     height: 30px;
@@ -92,6 +113,7 @@ header {
     gap: 10px;
     margin-top: 5px;
 }
+
 .user-buttons a {
     padding: 5px 12px;
     border-radius: 5px;
@@ -99,17 +121,21 @@ header {
     font-weight: bold;
     transition: background 0.3s;
 }
+
 .btn-login {
     background: #ffffff;
     color: #1E90FF;
 }
+
 .btn-login:hover {
     background: #e0e0e0;
 }
+
 .btn-register {
     background: #000000;
     color: #ffffff;
 }
+
 .btn-register:hover {
     background: #333;
 }
@@ -136,7 +162,7 @@ header {
     padding: 15px;
     border-radius: 10px;
     text-align: center;
-    color: black;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -187,14 +213,26 @@ header {
     padding: 20px 0;
     margin-top: 10px;
 }
+
 .titulo-ofertas h2 {
     font-size: 2em;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
+/* ======= AJUSTE CONTENEDOR CARRITO ======= */
+.cart-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
 
-/* ======= FOOTER AJUSTADO PARA LINEAS LARGAS ======= */
+/* ======= FOOTER ======= */
 footer {
     background: #1E90FF;
     color: white;
@@ -204,19 +242,20 @@ footer {
     justify-content: space-between;
     align-items: flex-start;
     margin-top: auto;
-}
-/* ======= FORZAR COLOR DE STRONG EN FOOTER ======= */
-footer strong {
-    color: white;        /* Fuerza que el texto sea blanco */
-    font-weight: bold;    /* Asegura que se vea más fuerte */
+    width: 100%;
 }
 
+/* Forzar color blanco de strong */
+footer strong {
+    color: white;
+    font-weight: bold;
+}
 
 .footer-nombre-div {
-    max-width: 300px; /* puedes aumentar a 350-400px si quieres más espacio */
+    max-width: 300px;
     text-align: left;
-    word-wrap: break-word; /* permite que el texto largo se ajuste */
-    overflow-wrap: break-word; /* compatibilidad cross-browser */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .footer-nombre-h2 {
@@ -228,8 +267,8 @@ footer strong {
 .footer-nombre-div p {
     margin: 5px 0;
     font-size: 14px;
-    line-height: 1.4; /* mejora lectura de párrafos */
-    white-space: normal; /* permite que el texto haga wrap */
+    line-height: 1.4;
+    white-space: normal;
 }
 
 .footer-redes {
@@ -275,8 +314,7 @@ footer strong {
     }
 }
 
-
-/* ======= RESPONSIVE ======= */
+/* ======= RESPONSIVE GENERAL ======= */
 @media screen and (max-width: 900px) {
     .productos-container {
         grid-template-columns: repeat(2, 1fr);

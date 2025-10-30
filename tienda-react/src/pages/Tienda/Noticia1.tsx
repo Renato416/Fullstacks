@@ -19,7 +19,7 @@ const Noticia1: React.FC = () => {
       <main className="noticia-detalle">
         <h2>¡Semana de Ofertas Gamer!</h2>
         <img
-          src="/assets/IMG-NOTICIAS/ofertas-gamer.jpg"
+          src="/assets/IMG/ofertas-gamer.webp"
           alt="Ofertas gamer"
           className="detalle-img"
         />

@@ -19,7 +19,7 @@ const Noticia2: React.FC = () => {
       <main className="noticia-detalle">
         <h2>Evento “LEVEL-UP EXPERIENCE”</h2>
         <img
-          src="/assets/IMG-NOTICIAS/evento-gamer.jpg"
+          src="/assets/IMG/evento-gamer.jpg"
           alt="Evento gamer"
           className="detalle-img"
         />

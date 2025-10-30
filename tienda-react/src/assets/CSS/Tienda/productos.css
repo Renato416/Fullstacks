@@ -4,14 +4,15 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); /* columnas fluidas */
   gap: 20px;
   padding: 20px 30px;
+  background-color: #000000; /* 🔹 Fondo general negro (contrasta con las tarjetas blancas) */
 }
 
 .producto {
-  background-color: #f5f5f5;
+  background-color: #ffffff; /* 🔹 Fondo blanco para las tarjetas */
   padding: 15px;
   border-radius: 10px;
   text-align: center;
-  color: black;
+  color: white;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -20,14 +21,14 @@
 
 .producto:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); /* sombra más visible sobre negro */
 }
 
 /* 🔹 Imagen flexible que escala con la tarjeta */
 .producto-img {
   width: 100%;
-  height: auto;        /* ahora la altura se ajusta proporcionalmente */
-  max-height: 200px;   /* no se hace gigante */
+  height: auto;
+  max-height: 200px;
   object-fit: contain;
   border-radius: 8px;
   background-color: #ffffff;
@@ -35,7 +36,7 @@
 
 /* 🔹 Texto flexible */
 .producto-titulo {
-  font-size: 1rem;    /* escala proporcional al contenedor */
+  font-size: 1rem;
   margin: 10px 0 5px 0;
   min-height: auto;
   display: flex;
@@ -50,21 +51,6 @@
   font-weight: bold;
   color: #1E90FF;
   margin-top: auto;
-}
-
-/* ======= TÍTULO OFERTAS ======= */
-.titulo-ofertas {
-  text-align: center;
-  background-color: #1E90FF;
-  color: white;
-  padding: 20px 0;
-  margin-top: 10px;
-}
-
-.titulo-ofertas h2 {
-  font-size: 2em;
-  letter-spacing: 2px;
-  text-transform: uppercase;
 }
 
 /* ======= RESPONSIVE ======= */

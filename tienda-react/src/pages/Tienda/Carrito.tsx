@@ -15,26 +15,33 @@ interface ProductoCarrito {
 const Carrito: React.FC = () => {
   const [carrito, setCarrito] = useState<ProductoCarrito[]>([]);
   const [discountApplied, setDiscountApplied] = useState(false);
+  const [update, setUpdate] = useState(0); // 🔹 Fuerza re-render
   const navigate = useNavigate();
 
-  // 🔹 Cargar carrito desde localStorage
+  // 🔹 Cargar carrito al montar
   useEffect(() => {
     const carritoLocal = JSON.parse(localStorage.getItem("carrito") || "[]");
     setCarrito(carritoLocal);
+
+    // 🔹 Escuchar cambios en localStorage (para cuando se agregue desde otra pestaña o ListaProducto)
+    const handleStorageChange = () => setUpdate((u) => u + 1);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
-  // 🔹 Guardar carrito en localStorage
+  // 🔹 Cada vez que `update` cambia, recargamos carrito desde localStorage
   useEffect(() => {
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-  }, [carrito]);
+    const carritoLocal = JSON.parse(localStorage.getItem("carrito") || "[]");
+    setCarrito(carritoLocal);
+  }, [update]);
 
-  // 🔹 Obtener información completa del producto desde la base de datos
-  const productosEnCarrito = carrito.map((item) => {
-    const productoInfo = productos.find((p) => p.id === item.id);
-    return productoInfo
-      ? { ...productoInfo, cantidad: item.cantidad }
-      : null;
-  }).filter(Boolean) as (Producto & { cantidad: number })[];
+  // 🔹 Obtener productos completos del carrito
+  const productosEnCarrito = carrito
+    .map((item) => {
+      const productoInfo = productos.find((p) => p.id === item.id);
+      return productoInfo ? { ...productoInfo, cantidad: item.cantidad } : null;
+    })
+    .filter(Boolean) as (Producto & { cantidad: number })[];
 
   const handleQuantityChange = (id: string, value: number) => {
     if (value < 1) value = 1;
@@ -42,6 +49,7 @@ const Carrito: React.FC = () => {
       item.id === id ? { ...item, cantidad: value } : item
     );
     setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   };
 
   const handleIncrement = (id: string) => {
@@ -49,6 +57,7 @@ const Carrito: React.FC = () => {
       item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
     );
     setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   };
 
   const handleDecrement = (id: string) => {
@@ -58,11 +67,13 @@ const Carrito: React.FC = () => {
         : item
     );
     setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   };
 
   const handleRemove = (id: string) => {
     const nuevoCarrito = carrito.filter((item) => item.id !== id);
     setCarrito(nuevoCarrito);
+    localStorage.setItem("carrito", JSON.stringify(nuevoCarrito));
   };
 
   const handleApplyCoupon = (code: string) => {
@@ -85,16 +96,17 @@ const Carrito: React.FC = () => {
   };
 
   const total =
-    productosEnCarrito.reduce(
-      (acc, p) => acc + p.precio * p.cantidad,
-      0
-    ) * (discountApplied ? 0.8 : 1);
+    productosEnCarrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0) *
+    (discountApplied ? 0.8 : 1);
 
   return (
     <>
       <Header />
       <main>
-        <h1>Mi carrito de compras</h1>
+        <h1 style={{ color: "var(--primary-color)", marginBottom: "1rem" }}>
+          Mi carrito de compras
+        </h1>
+
         <div className="cart-container">
           <div className="products">
             {productosEnCarrito.length === 0 ? (
@@ -107,17 +119,15 @@ const Carrito: React.FC = () => {
                 return (
                   <div className="product" key={p.id}>
                     <img
-                      src={`/assets/IMG/${p.imagen}`}
+                      src={p.imagen}
                       alt={p.nombre}
                       className="product-image"
                     />
                     <div className="product-info">
                       <h2>{p.nombre}</h2>
-                      <p className="unit-price">
-                        Precio: ${p.precio.toLocaleString()}
-                      </p>
+                      <p>Precio: ${p.precio.toLocaleString()}</p>
                     </div>
-                    <div className="product-actions">
+                    <div className="product-price">
                       <div className="quantity">
                         <button onClick={() => handleDecrement(p.id)}>-</button>
                         <input
@@ -125,15 +135,21 @@ const Carrito: React.FC = () => {
                           value={p.cantidad}
                           min={1}
                           onChange={(e) =>
-                            handleQuantityChange(p.id, parseInt(e.target.value))
+                            handleQuantityChange(
+                              p.id,
+                              parseInt(e.target.value) || 1
+                            )
                           }
                         />
                         <button onClick={() => handleIncrement(p.id)}>+</button>
                       </div>
-                      <p className="subtotal">
-                        Subtotal: ${subtotal.toLocaleString()}
-                      </p>
-                      <button onClick={() => handleRemove(p.id)}>Eliminar</button>
+                      <p>Subtotal: ${subtotal.toLocaleString()}</p>
+                      <button
+                        className="remove"
+                        onClick={() => handleRemove(p.id)}
+                      >
+                        Eliminar
+                      </button>
                     </div>
                   </div>
                 );
@@ -142,8 +158,8 @@ const Carrito: React.FC = () => {
           </div>
 
           <div className="summary">
-            <h2>Total:</h2>
-            <p className="total-amount">${total.toLocaleString()}</p>
+            <h2>Resumen</h2>
+            <p className="total-amount">Total: ${total.toLocaleString()}</p>
             <input
               type="text"
               placeholder="Ingrese el cupón de descuento"

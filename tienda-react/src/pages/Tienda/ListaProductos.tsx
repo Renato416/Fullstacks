@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
-import ProductCard from "../../components/Tienda/ProductoCard";
 import { productos } from "../../assets/data/data";
-import type { Producto } from "../../assets/data/data"; // ✅ tipo importado correctamente
+import type { Producto } from "../../assets/data/data";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/listaProducto.css";
+
+interface ProductoCarrito {
+  id: string;
+  cantidad: number;
+}
 
 const ListaProducto: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -18,6 +22,34 @@ const ListaProducto: React.FC = () => {
     setFilteredProducts(filtered);
   }, [searchTerm]);
 
+  // 🔹 Estado local del carrito
+  const [carrito, setCarrito] = useState<ProductoCarrito[]>(() => {
+    return JSON.parse(localStorage.getItem("carrito") || "[]");
+  });
+
+  // 🔹 Agregar producto al carrito (sin duplicar por StrictMode)
+const handleAddToCart = (id: string) => {
+  let carritoActual = JSON.parse(localStorage.getItem("carrito") || "[]");
+
+  const productoExistente = carritoActual.find((item: ProductoCarrito) => item.id === id);
+
+  if (productoExistente) {
+    productoExistente.cantidad += 1;
+  } else {
+    carritoActual.push({ id, cantidad: 1 });
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carritoActual));
+  setCarrito(carritoActual);
+
+  // 🔸 Notificación única
+  alert("Producto agregado al carrito 🛒");
+
+  // 🔸 Dispara evento personalizado para que el Header se actualice en tiempo real
+  window.dispatchEvent(new Event("carrito-actualizado"));
+};
+
+
   return (
     <>
       <Header />
@@ -27,6 +59,7 @@ const ListaProducto: React.FC = () => {
 
         <div className="search-container">
           <input
+            id="searchInput"
             type="text"
             placeholder="Buscar productos..."
             value={searchTerm}
@@ -36,12 +69,14 @@ const ListaProducto: React.FC = () => {
 
         <div className="productos-grid">
           {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              img={product.imagen}
-              title={product.nombre}
-              price={`$${product.precio.toLocaleString()}`}
-            />
+            <div className="producto" key={product.id}>
+              <img src={product.imagen} alt={product.nombre} />
+              <h3 className="titulo">{product.nombre}</h3>
+              <p className="precio">${product.precio.toLocaleString()}</p>
+              <button onClick={() => handleAddToCart(product.id)}>
+                Agregar al carrito
+              </button>
+            </div>
           ))}
         </div>
       </main>

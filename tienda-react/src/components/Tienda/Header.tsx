@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const [totalProductos, setTotalProductos] = useState(0);
   const [menuActivo, setMenuActivo] = useState(false);
 
-  // Función para actualizar el contador del carrito
+  // 🔹 Función para actualizar el contador del carrito
   const actualizarContadorCarrito = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
     const total = carrito.reduce((acc: number, prod: any) => acc + prod.cantidad, 0);
@@ -17,12 +17,22 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     actualizarContadorCarrito();
-    window.addEventListener("storage", actualizarContadorCarrito);
-    return () => window.removeEventListener("storage", actualizarContadorCarrito);
+
+    // 🔹 Escuchar cambios en localStorage desde otras pestañas
+    const handleStorage = () => actualizarContadorCarrito();
+    window.addEventListener("storage", handleStorage);
+
+    // 🔹 Intervalo para actualizar en la misma pestaña cada 200ms
+    const intervalo = setInterval(actualizarContadorCarrito, 200);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+      clearInterval(intervalo);
+    };
   }, []);
 
   return (
-    <header> {/* <--- Quitar className="Header" para que use tu CSS existente */}
+    <header>
       <div className="Logo-container">
         <Link to="/">
           <img src={Logo} alt="Logo de la empresa" className="Logo" />
@@ -35,7 +45,7 @@ const Header: React.FC = () => {
       </button>
 
       <nav className={`nav ${menuActivo ? "active" : ""}`}>
-        <Link to="/dashboard">Inicio</Link>
+        <Link to="/">Inicio</Link>
         <Link to="/listaproductos">Productos</Link>
         <Link to="/nosotros">Nosotros</Link>
         <Link to="/blog">Blogs</Link>

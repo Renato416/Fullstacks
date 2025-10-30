@@ -94,7 +94,7 @@ const Checkout: React.FC = () => {
               {productosEnCarrito.map((p) => (
                 <div className="checkout-product" key={p.id}>
                   <img
-                    src={`/assets/IMG/${p.imagen}`}
+                    src={`${p.imagen}`}
                     alt={p.nombre}
                     style={{ width: "80px", borderRadius: "8px" }}
                   />
