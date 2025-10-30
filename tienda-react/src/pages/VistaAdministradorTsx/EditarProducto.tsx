@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { obtenerProductos, actualizarProducto } from "../../assets/data/data";
-import type { Producto } from "../../assets/data/data"; // <-- import tipo
+import type { Producto } from "../../assets/data/data";
 import "../../assets/CSS/VistaAdministradorTsxCSS/EditarProducto.css";
 
 const EditarProducto: React.FC = () => {
@@ -51,64 +51,80 @@ const EditarProducto: React.FC = () => {
   }
 
   return (
-    <div className="editar-producto-container">
-      <h2>Editar Producto</h2>
-      <form onSubmit={handleSubmit} className="editar-producto-form">
-        <label>
-          ID:
-          <input type="text" value={formData.id} name="id" readOnly />
-        </label>
+    <div className="editar-producto-container container mt-4">
+      <h2 className="mb-3">Editar Producto</h2>
+      <form onSubmit={handleSubmit} className="editar-producto-form row g-3">
+        <div className="col-md-6">
+          <label className="form-label">
+            ID:
+            <input type="text" value={formData.id} name="id" readOnly className="form-control" />
+          </label>
+        </div>
 
-        <label>
-          Nombre:
-          <input
-            type="text"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-          />
-        </label>
+        <div className="col-md-6">
+          <label className="form-label">
+            Nombre:
+            <input
+              type="text"
+              name="nombre"
+              value={formData.nombre}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </label>
+        </div>
 
-        <label>
-          Categoría:
-          <input
-            type="text"
-            name="categoria"
-            value={formData.categoria}
-            onChange={handleChange}
-          />
-        </label>
+        <div className="col-md-6">
+          <label className="form-label">
+            Categoría:
+            <input
+              type="text"
+              name="categoria"
+              value={formData.categoria}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </label>
+        </div>
 
-        <label>
-          Precio:
-          <input
-            type="number"
-            name="precio"
-            value={formData.precio}
-            onChange={handleChange}
-          />
-        </label>
+        <div className="col-md-6">
+          <label className="form-label">
+            Precio:
+            <input
+              type="number"
+              name="precio"
+              value={formData.precio}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </label>
+        </div>
 
-        <label>
-          Imagen (URL):
-          <input
-            type="text"
-            name="imagen"
-            value={formData.imagen}
-            onChange={handleChange}
-          />
-        </label>
+        <div className="col-12">
+          <label className="form-label">
+            Imagen (URL):
+            <input
+              type="text"
+              name="imagen"
+              value={formData.imagen}
+              onChange={handleChange}
+              className="form-control"
+            />
+          </label>
+        </div>
 
-        <button type="submit" className="btn-guardar">
-          Guardar Cambios
-        </button>
-        <button
-          type="button"
-          className="btn-cancelar"
-          onClick={() => navigate("/productos")}
-        >
-          Cancelar
-        </button>
+        <div className="col-12 d-flex gap-2 mt-3">
+          <button type="submit" className="btn btn-primary">
+            Guardar Cambios
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => navigate("/productos")}
+          >
+            Cancelar
+          </button>
+        </div>
       </form>
     </div>
   );

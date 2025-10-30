@@ -1,10 +1,16 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom"; // <-- Importar useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/ordenes.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 
 export default function Ordenes() {
-  const navigate = useNavigate(); // <-- Inicializar navigate
+  const navigate = useNavigate();
+
+  const ordenes = [
+    { id: "001", usuario: "Juan Pérez", fecha: "2025-10-28", total: "$149.990 CLP", estado: "Pendiente" },
+    { id: "002", usuario: "María López", fecha: "2025-10-27", total: "$72.990 CLP", estado: "Entregado" },
+    { id: "003", usuario: "Carlos Gómez", fecha: "2025-10-26", total: "$134.990 CLP", estado: "En Proceso" },
+  ];
 
   return (
     <div className="admin-app">
@@ -29,10 +35,10 @@ export default function Ordenes() {
 
         <div className="sidebar-foot">
           <button
-            className="btn-logout"
+            className="btn-logout btn btn-danger"
             onClick={() => {
-              localStorage.removeItem("usuarioActivo"); // Borra la sesión
-              navigate("/"); // Redirige a Home de la tienda
+              localStorage.removeItem("usuarioActivo");
+              navigate("/");
             }}
           >
             Cerrar sesión
@@ -44,41 +50,32 @@ export default function Ordenes() {
         <header className="topbar">
           <h1>Vista Administrador - Órdenes</h1>
         </header>
-        <section className="content">
-          <table className="orders-table">
-            <thead>
-              <tr>
-                <th>ID Orden</th>
-                <th>Usuario</th>
-                <th>Fecha</th>
-                <th>Total</th>
-                <th>Estado</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>001</td>
-                <td>Juan Pérez</td>
-                <td>2025-10-28</td>
-                <td>$149.990 CLP</td>
-                <td>Pendiente</td>
-              </tr>
-              <tr>
-                <td>002</td>
-                <td>María López</td>
-                <td>2025-10-27</td>
-                <td>$72.990 CLP</td>
-                <td>Entregado</td>
-              </tr>
-              <tr>
-                <td>003</td>
-                <td>Carlos Gómez</td>
-                <td>2025-10-26</td>
-                <td>$134.990 CLP</td>
-                <td>En Proceso</td>
-              </tr>
-            </tbody>
-          </table>
+
+        <section className="content container mt-4">
+          <div className="table-responsive">
+            <table className="table table-striped orders-table">
+              <thead className="table-dark">
+                <tr>
+                  <th>ID Orden</th>
+                  <th>Usuario</th>
+                  <th>Fecha</th>
+                  <th>Total</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ordenes.map((orden) => (
+                  <tr key={orden.id}>
+                    <td>{orden.id}</td>
+                    <td>{orden.usuario}</td>
+                    <td>{orden.fecha}</td>
+                    <td>{orden.total}</td>
+                    <td>{orden.estado}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>

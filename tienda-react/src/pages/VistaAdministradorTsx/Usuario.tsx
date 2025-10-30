@@ -22,22 +22,21 @@ export default function Usuarios() {
           <Link className="nav-item" to="/dashboard">Dashboard</Link>
           <Link className="nav-item" to="/ordenes">Órdenes</Link>
           <Link className="nav-item" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorias">Categorías</Link>
+          <Link className="nav-item" to="/categorías">Categorías</Link>
           <Link className="nav-item active" to="/usuarios">Usuarios</Link>
           <Link className="nav-item" to="/reportes">Reportes</Link>
         </nav>
-       
+
         <div className="sidebar-foot">
           <button
-  className="btn-logout"
-  onClick={() => {
-    localStorage.removeItem("usuarioActivo"); // Borra la sesión
-    navigate("/"); // Redirige a Home de la tienda
-  }}
->
-  Cerrar sesión
-</button>
-
+            className="btn-logout btn btn-danger"
+            onClick={() => {
+              localStorage.removeItem("usuarioActivo");
+              navigate("/");
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 
@@ -46,16 +45,18 @@ export default function Usuarios() {
           <h1>Vista Administrador - Usuarios</h1>
         </header>
 
-        <section className="content">
-          <div className="table-container">
+        <section className="content container mt-4">
+          <div className="mb-3">
             <button
-              className="btn-add-user"
+              className="btn btn-primary"
               onClick={() => navigate("/usuarios-nuevo")}
             >
               Agregar Usuario
             </button>
+          </div>
 
-            <table className="user-table">
+          <div className="table-responsive">
+            <table className="table table-striped user-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -78,12 +79,12 @@ export default function Usuarios() {
                     <td>{usuario.direccion}</td>
                     <td>
                       <button
-                        className="btn-edit"
+                        className="btn btn-warning btn-sm me-2"
                         onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
                       >
-                        Editar Usuario
+                        Editar
                       </button>
-                      <button className="btn-history">Ver Historial</button>
+                      <button className="btn btn-info btn-sm">Ver Historial</button>
                     </td>
                   </tr>
                 ))}

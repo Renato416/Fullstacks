@@ -6,7 +6,7 @@ import { usuarios, actualizarUsuario } from "../../assets/data/data.ts";
 
 export default function EditarUsuario() {
   const navigate = useNavigate();
-  const { id } = useParams(); // obtenemos el id del usuario desde la URL
+  const { id } = useParams(); 
 
   const usuarioExistente = usuarios.find(u => u.id === id);
 
@@ -19,25 +19,21 @@ export default function EditarUsuario() {
 
   useEffect(() => {
     if (!usuarioExistente) {
-      navigate("/usuarios"); // si no existe el usuario, volvemos a la lista
+      navigate("/usuarios");
     }
   }, [usuarioExistente, navigate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!nombre || !email || !edad || !telefono || !direccion) {
       setError("Todos los campos son obligatorios.");
       return;
     }
-
     if (typeof edad === "number" && edad < 18) {
       setError("El usuario debe ser mayor de 18 años.");
       return;
     }
-
     actualizarUsuario(id!, { nombre, email, edad, telefono, direccion });
-
     navigate("/usuarios");
   };
 
@@ -62,19 +58,16 @@ export default function EditarUsuario() {
           <Link className="nav-item" to="/reportes">Reportes</Link>
         </nav>
 
-        
-
         <div className="sidebar-foot">
           <button
-  className="btn-logout"
-  onClick={() => {
-    localStorage.removeItem("usuarioActivo"); // Borra la sesión
-    navigate("/"); // Redirige a Home de la tienda
-  }}
->
-  Cerrar sesión
-</button>
-
+            className="btn-logout"
+            onClick={() => {
+              localStorage.removeItem("usuarioActivo");
+              navigate("/");
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 
@@ -83,28 +76,68 @@ export default function EditarUsuario() {
           <h1>Editar Usuario</h1>
         </header>
 
-        <section className="content">
-          <form className="form-usuario" onSubmit={handleSubmit}>
-            {error && <p className="error">{error}</p>}
+        <section className="content container mt-4">
+          <form className="form-usuario row g-3" onSubmit={handleSubmit}>
+            {error && <p className="error text-danger">{error}</p>}
 
-            <label>Nombre:</label>
-            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+            <div className="col-md-6">
+              <label className="form-label">Nombre:</label>
+              <input 
+                type="text" 
+                value={nombre} 
+                onChange={(e) => setNombre(e.target.value)} 
+                required 
+                className="form-control" 
+              />
+            </div>
 
-            <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <div className="col-md-6">
+              <label className="form-label">Email:</label>
+              <input 
+                type="email" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)} 
+                required 
+                className="form-control" 
+              />
+            </div>
 
-            <label>Edad:</label>
-            <input type="number" value={edad} onChange={(e) => setEdad(Number(e.target.value))} required />
+            <div className="col-md-4">
+              <label className="form-label">Edad:</label>
+              <input 
+                type="number" 
+                value={edad} 
+                onChange={(e) => setEdad(Number(e.target.value))} 
+                required 
+                className="form-control" 
+              />
+            </div>
 
-            <label>Teléfono:</label>
-            <input type="text" value={telefono} onChange={(e) => setTelefono(e.target.value)} required />
+            <div className="col-md-4">
+              <label className="form-label">Teléfono:</label>
+              <input 
+                type="text" 
+                value={telefono} 
+                onChange={(e) => setTelefono(e.target.value)} 
+                required 
+                className="form-control" 
+              />
+            </div>
 
-            <label>Dirección:</label>
-            <input type="text" value={direccion} onChange={(e) => setDireccion(e.target.value)} required />
+            <div className="col-md-4">
+              <label className="form-label">Dirección:</label>
+              <input 
+                type="text" 
+                value={direccion} 
+                onChange={(e) => setDireccion(e.target.value)} 
+                required 
+                className="form-control" 
+              />
+            </div>
 
-            <div className="form-buttons">
-              <button type="submit" className="btn-add-user">Actualizar Usuario</button>
-              <button type="button" className="btn-edit" onClick={() => navigate("/usuarios")}>Cancelar</button>
+            <div className="col-12 d-flex gap-2 mt-3">
+              <button type="submit" className="btn btn-primary">Actualizar Usuario</button>
+              <button type="button" className="btn btn-secondary" onClick={() => navigate("/usuarios")}>Cancelar</button>
             </div>
           </form>
         </section>

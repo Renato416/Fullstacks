@@ -47,10 +47,10 @@ export default function Reportes() {
 
         <div className="sidebar-foot">
           <button
-            className="btn-logout"
+            className="btn-logout btn btn-danger"
             onClick={() => {
               localStorage.removeItem("usuarioActivo");
-              navigate("/"); // Redirige a Home
+              navigate("/");
             }}
           >
             Cerrar sesión
@@ -63,71 +63,77 @@ export default function Reportes() {
           <h1>Vista Administrador - Reportes</h1>
         </header>
 
-        <section className="content">
-          <div className="report-block">
+        <section className="content container mt-4">
+          <div className="report-block mb-4">
             <h2>Ventas por Categoría</h2>
-            <table className="report-table">
-              <thead>
-                <tr>
-                  <th>Categoría</th>
-                  <th>Productos Vendidos</th>
-                  <th>Total en CLP</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ventasPorCategoria.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.categoria}</td>
-                    <td>{item.vendidos}</td>
-                    <td>{item.total}</td>
+            <div className="table-responsive">
+              <table className="table table-striped report-table">
+                <thead>
+                  <tr>
+                    <th>Categoría</th>
+                    <th>Productos Vendidos</th>
+                    <th>Total en CLP</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {ventasPorCategoria.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.categoria}</td>
+                      <td>{item.vendidos}</td>
+                      <td>{item.total}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <div className="report-block">
+          <div className="report-block mb-4">
             <h2>Ventas por Producto</h2>
-            <table className="report-table">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad Vendida</th>
-                  <th>Total en CLP</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ventasPorProducto.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.producto}</td>
-                    <td>{item.cantidad}</td>
-                    <td>{item.total}</td>
+            <div className="table-responsive">
+              <table className="table table-striped report-table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad Vendida</th>
+                    <th>Total en CLP</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {ventasPorProducto.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.producto}</td>
+                      <td>{item.cantidad}</td>
+                      <td>{item.total}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <div className="report-block">
+          <div className="report-block mb-4">
             <h2>Usuarios con Compras</h2>
-            <table className="report-table">
-              <thead>
-                <tr>
-                  <th>Usuario</th>
-                  <th>Email</th>
-                  <th>Total Comprado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usuariosConCompras.map((usuario, index) => (
-                  <tr key={index}>
-                    <td>{usuario.nombre}</td>
-                    <td>{usuario.email}</td>
-                    <td>{usuario.total}</td>
+            <div className="table-responsive">
+              <table className="table table-striped report-table">
+                <thead>
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Total Comprado</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {usuariosConCompras.map((usuario, index) => (
+                    <tr key={index}>
+                      <td>{usuario.nombre}</td>
+                      <td>{usuario.email}</td>
+                      <td>{usuario.total}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </section>
       </main>

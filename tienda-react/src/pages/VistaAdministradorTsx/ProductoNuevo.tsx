@@ -24,7 +24,6 @@ export default function ProductoNuevo() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!categoria || !nombre || !precio) {
       alert("Por favor, completa todos los campos obligatorios.");
       return;
@@ -65,15 +64,14 @@ export default function ProductoNuevo() {
         
         <div className="sidebar-foot">
           <button
-  className="btn-logout"
-  onClick={() => {
-    localStorage.removeItem("usuarioActivo"); // Borra la sesión
-    navigate("/"); // Redirige a Home de la tienda
-  }}
->
-  Cerrar sesión
-</button>
-
+            className="btn-logout btn btn-danger"
+            onClick={() => {
+              localStorage.removeItem("usuarioActivo");
+              navigate("/");
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 
@@ -82,28 +80,51 @@ export default function ProductoNuevo() {
           <h1>Agregar Nuevo Producto</h1>
         </header>
 
-        <section className="content">
-          <form className="form-producto" onSubmit={handleSubmit}>
-            <label>Categoría:</label>
-            <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
-              <option value="">--Selecciona categoría--</option>
-              {categorias.map((cat) => (
-                <option key={cat} value={cat}>{cat}</option>
-              ))}
-            </select>
+        <section className="content container mt-4">
+          <form className="form-producto row g-3" onSubmit={handleSubmit}>
+            <div className="col-12">
+              <label className="form-label">Categoría:</label>
+              <select className="form-select" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+                <option value="">--Selecciona categoría--</option>
+                {categorias.map((cat) => (
+                  <option key={cat} value={cat}>{cat}</option>
+                ))}
+              </select>
+            </div>
 
-            <label>Imagen:</label>
-            <input type="file" accept="image/*" onChange={(e) => setImagen(e.target.files ? e.target.files[0] : null)} />
+            <div className="col-12">
+              <label className="form-label">Imagen:</label>
+              <input
+                type="file"
+                accept="image/*"
+                className="form-control"
+                onChange={(e) => setImagen(e.target.files ? e.target.files[0] : null)}
+              />
+            </div>
 
-            <label>Nombre:</label>
-            <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} />
+            <div className="col-md-6">
+              <label className="form-label">Nombre:</label>
+              <input
+                type="text"
+                className="form-control"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+              />
+            </div>
 
-            <label>Precio:</label>
-            <input type="number" value={precio} onChange={(e) => setPrecio(e.target.value)} />
+            <div className="col-md-6">
+              <label className="form-label">Precio:</label>
+              <input
+                type="number"
+                className="form-control"
+                value={precio}
+                onChange={(e) => setPrecio(e.target.value)}
+              />
+            </div>
 
-            <div className="form-buttons">
-              <button type="submit" className="btn-add-user">Agregar Producto</button>
-              <button type="button" className="btn-edit" onClick={() => navigate("/productos")}>Cancelar</button>
+            <div className="col-12 d-flex gap-2">
+              <button type="submit" className="btn-add-user btn btn-primary">Agregar Producto</button>
+              <button type="button" className="btn-edit btn btn-secondary" onClick={() => navigate("/productos")}>Cancelar</button>
             </div>
           </form>
         </section>

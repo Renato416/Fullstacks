@@ -5,7 +5,6 @@ import Logo from "../../assets/IMG/icon-level-up.png";
 import { obtenerProductos, eliminarProducto } from "../../assets/data/data";
 import type { Producto } from "../../assets/data/data";
 
-
 export default function Productos() {
   const navigate = useNavigate();
   const [productos, setProductos] = useState<Producto[]>([]);
@@ -43,15 +42,14 @@ export default function Productos() {
         
         <div className="sidebar-foot">
           <button
-  className="btn-logout"
-  onClick={() => {
-    localStorage.removeItem("usuarioActivo"); // Borra la sesión
-    navigate("/"); // Redirige a Home de la tienda
-  }}
->
-  Cerrar sesión
-</button>
-
+            className="btn-logout btn btn-danger"
+            onClick={() => {
+              localStorage.removeItem("usuarioActivo");
+              navigate("/");
+            }}
+          >
+            Cerrar sesión
+          </button>
         </div>
       </aside>
 
@@ -60,15 +58,15 @@ export default function Productos() {
           <h1>Vista Administrador - Productos</h1>
         </header>
 
-        <section className="content">
-          <div className="table-wrapper">
-            <div className="table-header">
-              <button className="btn-add-user" onClick={() => navigate("/producto-nuevo")}>
-                Agregar Producto
-              </button>
-            </div>
+        <section className="content container mt-4">
+          <div className="table-wrapper mb-3 d-flex justify-content-end">
+            <button className="btn-add-user btn btn-primary" onClick={() => navigate("/producto-nuevo")}>
+              Agregar Producto
+            </button>
+          </div>
 
-            <table className="product-table">
+          <div className="table-responsive">
+            <table className="table table-striped product-table">
               <thead>
                 <tr>
                   <th>ID</th>
@@ -84,14 +82,16 @@ export default function Productos() {
                   <tr key={prod.id}>
                     <td>{prod.id}</td>
                     <td>{prod.categoria}</td>
-                    <td><img src={prod.imagen} alt={prod.nombre} className="mini-img" /></td>
+                    <td>
+                      <img src={prod.imagen} alt={prod.nombre} className="mini-img img-fluid rounded" />
+                    </td>
                     <td>{prod.nombre}</td>
                     <td>${prod.precio.toLocaleString()} CLP</td>
-                    <td>
-                      <button className="btn-edit" onClick={() => navigate(`/producto-editar/${prod.id}`)}>
+                    <td className="d-flex gap-2 flex-wrap">
+                      <button className="btn-edit btn btn-warning" onClick={() => navigate(`/producto-editar/${prod.id}`)}>
                         Editar
                       </button>
-                      <button className="btn-delete" onClick={() => handleEliminar(prod.id)}>
+                      <button className="btn-delete btn btn-danger" onClick={() => handleEliminar(prod.id)}>
                         Eliminar
                       </button>
                     </td>
