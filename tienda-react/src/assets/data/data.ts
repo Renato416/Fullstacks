@@ -139,6 +139,19 @@ export function registrarUsuario(usuario: Usuario): boolean {
   actualizarLocalStorageUsuarios();
   return true;
 }
+
+export const obtenerUsuario = () => {
+  const data = JSON.parse(localStorage.getItem("usuarios") || "[]");
+  return data;
+};
+
+export const eliminarUsuario = (id: number) => {
+  const usuarios = obtenerUsuarios();
+  const nuevos = usuarios.filter((u: any) => u.id !== id);
+  localStorage.setItem("usuarios", JSON.stringify(nuevos));
+};
+
+
 // =============================
 // CRUD de Productos (con persistencia)
 // =============================
