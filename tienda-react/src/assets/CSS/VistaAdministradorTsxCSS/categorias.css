@@ -1,25 +1,36 @@
+/*categorias.css*/
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
+/* ===============================
+   RESET GENERAL
+=============================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-.admin-app {
-  display: flex;
-  min-height: 100vh;
+body {
   font-family: 'Roboto', sans-serif;
-  background-color: #000000;
-  color: #FFFFFF;
+  background-color: #000;
+  color: #fff;
 }
 
 /* ===============================
-   Sidebar fijo
+   ESTRUCTURA PRINCIPAL
+=============================== */
+.admin-app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ===============================
+   SIDEBAR
 =============================== */
 .sidebar {
   width: 240px;
-  background-color: #000000;
+  background-color: #000;
+  border-right: 1px solid #1E90FF;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -28,7 +39,6 @@
   left: 0;
   height: 100%;
   overflow-y: auto;
-  border-right: 1px solid #1E90FF;
   z-index: 1000;
 }
 
@@ -50,6 +60,9 @@
   color: #1E90FF;
 }
 
+/* ===============================
+   NAVEGACIÓN
+=============================== */
 .nav.flex-column {
   display: flex;
   flex-direction: column;
@@ -57,23 +70,23 @@
 }
 
 .nav-link {
-  padding: 0.5rem 1rem; /* Sin padding extra para cuadrado */
-  color: #FFFFFF;
+  padding: 0.6rem 1rem;
+  color: #fff;
   text-decoration: none;
   font-size: 1rem;
   display: block;
-  transition: all 0.2s;
   border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .nav-link:hover,
 .nav-link.active {
   background-color: #1E90FF;
-  color: #FFFFFF !important;
+  color: #fff !important;
 }
 
 /* ===============================
-   Botón cerrar sesión
+   BOTÓN CERRAR SESIÓN
 =============================== */
 .sidebar-foot {
   margin-top: auto;
@@ -81,7 +94,7 @@
 
 .sidebar-foot .btn {
   background-color: #1E90FF;
-  color: #FFFFFF;
+  color: #fff;
   border: none;
   padding: 0.6rem 1rem;
   font-weight: 500;
@@ -92,11 +105,11 @@
 
 .sidebar-foot .btn:hover {
   background-color: #39FF14;
-  color: #000000;
+  color: #000;
 }
 
 /* ===============================
-   Main ajustado por sidebar
+   CONTENIDO PRINCIPAL
 =============================== */
 .main {
   margin-left: 240px;
@@ -114,42 +127,42 @@
 }
 
 /* ===============================
-   Tabla de categorías
+   TABLAS GENERALES (REUTILIZABLES)
 =============================== */
 .table-responsive {
   overflow-x: auto;
 }
 
-.category-table {
+.admin-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 0.95rem;
-  background-color: #111111;
+  background-color: #111;
 }
 
-.category-table th,
-.category-table td {
+.admin-table th,
+.admin-table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #FFFFFF;
-  color: #FFFFFF;
+  border-bottom: 1px solid #fff;
+  color: #fff;
 }
 
-.category-table thead {
+.admin-table thead {
   background-color: #1E90FF;
-  color: #FFFFFF;
+  color: #fff;
   font-family: 'Orbitron', sans-serif;
 }
 
-.category-table tbody tr:nth-child(even) {
-  background-color: #111111;
+.admin-table tbody tr:nth-child(even) {
+  background-color: #111;
 }
 
-.category-table tbody tr:hover {
+.admin-table tbody tr:hover {
   background-color: #1A1A1A;
 }
 
-.category-table tbody td[colspan] {
+.admin-table tbody td[colspan] {
   text-align: center;
   color: #D3D3D3;
   font-style: italic;

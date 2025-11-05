@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "../../assets/CSS/VistaAdministradorTsxCSS/dashboard.css";
-import Logo from "../../assets/IMG/icon-level-up.png";
+import { useNavigate } from "react-router-dom";
+import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css"; // Importamos el CSS global del layout
 import { obtenerProductos, obtenerUsuarios } from "../../assets/data/data";
+import AdminSidebar from "../../components/administrador/AdminSidebar"; // Importamos el nuevo Sidebar
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -27,37 +27,7 @@ export default function Dashboard() {
 
   return (
     <div className="admin-app container-fluid">
-      <aside className="sidebar">
-        <div className="brand">
-          <Link to="/dashboard">
-            <img src={Logo} alt="Logo" className="logo img-fluid" />
-          </Link>
-          <div className="brand-text">
-            <div className="title">Level-Up Gamer</div>
-          </div>
-        </div>
-
-        <nav className="nav flex-column">
-          <Link className="nav-item nav-link active" to="/dashboard">Dashboard</Link>
-          <Link className="nav-item nav-link" to="/ordenes">Órdenes</Link>
-          <Link className="nav-item nav-link" to="/productos">Productos</Link>
-          <Link className="nav-item nav-link" to="/categorias">Categorías</Link>
-          <Link className="nav-item nav-link" to="/usuarios">Usuarios</Link>
-          <Link className="nav-item nav-link" to="/reportes">Reportes</Link>
-        </nav>
-
-        <div className="sidebar-foot mt-auto">
-          <button
-            className="btn btn-danger w-100"
-            onClick={() => {
-              localStorage.removeItem("usuarioActivo");
-              navigate("/");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
+      <AdminSidebar /> {/* Reemplazamos el sidebar anterior */}
 
       <main className="main">
         <header className="topbar mb-3">

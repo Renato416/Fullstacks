@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
-import Logo from "../../assets/IMG/icon-level-up.png";
+import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css";
+import AdminSidebar from "../../components/administrador/AdminSidebar";
+
 import { agregarProducto } from "../../assets/data/data";
 
 export default function ProductoNuevo() {
@@ -14,7 +16,7 @@ export default function ProductoNuevo() {
     "Mouse",
     "Mousepad",
     "Monitores",
-    "Teclado"
+    "Teclado",
   ];
 
   const [categoria, setCategoria] = useState("");
@@ -44,37 +46,7 @@ export default function ProductoNuevo() {
 
   return (
     <div className="admin-app">
-      <aside className="sidebar">
-        <div className="brand">
-          <Link to="/dashboard">
-            <img src={Logo} alt="Logo" className="logo" />
-          </Link>
-          <div className="brand-text">
-            <div className="title">Level-Up Gamer</div>
-          </div>
-        </div>
-        <nav className="nav">
-          <Link className="nav-item" to="/dashboard">Dashboard</Link>
-          <Link className="nav-item" to="/ordenes">Órdenes</Link>
-          <Link className="nav-item active" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorias">Categorías</Link>
-          <Link className="nav-item" to="/usuarios">Usuarios</Link>
-          <Link className="nav-item" to="/reportes">Reportes</Link>
-        </nav>
-        
-        <div className="sidebar-foot">
-          <button
-            className="btn-logout btn btn-danger"
-            onClick={() => {
-              localStorage.removeItem("usuarioActivo");
-              navigate("/");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
-
+      <AdminSidebar activePage="productos" />
       <main className="main">
         <header className="topbar">
           <h1>Agregar Nuevo Producto</h1>
@@ -84,10 +56,16 @@ export default function ProductoNuevo() {
           <form className="form-producto row g-3" onSubmit={handleSubmit}>
             <div className="col-12">
               <label className="form-label">Categoría:</label>
-              <select className="form-select" value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+              <select
+                className="form-select"
+                value={categoria}
+                onChange={(e) => setCategoria(e.target.value)}
+              >
                 <option value="">--Selecciona categoría--</option>
                 {categorias.map((cat) => (
-                  <option key={cat} value={cat}>{cat}</option>
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
                 ))}
               </select>
             </div>
@@ -98,7 +76,9 @@ export default function ProductoNuevo() {
                 type="file"
                 accept="image/*"
                 className="form-control"
-                onChange={(e) => setImagen(e.target.files ? e.target.files[0] : null)}
+                onChange={(e) =>
+                  setImagen(e.target.files ? e.target.files[0] : null)
+                }
               />
             </div>
 
@@ -123,8 +103,16 @@ export default function ProductoNuevo() {
             </div>
 
             <div className="col-12 d-flex gap-2">
-              <button type="submit" className="btn-add-user btn btn-primary">Agregar Producto</button>
-              <button type="button" className="btn-edit btn btn-secondary" onClick={() => navigate("/productos")}>Cancelar</button>
+              <button type="submit" className="btn-add-user btn btn-primary">
+                Agregar Producto
+              </button>
+              <button
+                type="button"
+                className="btn-edit btn btn-secondary"
+                onClick={() => navigate("/productos")}
+              >
+                Cancelar
+              </button>
             </div>
           </form>
         </section>

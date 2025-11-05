@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "../../assets/CSS/VistaAdministradorTsxCSS/ordenes.css";
-import Logo from "../../assets/IMG/icon-level-up.png";
+import { useNavigate } from "react-router-dom";
+import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css"; // Importamos el CSS global del layout
+import AdminSidebar from "../../components/administrador/AdminSidebar"; // Importamos el Sidebar
 
 export default function Ordenes() {
   const navigate = useNavigate();
@@ -14,37 +14,7 @@ export default function Ordenes() {
 
   return (
     <div className="admin-app">
-      <aside className="sidebar">
-        <div className="brand">
-          <Link to="/dashboard">
-            <img src={Logo} alt="Logo" className="logo" />
-          </Link>
-          <div className="brand-text">
-            <div className="title">Level-Up Gamer</div>
-          </div>
-        </div>
-
-        <nav className="nav">
-          <Link className="nav-item" to="/dashboard">Dashboard</Link>
-          <Link className="nav-item active" to="/ordenes">Órdenes</Link>
-          <Link className="nav-item" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorias">Categorías</Link>
-          <Link className="nav-item" to="/usuarios">Usuarios</Link>
-          <Link className="nav-item" to="/reportes">Reportes</Link>
-        </nav>
-
-        <div className="sidebar-foot">
-          <button
-            className="btn-logout btn btn-danger"
-            onClick={() => {
-              localStorage.removeItem("usuarioActivo");
-              navigate("/");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
+      <AdminSidebar /> {/* Reemplazamos el sidebar anterior */}
 
       <main className="main">
         <header className="topbar">
