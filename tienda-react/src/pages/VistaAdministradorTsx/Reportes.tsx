@@ -1,6 +1,8 @@
+/*Reportes.tsx*/
 import React from "react";
 import "../../assets/CSS/VistaAdministradorTsxCSS/reportes.css";
-import AdminLayout from "../../components/administrador/AdminLayout";
+import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css";
+import AdminSidebar from "../../components/administrador/AdminSidebar";
 
 export default function Reportes() {
   const ventasPorCategoria = [
@@ -22,80 +24,90 @@ export default function Reportes() {
   ];
 
   return (
-    <AdminLayout title="Vista Administrador - Reportes" activePage="reportes">
-      <section className="content container mt-4">
-        <div className="report-block mb-4">
-          <h2>Ventas por Categoría</h2>
-          <div className="table-responsive">
-            <table className="table table-striped report-table">
-              <thead>
-                <tr>
-                  <th>Categoría</th>
-                  <th>Productos Vendidos</th>
-                  <th>Total en CLP</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ventasPorCategoria.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.categoria}</td>
-                    <td>{item.vendidos}</td>
-                    <td>{item.total}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+    <div style={{ display: "block" }}>
+      <div className="admin-app">
+        <AdminSidebar activePage="reportes" />
 
-        <div className="report-block mb-4">
-          <h2>Ventas por Producto</h2>
-          <div className="table-responsive">
-            <table className="table table-striped report-table">
-              <thead>
-                <tr>
-                  <th>Producto</th>
-                  <th>Cantidad Vendida</th>
-                  <th>Total en CLP</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ventasPorProducto.map((item, index) => (
-                  <tr key={index}>
-                    <td>{item.producto}</td>
-                    <td>{item.cantidad}</td>
-                    <td>{item.total}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <main className="main">
+          <header className="topbar">
+            <h1>Vista Administrador - Reportes</h1>
+          </header>
 
-        <div className="report-block mb-4">
-          <h2>Usuarios con Compras</h2>
-          <div className="table-responsive">
-            <table className="table table-striped report-table">
-              <thead>
-                <tr>
-                  <th>Usuario</th>
-                  <th>Email</th>
-                  <th>Total Comprado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usuariosConCompras.map((usuario, index) => (
-                  <tr key={index}>
-                    <td>{usuario.nombre}</td>
-                    <td>{usuario.email}</td>
-                    <td>{usuario.total}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-    </AdminLayout>
+          <section className="content container mt-4">
+            <div className="report-block mb-4">
+              <h2>Ventas por Categoría</h2>
+              <div className="table-responsive">
+                <table className="table report-table">
+                  <thead>
+                    <tr>
+                      <th>Categoría</th>
+                      <th>Productos Vendidos</th>
+                      <th>Total en CLP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ventasPorCategoria.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.categoria}</td>
+                        <td>{item.vendidos}</td>
+                        <td>{item.total}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="report-block mb-4">
+              <h2>Ventas por Producto</h2>
+              <div className="table-responsive">
+                <table className="table report-table">
+                  <thead>
+                    <tr>
+                      <th>Producto</th>
+                      <th>Cantidad Vendida</th>
+                      <th>Total en CLP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {ventasPorProducto.map((item, index) => (
+                      <tr key={index}>
+                        <td>{item.producto}</td>
+                        <td>{item.cantidad}</td>
+                        <td>{item.total}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="report-block mb-4">
+              <h2>Usuarios con Compras</h2>
+              <div className="table-responsive">
+                <table className="table report-table">
+                  <thead>
+                    <tr>
+                      <th>Usuario</th>
+                      <th>Email</th>
+                      <th>Total Comprado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usuariosConCompras.map((usuario, index) => (
+                      <tr key={index}>
+                        <td>{usuario.nombre}</td>
+                        <td>{usuario.email}</td>
+                        <td>{usuario.total}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
-import Logo from "../../assets/IMG/icon-level-up.png";
+import AdminSidebar from "../../components/administrador/AdminSidebar";
 import { usuarios } from "../../assets/data/data.ts";
 
 export default function Usuarios() {
@@ -9,44 +9,15 @@ export default function Usuarios() {
 
   return (
     <div className="admin-app">
-      <aside className="sidebar">
-        <div className="brand">
-          <Link to="/dashboard">
-            <img src={Logo} alt="Logo" className="logo" />
-          </Link>
-          <div className="brand-text">
-            <div className="title">Level-Up Gamer</div>
-          </div>
-        </div>
-        <nav className="nav">
-          <Link className="nav-item" to="/dashboard">Dashboard</Link>
-          <Link className="nav-item" to="/ordenes">Órdenes</Link>
-          <Link className="nav-item" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorías">Categorías</Link>
-          <Link className="nav-item active" to="/usuarios">Usuarios</Link>
-          <Link className="nav-item" to="/reportes">Reportes</Link>
-        </nav>
-
-        <div className="sidebar-foot">
-          <button
-            className="btn-logout btn btn-danger"
-            onClick={() => {
-              localStorage.removeItem("usuarioActivo");
-              navigate("/");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
+      <AdminSidebar activePage="usuarios" />
 
       <main className="main">
         <header className="topbar">
           <h1>Vista Administrador - Usuarios</h1>
         </header>
 
-        <section className="content container mt-4">
-          <div className="mb-3">
+        <section className="content">
+          <div className="button-container">
             <button
               className="btn btn-primary"
               onClick={() => navigate("/usuarios-nuevo")}
@@ -80,11 +51,15 @@ export default function Usuarios() {
                     <td>
                       <button
                         className="btn btn-warning btn-sm me-2"
-                        onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
+                        onClick={() =>
+                          navigate(`/usuarios/editar/${usuario.id}`)
+                        }
                       >
                         Editar
                       </button>
-                      <button className="btn btn-info btn-sm">Ver Historial</button>
+                      <button className="btn btn-info btn-sm">
+                        Ver Historial
+                      </button>
                     </td>
                   </tr>
                 ))}

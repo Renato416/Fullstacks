@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
-import Logo from "../../assets/IMG/icon-level-up.png";
+import AdminSidebar from "../../components/administrador/AdminSidebar";
 import { usuarios, agregarUsuario } from "../../assets/data/data.ts";
 
 export default function UsuarioNuevo() {
@@ -28,9 +28,15 @@ export default function UsuarioNuevo() {
     }
 
     const newId = `U${(usuarios.length + 1).toString().padStart(3, "0")}`;
-
-    const nuevoUsuario = { id: newId, nombre, email, edad, telefono, direccion, password: "1234" };
-
+    const nuevoUsuario = {
+      id: newId,
+      nombre,
+      email,
+      edad,
+      telefono,
+      direccion,
+      password: "1234",
+    };
     agregarUsuario(nuevoUsuario);
 
     navigate("/usuarios");
@@ -38,37 +44,7 @@ export default function UsuarioNuevo() {
 
   return (
     <div className="admin-app">
-      <aside className="sidebar">
-        <div className="brand">
-          <Link to="/dashboard">
-            <img src={Logo} alt="Logo" className="logo" />
-          </Link>
-          <div className="brand-text">
-            <div className="title">Level-Up Gamer</div>
-          </div>
-        </div>
-
-        <nav className="nav">
-          <Link className="nav-item" to="/dashboard">Dashboard</Link>
-          <Link className="nav-item" to="/ordenes">Órdenes</Link>
-          <Link className="nav-item" to="/productos">Productos</Link>
-          <Link className="nav-item" to="/categorias">Categorías</Link>
-          <Link className="nav-item active" to="/usuarios">Usuarios</Link>
-          <Link className="nav-item" to="/reportes">Reportes</Link>
-        </nav>
-
-        <div className="sidebar-foot">
-          <button
-            className="btn btn-danger btn-logout"
-            onClick={() => {
-              localStorage.removeItem("usuarioActivo");
-              navigate("/");
-            }}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </aside>
+      <AdminSidebar activePage="usuarios" />
 
       <main className="main">
         <header className="topbar">
@@ -135,8 +111,16 @@ export default function UsuarioNuevo() {
             </div>
 
             <div className="d-flex gap-2">
-              <button type="submit" className="btn btn-primary">Agregar Usuario</button>
-              <button type="button" className="btn btn-secondary" onClick={() => navigate("/usuarios")}>Cancelar</button>
+              <button type="submit" className="btn btn-primary">
+                Agregar Usuario
+              </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => navigate("/usuarios")}
+              >
+                Cancelar
+              </button>
             </div>
           </form>
         </section>
