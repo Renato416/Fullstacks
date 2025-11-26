@@ -1,193 +1,117 @@
 import React, { useEffect, useState } from "react";
-import Header from "../../components/Tienda/Header";
-import Footer from "../../components/Tienda/Footer";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../../assets/CSS/Tienda/styles.css";
+import Header from "../../components/Tienda/Header";
+import Footer from "../../components/Tienda/Footer";
 import "../../assets/CSS/Tienda/carrito_com.css";
 
 interface ProductoCarrito {
-  id: string; // ID del producto en el carrito
-  cantidad: number;
-}
-
-interface ProductoDetalle {
   id: string;
   nombre: string;
   precio: number;
-  imagenUrl: string;
-  cantidad: number; // cantidad en el carrito
+  cantidad: number;
+}
+
+interface Usuario {
+  id: string;
+  nombre: string;
+  rol: "admin" | "cliente";
 }
 
 const Carrito: React.FC = () => {
-  const [carrito, setCarrito] = useState<ProductoDetalle[]>([]);
-  const [discountApplied, setDiscountApplied] = useState(false);
+  const [carrito, setCarrito] = useState<ProductoCarrito[]>([]);
+  const [usuarioActivo, setUsuarioActivo] = useState<Usuario | null>(null);
   const navigate = useNavigate();
 
-  // ⚠️ Reemplaza con el ID del usuario logueado
-  const usuarioId = "123";
+  useEffect(() => {
+    const usuario = localStorage.getItem("usuarioActivo");
+    if (usuario) setUsuarioActivo(JSON.parse(usuario));
+  }, []);
 
-  // 🔹 Cargar carrito desde backend y normalizar la respuesta
   const fetchCarrito = async () => {
+    if (!usuarioActivo) return;
+
     try {
-      const response = await axios.get(`/api/v2/carritos/usuario/${usuarioId}`);
-      let carritoBackend: ProductoCarrito[] = [];
+      const res = await axios.get(`/api/v2/carritos/usuario/${usuarioActivo.id}`);
+      const detalles = res.data.detalles || [];
 
-      if (response.data._embedded && response.data._embedded.carritoDTOList) {
-        carritoBackend = response.data._embedded.carritoDTOList;
-      } else if (Array.isArray(response.data)) {
-        carritoBackend = response.data;
-      } else {
-        console.error("Respuesta inesperada del backend:", response.data);
-      }
+      const productosConDetalle: ProductoCarrito[] = detalles.map((d: any) => ({
+        id: d.productoId.toString(),
+        nombre: d.nombreProducto,
+        precio: d.precioProducto,
+        cantidad: d.cantidad,
+      }));
 
-      // Traer detalles de cada producto
-      const productosCompletos = await Promise.all(
-        carritoBackend.map(async (item) => {
-          const prodRes = await axios.get(`/api/v2/productos/${item.id}`);
-          return { ...prodRes.data, cantidad: item.cantidad };
-        })
-      );
-
-      setCarrito(productosCompletos);
-    } catch (error) {
-      console.error("Error al cargar carrito:", error);
+      setCarrito(productosConDetalle);
+    } catch (err) {
+      console.error(err);
+      setCarrito([]);
     }
   };
 
   useEffect(() => {
     fetchCarrito();
-  }, []);
+    window.addEventListener("carrito-actualizado", fetchCarrito);
+    return () => window.removeEventListener("carrito-actualizado", fetchCarrito);
+  }, [usuarioActivo]);
 
-  // 🔹 Cambiar cantidad
   const handleQuantityChange = async (productoId: string, cantidad: number) => {
-    if (cantidad < 1) cantidad = 1;
+    if (!usuarioActivo || cantidad < 1) return;
+
     try {
       await axios.put(
-        `/api/v2/carritos/usuario/${usuarioId}/producto/${productoId}?cantidad=${cantidad}`
+        `/api/v2/carritos/usuario/${usuarioActivo.id}/producto/${productoId}`,
+        null,
+        { params: { cantidad } }
       );
       fetchCarrito();
-    } catch (error) {
-      console.error("Error al actualizar cantidad:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const handleIncrement = (productoId: string) => {
-    const prod = carrito.find((p) => p.id === productoId);
-    if (prod) handleQuantityChange(productoId, prod.cantidad + 1);
-  };
-
-  const handleDecrement = (productoId: string) => {
-    const prod = carrito.find((p) => p.id === productoId);
-    if (prod && prod.cantidad > 1) handleQuantityChange(productoId, prod.cantidad - 1);
-  };
-
-  // 🔹 Eliminar producto
   const handleRemove = async (productoId: string) => {
+    if (!usuarioActivo) return;
     try {
-      await axios.delete(`/api/v2/carritos/usuario/${usuarioId}/producto/${productoId}`);
+      await axios.delete(`/api/v2/carritos/usuario/${usuarioActivo.id}/producto/${productoId}`);
       fetchCarrito();
-    } catch (error) {
-      console.error("Error al eliminar producto:", error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  // 🔹 Aplicar cupón
-  const handleApplyCoupon = (code: string) => {
-    if (code === "Level-up") {
-      setDiscountApplied(true);
-      alert("Cupón aplicado: 20% de descuento ✅");
-    } else {
-      setDiscountApplied(false);
-      alert("Cupón inválido ❌");
-    }
-  };
-
-  // 🔹 Comprar
-  const handleBuy = async () => {
-    if (carrito.length === 0) {
-      alert("Tu carrito está vacío 😅");
-      return;
-    }
-    try {
-      await axios.post(`/api/v2/boletas/usuario/${usuarioId}`, carrito);
-      alert("Compra realizada ✅");
-      navigate("/checkout");
-    } catch (error) {
-      console.error("Error al generar la boleta:", error);
-      alert("No se pudo completar la compra ❌");
-    }
-  };
-
-  const total =
-    carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0) *
-    (discountApplied ? 0.8 : 1);
+  const total = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
 
   return (
     <>
       <Header />
-      <main>
-        <h1 style={{ color: "var(--primary-color)", marginBottom: "1rem" }}>
-          Mi carrito de compras
-        </h1>
+      <main className="carrito-main">
+        <h1>Mi carrito de compras</h1>
 
-        <div className="cart-container">
-          <div className="products">
-            {carrito.length === 0 ? (
-              <p style={{ textAlign: "center", color: "white" }}>
-                Tu carrito está vacío 🛒
-              </p>
-            ) : (
-              carrito.map((p) => {
-                const subtotal = p.precio * p.cantidad;
-                return (
-                  <div className="product" key={p.id}>
-                    <img src={p.imagenUrl} alt={p.nombre} className="product-image" />
-                    <div className="product-info">
-                      <h2>{p.nombre}</h2>
-                      <p>Precio: ${p.precio.toLocaleString()}</p>
-                    </div>
-                    <div className="product-price">
-                      <div className="quantity">
-                        <button onClick={() => handleDecrement(p.id)}>-</button>
-                        <input
-                          type="number"
-                          value={p.cantidad}
-                          min={1}
-                          onChange={(e) =>
-                            handleQuantityChange(p.id, parseInt(e.target.value) || 1)
-                          }
-                        />
-                        <button onClick={() => handleIncrement(p.id)}>+</button>
-                      </div>
-                      <p>Subtotal: ${subtotal.toLocaleString()}</p>
-                      <button className="remove" onClick={() => handleRemove(p.id)}>
-                        Eliminar
-                      </button>
-                    </div>
+        {carrito.length === 0 ? (
+          <p className="carrito-vacio">Tu carrito está vacío 🛒</p>
+        ) : (
+          <div className="carrito-lista">
+            {carrito.map((p) => (
+              <div key={p.id} className="producto-carrito">
+                <div className="producto-info">
+                  <span>{p.nombre}</span>
+                  <span>Precio: ${p.precio}</span>
+                  <span>Subtotal: ${p.precio * p.cantidad}</span>
+                  <div>
+                    <button onClick={() => handleQuantityChange(p.id, p.cantidad - 1)} disabled={p.cantidad <= 1}>-</button>
+                    <span>{p.cantidad}</span>
+                    <button onClick={() => handleQuantityChange(p.id, p.cantidad + 1)}>+</button>
+                    <button onClick={() => handleRemove(p.id)}>Eliminar</button>
                   </div>
-                );
-              })
-            )}
+                </div>
+              </div>
+            ))}
           </div>
+        )}
 
-          <div className="summary">
-            <h2>Resumen</h2>
-            <p className="total-amount">Total: ${total.toLocaleString()}</p>
-            <input type="text" placeholder="Ingrese el cupón de descuento" id="coupon" />
-            <button
-              className="apply"
-              onClick={() =>
-                handleApplyCoupon((document.getElementById("coupon") as HTMLInputElement).value)
-              }
-            >
-              APLICAR
-            </button>
-            <button className="buy" onClick={handleBuy}>
-              COMPRAR
-            </button>
-          </div>
-        </div>
+        <h2>Total: ${total}</h2>
+        <button onClick={() => navigate("/checkout")}>Ir a pagar</button>
       </main>
       <Footer />
     </>

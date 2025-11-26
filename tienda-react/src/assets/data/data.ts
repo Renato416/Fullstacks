@@ -11,6 +11,30 @@ export interface Usuario {
   password: string;
   rol?: "cliente" | "admin";
 }
+// src/assets/data/data.ts
+
+export interface UsuarioDTO {
+  id: number;                  // ID generado por backend
+  nombreUsuario: string;       // Nombre completo
+  correoElectronico: string;   // Email del usuario
+  rol: string;                 // "cliente", "admin", etc.
+  direccion?: string;          // opcional
+  fechaNacimiento?: string;    // opcional, en ISO string
+  run?: string;                // opcional
+  token?: string;              // token JWT devuelto por backend
+}
+
+// src/assets/data/data.ts
+
+export interface RegistroUsuarioDTO {
+  nombreUsuario: string;       // Nombre completo
+  correoElectronico: string;   // Email
+  contraseña: string;          // Password
+  direccion?: string;          // opcional
+  fechaNacimiento?: string;    // opcional, ISO string
+  run?: string;                // opcional
+}
+
 
 export interface Categoria {
   codigo: string;
@@ -27,7 +51,7 @@ export interface Orden {
 }
 
 export interface Producto {
-  id: string;
+  id: number;
   categoria: string;
   nombre: string;
   precio: number;
@@ -70,14 +94,14 @@ const datosInicialesOrdenes: Orden[] = [
 ];
 
 const datosInicialesProductos: Producto[] = [
-  { id: "P001", categoria: "Accesorios", nombre: "Audífonos GAMER", precio: 64990, imagenUrl: "/assets/IMG/audifonos.jpeg" },
-  { id: "P002", categoria: "Muebles", nombre: "Silla GAMER", precio: 72990, imagenUrl: "/assets/IMG/silla.jpeg" },
-  { id: "P003", categoria: "Muebles", nombre: "Escritorio GAMER", precio: 70990, imagenUrl: "/assets/IMG/Escritorio.webp" },
-  { id: "P004", categoria: "Consolas", nombre: "Mando de Xbox GAMER", precio: 79990, imagenUrl: "/assets/IMG/Mando.webp" },
-  { id: "P005", categoria: "Accesorios", nombre: "Mouse GAMER", precio: 28990, imagenUrl: "/assets/IMG/Mause.webp" },
-  { id: "P006", categoria: "Accesorios", nombre: "Mousepad GAMER", precio: 6990, imagenUrl: "/assets/IMG/mausepad.avif" },
-  { id: "P007", categoria: "Monitores", nombre: "Monitor GAMER", precio: 134990, imagenUrl: "/assets/IMG/monitor.jpeg" },
-  { id: "P008", categoria: "Periféricos", nombre: "Teclado GAMER", precio: 15990, imagenUrl: "/assets/IMG/Teclado.webp" },
+  { id: 1, categoria: "Accesorios", nombre: "Audífonos GAMER", precio: 64990, imagenUrl: "/assets/IMG/audifonos.jpeg" },
+  { id: 2, categoria: "Muebles", nombre: "Silla GAMER", precio: 72990, imagenUrl: "/assets/IMG/silla.jpeg" },
+  { id: 3, categoria: "Muebles", nombre: "Escritorio GAMER", precio: 70990, imagenUrl: "/assets/IMG/Escritorio.webp" },
+  { id: 4, categoria: "Consolas", nombre: "Mando de Xbox GAMER", precio: 79990, imagenUrl: "/assets/IMG/Mando.webp" },
+  { id: 5, categoria: "Accesorios", nombre: "Mouse GAMER", precio: 28990, imagenUrl: "/assets/IMG/Mause.webp" },
+  { id: 6, categoria: "Accesorios", nombre: "Mousepad GAMER", precio: 6990, imagenUrl: "/assets/IMG/mausepad.avif" },
+  { id: 7, categoria: "Monitores", nombre: "Monitor GAMER", precio: 134990, imagenUrl: "/assets/IMG/monitor.jpeg" },
+  { id: 8, categoria: "Periféricos", nombre: "Teclado GAMER", precio: 15990, imagenUrl: "/assets/IMG/Teclado.webp" },
 ];
 
 // =============================
@@ -161,13 +185,13 @@ export function agregarProducto(producto: Producto) {
 
 // Eliminar producto por id
 export function eliminarProducto(id: string) {
-  productos = productos.filter(p => p.id !== id);
+  productos = productos.filter(p => id !== id);
   actualizarLocalStorageProductos();
 }
 
 // Actualizar producto
 export function actualizarProducto(id: string, datosActualizados: Partial<Producto>) {
-  const index = productos.findIndex(p => p.id === id);
+  const index = productos.findIndex(p => id == id);
   if (index !== -1) {
     productos[index] = { ...productos[index], ...datosActualizados };
     actualizarLocalStorageProductos();

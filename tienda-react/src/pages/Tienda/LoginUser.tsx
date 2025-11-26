@@ -1,74 +1,62 @@
 // src/pages/Tienda/LoginUser.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/inicioSesion.css";
-
-// CAMBIO 1: Importamos el servicio real en lugar de 'data.ts'
 import { AuthService } from "../../services/AuthService";
 
 const LoginUser: React.FC = () => {
   const navigate = useNavigate();
-
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
-  // Estado opcional para deshabilitar el botón mientras carga
-  const [cargando, setCargando] = useState(false); 
+  const [cargando, setCargando] = useState(false);
 
-  const actualizarContadorCarrito = () => {
-    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    const totalItems = carrito.reduce(
-      (acc: number, producto: { cantidad: number }) => acc + producto.cantidad,
-      0
-    );
-    const contador = document.querySelector(".carrito-text");
-    if (contador) contador.textContent = `Productos (${totalItems})`;
-  };
-
-  useEffect(() => {
-    actualizarContadorCarrito();
-  }, []);
-
-  // CAMBIO 2: La función ahora es ASYNC para esperar al backend
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setCargando(true); // Activamos estado de carga
+    setCargando(true);
 
     try {
-      // Llamamos al Backend
-      // Nota: El backend espera "username", así que le enviamos el correo ahí
-      const response = await AuthService.login({
-        username: correo, 
-        password: contrasena
+      // Llamada al backend
+      const usuarioDTO = await AuthService.login({
+        username: correo,
+        password: contrasena,
       });
 
-      // Si llegamos aquí, el login fue EXITOSO (status 200)
-      console.log("Login exitoso:", response);
+      // Validamos que venga el token
+      if (usuarioDTO?.token) {
+        // Guardamos token y usuario completo en localStorage
+        localStorage.setItem("token", usuarioDTO.token);
+        localStorage.setItem("usuarioActivo", JSON.stringify(usuarioDTO));
 
-      // Mantenemos tu lógica de "usuarioActivo" para que el resto de tu app no se rompa
-      // (Aunque AuthService ya guarda el token y el usuario por su cuenta)
-      if (response.usuario) {
-        localStorage.setItem("usuarioActivo", JSON.stringify(response.usuario));
-      }
+        alert("Login exitoso ✅");
 
-      // Lógica de redirección (Mantenemos tu lógica original de dominios)
-      if (
-        correo.endsWith("@duocuc.cl") ||
-        correo.endsWith("@profesorduoc.cl")
-      ) {
-        navigate("/dashboard");
+        // Redirigir según rol
+        switch (usuarioDTO.rol) {
+          case "admin":
+            navigate("/dashboard");
+            break;
+          case "cliente":
+            navigate("/tienda");
+            break;
+          default:
+            navigate("/");
+            break;
+        }
       } else {
-        navigate("/tienda");
+        alert("Credenciales incorrectas ❌");
       }
-
-    } catch (error) {
-      // Si el backend rechaza el login (status 401, 403, etc.) entra aquí
+    } catch (error: any) {
       console.error("Error de login:", error);
-      alert("Correo o contraseña incorrectos, o error de conexión.");
+
+      // Mostrar mensaje del backend si existe, si no, genérico
+      const msg =
+        error.response?.data?.message ||
+        "Correo o contraseña incorrectos, o error de conexión ❌";
+      alert(msg);
     } finally {
-      setCargando(false); // Desactivamos carga pase lo que pase
+      setCargando(false);
     }
   };
 
@@ -79,7 +67,7 @@ const LoginUser: React.FC = () => {
       <main className="InicioSesion-container">
         <h1>Inicio de sesión</h1>
 
-        <form className="form-login" id="loginForm" onSubmit={handleSubmit}>
+        <form className="form-login" onSubmit={handleSubmit}>
           <label htmlFor="correo">Correo:</label>
           <input
             type="email"

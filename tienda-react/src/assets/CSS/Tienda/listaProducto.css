@@ -231,3 +231,44 @@ footer {
     border-color: var(--primary-color);
     box-shadow: 0 0 5px var(--primary-color);
 }
+
+.btn-agregar-carrito {
+  background-color: #007bff; /* color de fondo azul */
+  color: white;              /* texto blanco */
+  border: none;              /* sin borde */
+  padding: 10px 16px;        /* espacio interno */
+  margin-top: 10px;          /* separación del producto */
+  border-radius: 5px;        /* bordes redondeados */
+  cursor: pointer;           /* cursor tipo mano */
+  font-weight: bold;         /* texto en negrita */
+  transition: background-color 0.3s; /* transición al pasar mouse */
+}
+
+.btn-agregar-carrito:hover {
+  background-color: #0056b3; /* azul más oscuro al pasar mouse */
+}
+
+/* Contenedor de búsqueda */
+.search-container {
+  display: flex;
+  justify-content: center; /* centra la barra horizontalmente */
+  margin: 20px 0;
+}
+
+/* Input de búsqueda */
+.search-container input {
+  width: 300px;           /* ancho de la barra */
+  max-width: 90%;         /* responsivo en pantallas pequeñas */
+  padding: 10px 15px;     /* espacio interno */
+  border: 2px solid #007bff; /* borde azul */
+  border-radius: 25px;    /* bordes redondeados */
+  font-size: 16px;        /* texto legible */
+  outline: none;          /* quita el borde de enfoque por defecto */
+  transition: all 0.3s ease;
+}
+
+/* Efecto al enfocar */
+.search-container input:focus {
+  border-color: #0056b3;   /* azul más oscuro al enfocar */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* resplandor */
+}

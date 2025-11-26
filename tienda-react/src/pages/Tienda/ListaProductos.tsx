@@ -1,98 +1,84 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
-// 1. Eliminamos la importación de datos falsos 'productos'
-// Mantenemos solo el tipo para que TypeScript no se queje
+import ProductCard from "../../components/Tienda/ProductoCard";
+import { ProductoService } from "../../services/ProductoService";
 import type { Producto } from "../../assets/data/data";
-import { ProductoService } from "../../services/ProductoService"; // 2. Importamos el servicio
+import axios from "axios";
+
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/listaProducto.css";
 
-interface ProductoCarrito {
+interface Usuario {
   id: string;
-  cantidad: number;
+  nombre: string;
+  rol: "admin" | "cliente";
 }
 
-const ListaProducto: React.FC = () => {
-  // 3. Estados para manejar los datos del Backend
-  const [productosBackend, setProductosBackend] = useState<Producto[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Producto[]>([]);
-
-  // Estados de control visual
+const ListaProductos: React.FC = () => {
+  const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [usuarioActivo, setUsuarioActivo] = useState<Usuario | null>(null);
 
-  // 4. useEffect: Carga los productos reales al iniciar la página
   useEffect(() => {
-    cargarProductos();
+    const usuario = localStorage.getItem("usuarioActivo");
+    if (usuario) setUsuarioActivo(JSON.parse(usuario));
   }, []);
 
-  const cargarProductos = async () => {
-    try {
-      setLoading(true);
-      const data = await ProductoService.getAll();
-
-      const dataMapeada = data.map((p: any) => ({
-        ...p,
-        id: String(p.id), // Aseguramos que el ID sea string para compatibilidad
-        imagen: p.imagenUrl || p.imagen, // Usa la URL del backend
-      }));
-
-      setProductosBackend(dataMapeada);
-      setFilteredProducts(dataMapeada); // Al inicio mostramos todo
-    } catch (err) {
-      console.error("Error cargando productos:", err);
-      setError("Hubo un problema cargando el catálogo. Intenta recargar.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // 5. useEffect: Filtrado de búsqueda (Ahora filtra sobre los datos del Backend)
   useEffect(() => {
-    const filtered = productosBackend.filter((p) =>
-      p.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setFilteredProducts(filtered);
-  }, [searchTerm, productosBackend]);
+    const fetchProductos = async () => {
+      try {
+        setLoading(true);
+        const data = await ProductoService.getAll();
+        setProductos(data);
+      } catch (err) {
+        console.error(err);
+        setError("No se pudieron cargar los productos.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProductos();
+  }, []);
 
-  // 🔹 Estado local del carrito (Mantengo tu lógica local por ahora)
-  const [_carrito, setCarrito] = useState<ProductoCarrito[]>(() => {
-    return JSON.parse(localStorage.getItem("carrito") || "[]");
-  });
-
-  // 🔹 Agregar producto al carrito
-  const handleAddToCart = (id: string) => {
-    let carritoActual = JSON.parse(localStorage.getItem("carrito") || "[]");
-    const productoExistente = carritoActual.find(
-      (item: ProductoCarrito) => item.id === id
-    );
-
-    if (productoExistente) {
-      productoExistente.cantidad += 1;
-    } else {
-      carritoActual.push({ id, cantidad: 1 });
+  const handleAddToCart = async (productoId: number) => {
+    if (!usuarioActivo || usuarioActivo.rol !== "cliente") {
+      alert("Debes iniciar sesión como cliente para agregar productos al carrito");
+      return;
     }
 
-    localStorage.setItem("carrito", JSON.stringify(carritoActual));
-    setCarrito(carritoActual);
-
-    alert("Producto agregado al carrito 🛒 (Localmente)");
-    window.dispatchEvent(new Event("carrito-actualizado"));
+    try {
+      await axios.post(
+        `/api/v2/carritos/usuario/${usuarioActivo.id}/producto/${productoId}`,
+        null,
+        { params: { cantidad: 1 } }
+      );
+      alert("Producto agregado al carrito ✅");
+      window.dispatchEvent(new Event("carrito-actualizado"));
+    } catch (err) {
+      console.error(err);
+      alert("No se pudo agregar el producto al carrito");
+    }
   };
+
+  const filteredProductos = Array.isArray(productos)
+    ? productos.filter((p) =>
+        p.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <>
       <Header />
-
       <main>
-        <h2>PRODUCTOS</h2>
+        <section className="titulo-ofertas">
+          <h2>¡NUESTROS PRODUCTOS!</h2>
+        </section>
 
         <div className="search-container">
           <input
-            id="searchInput"
             type="text"
             placeholder="Buscar productos..."
             value={searchTerm}
@@ -100,45 +86,31 @@ const ListaProducto: React.FC = () => {
           />
         </div>
 
-        {/* 6. Mensajes de Carga y Error */}
-        {loading && (
-          <p style={{ textAlign: "center", marginTop: "20px" }}>
-            Cargando catálogo...
-          </p>
-        )}
-        {error && (
-          <p style={{ textAlign: "center", color: "red", marginTop: "20px" }}>
-            {error}
-          </p>
-        )}
+        {loading && <p>Cargando catálogo...</p>}
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
-        {!loading && !error && (
-          <div className="productos-grid">
-            {filteredProducts.map((product) => (
-              <div className="producto" key={product.id}>
-                {/* 7. Manejo de imagen con respaldo por si falla la URL */}
-                <img
-                  src={product.imagenUrl}
-                  alt={product.nombre}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src =
-                      "https://via.placeholder.com/200?text=Sin+Imagen";
-                  }}
-                />
-                <h3 className="titulo">{product.nombre}</h3>
-                <p className="precio">${product.precio.toLocaleString()}</p>
-                <button onClick={() => handleAddToCart(product.id)}>
-                  Agregar al carrito
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+        <section className="productos-container">
+          {filteredProductos.map((p) => (
+            <div key={p.id} className="producto-wrapper">
+              <ProductCard
+                img={p.imagenUrl}
+                title={p.nombre}
+                price={`$${p.precio.toLocaleString()}`}
+              />
+              <button
+                className="btn-agregar-carrito"
+                onClick={() => handleAddToCart(p.id)}
+              >
+                Agregar al carrito
+              </button>
+            </div>
+          ))}
+          {!loading && filteredProductos.length === 0 && <p>No se encontraron productos.</p>}
+        </section>
       </main>
-
       <Footer />
     </>
   );
 };
 
-export default ListaProducto;
+export default ListaProductos;
