@@ -118,7 +118,7 @@ const ListaProducto: React.FC = () => {
               <div className="producto" key={product.id}>
                 {/* 7. Manejo de imagen con respaldo por si falla la URL */}
                 <img
-                  src={product.imagen}
+                  src={product.imagenUrl}
                   alt={product.nombre}
                   onError={(e) => {
                     (e.target as HTMLImageElement).src =

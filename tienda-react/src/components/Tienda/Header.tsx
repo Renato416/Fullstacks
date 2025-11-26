@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../../assets/CSS/Tienda/styles.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 import Carr from "../../assets/IMG/carrito-icon.png";
@@ -8,27 +9,33 @@ const Header: React.FC = () => {
   const [totalProductos, setTotalProductos] = useState(0);
   const [menuActivo, setMenuActivo] = useState(false);
 
-  // 🔹 Función para actualizar el contador del carrito
-  const actualizarContadorCarrito = () => {
-    const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
-    const total = carrito.reduce((acc: number, prod: any) => acc + prod.cantidad, 0);
-    setTotalProductos(total);
+  // ⚠️ Reemplaza con el ID del usuario logueado
+  const usuarioId = "123";
+
+  // 🔹 Función para actualizar el contador del carrito desde backend
+  const actualizarContadorCarrito = async () => {
+    try {
+      const response = await axios.get(`/api/v2/carritos/usuario/${usuarioId}`);
+
+      // 🔹 Extraemos array seguro desde HATEOAS
+      const carritoBackend: { id: string; cantidad: number }[] =
+        response.data._embedded?.carritoDTOList || [];
+
+      const total = carritoBackend.reduce((acc, prod) => acc + prod.cantidad, 0);
+      setTotalProductos(total);
+    } catch (error) {
+      console.error("Error al obtener carrito:", error);
+      setTotalProductos(0); // fallback
+    }
   };
 
   useEffect(() => {
     actualizarContadorCarrito();
 
-    // 🔹 Escuchar cambios en localStorage desde otras pestañas
-    const handleStorage = () => actualizarContadorCarrito();
-    window.addEventListener("storage", handleStorage);
+    // 🔹 Intervalo para actualizar cada 5s
+    const intervalo = setInterval(actualizarContadorCarrito, 5000);
 
-    // 🔹 Intervalo para actualizar en la misma pestaña cada 200ms
-    const intervalo = setInterval(actualizarContadorCarrito, 200);
-
-    return () => {
-      window.removeEventListener("storage", handleStorage);
-      clearInterval(intervalo);
-    };
+    return () => clearInterval(intervalo);
   }, []);
 
   return (

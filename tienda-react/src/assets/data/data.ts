@@ -69,7 +69,16 @@ const datosInicialesOrdenes: Orden[] = [
   { id: "001", usuario: "Juan Pérez", fecha: "2025-10-28", total: 149990, estado: "Pendiente" },
 ];
 
-
+const datosInicialesProductos: Producto[] = [
+  { id: "P001", categoria: "Accesorios", nombre: "Audífonos GAMER", precio: 64990, imagenUrl: "/assets/IMG/audifonos.jpeg" },
+  { id: "P002", categoria: "Muebles", nombre: "Silla GAMER", precio: 72990, imagenUrl: "/assets/IMG/silla.jpeg" },
+  { id: "P003", categoria: "Muebles", nombre: "Escritorio GAMER", precio: 70990, imagenUrl: "/assets/IMG/Escritorio.webp" },
+  { id: "P004", categoria: "Consolas", nombre: "Mando de Xbox GAMER", precio: 79990, imagenUrl: "/assets/IMG/Mando.webp" },
+  { id: "P005", categoria: "Accesorios", nombre: "Mouse GAMER", precio: 28990, imagenUrl: "/assets/IMG/Mause.webp" },
+  { id: "P006", categoria: "Accesorios", nombre: "Mousepad GAMER", precio: 6990, imagenUrl: "/assets/IMG/mausepad.avif" },
+  { id: "P007", categoria: "Monitores", nombre: "Monitor GAMER", precio: 134990, imagenUrl: "/assets/IMG/monitor.jpeg" },
+  { id: "P008", categoria: "Periféricos", nombre: "Teclado GAMER", precio: 15990, imagenUrl: "/assets/IMG/Teclado.webp" },
+];
 
 // =============================
 // Inicialización de datos persistentes
@@ -78,6 +87,7 @@ const datosInicialesOrdenes: Orden[] = [
 export let usuarios: Usuario[] = cargarDesdeLocalStorage("usuarios", datosInicialesUsuarios);
 export let categorias: Categoria[] = cargarDesdeLocalStorage("categorias", datosInicialesCategorias);
 export let ordenes: Orden[] = cargarDesdeLocalStorage("ordenes", datosInicialesOrdenes);
+export let productos: Producto[] = cargarDesdeLocalStorage("productos", datosInicialesProductos);
 
 // =============================
 // Funciones CRUD (con persistencia)
@@ -133,3 +143,33 @@ export function registrarUsuario(usuario: Usuario): boolean {
 // CRUD de Productos (con persistencia)
 // =============================
 
+// Guardar productos
+function actualizarLocalStorageProductos() {
+  guardarEnLocalStorage("productos", productos);
+}
+
+// Obtener todos los productos
+export function obtenerProductos() {
+  return productos;
+}
+
+// Agregar nuevo producto
+export function agregarProducto(producto: Producto) {
+  productos.push(producto);
+  actualizarLocalStorageProductos();
+}
+
+// Eliminar producto por id
+export function eliminarProducto(id: string) {
+  productos = productos.filter(p => p.id !== id);
+  actualizarLocalStorageProductos();
+}
+
+// Actualizar producto
+export function actualizarProducto(id: string, datosActualizados: Partial<Producto>) {
+  const index = productos.findIndex(p => p.id === id);
+  if (index !== -1) {
+    productos[index] = { ...productos[index], ...datosActualizados };
+    actualizarLocalStorageProductos();
+  }
+}
