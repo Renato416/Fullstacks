@@ -5,13 +5,17 @@ import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/inicioSesion.css";
-import { buscarUsuario } from "../../assets/data/data";
+
+// CAMBIO 1: Importamos el servicio real en lugar de 'data.ts'
+import { AuthService } from "../../services/AuthService";
 
 const LoginUser: React.FC = () => {
   const navigate = useNavigate();
 
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
+  // Estado opcional para deshabilitar el botón mientras carga
+  const [cargando, setCargando] = useState(false); 
 
   const actualizarContadorCarrito = () => {
     const carrito = JSON.parse(localStorage.getItem("carrito") || "[]");
@@ -27,26 +31,44 @@ const LoginUser: React.FC = () => {
     actualizarContadorCarrito();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // CAMBIO 2: La función ahora es ASYNC para esperar al backend
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setCargando(true); // Activamos estado de carga
 
-    const usuario = buscarUsuario(correo, contrasena);
+    try {
+      // Llamamos al Backend
+      // Nota: El backend espera "username", así que le enviamos el correo ahí
+      const response = await AuthService.login({
+        username: correo, 
+        password: contrasena
+      });
 
-    if (!usuario) {
-      alert("Correo o contraseña incorrectos.");
-      return;
-    }
+      // Si llegamos aquí, el login fue EXITOSO (status 200)
+      console.log("Login exitoso:", response);
 
-    localStorage.setItem("usuarioActivo", JSON.stringify(usuario));
+      // Mantenemos tu lógica de "usuarioActivo" para que el resto de tu app no se rompa
+      // (Aunque AuthService ya guarda el token y el usuario por su cuenta)
+      if (response.usuario) {
+        localStorage.setItem("usuarioActivo", JSON.stringify(response.usuario));
+      }
 
-    // Redirección interna usando useNavigate
-    if (
-      correo.endsWith("@duocuc.cl") ||
-      correo.endsWith("@profesorduoc.cl")
-    ) {
-      navigate("/dashboard");
-    } else {
-      navigate("/tienda");
+      // Lógica de redirección (Mantenemos tu lógica original de dominios)
+      if (
+        correo.endsWith("@duocuc.cl") ||
+        correo.endsWith("@profesorduoc.cl")
+      ) {
+        navigate("/dashboard");
+      } else {
+        navigate("/tienda");
+      }
+
+    } catch (error) {
+      // Si el backend rechaza el login (status 401, 403, etc.) entra aquí
+      console.error("Error de login:", error);
+      alert("Correo o contraseña incorrectos, o error de conexión.");
+    } finally {
+      setCargando(false); // Desactivamos carga pase lo que pase
     }
   };
 
@@ -78,7 +100,9 @@ const LoginUser: React.FC = () => {
             required
           />
 
-          <button type="submit">Iniciar Sesión</button>
+          <button type="submit" disabled={cargando}>
+            {cargando ? "Cargando..." : "Iniciar Sesión"}
+          </button>
         </form>
       </main>
 
