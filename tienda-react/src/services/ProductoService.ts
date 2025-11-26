@@ -1,41 +1,45 @@
-// src/services/ProductoService.ts
 import api from './api';
-import type { Producto } from '../assets/data/data'; 
+import type { Producto } from '../assets/data/data';
 
 export const ProductoService = {
 
-  // Obtener todos los productos (Para el Catálogo)
-  // GET http://localhost:8080/api/v2/productos
+  // Obtener todos los productos
   getAll: async () => {
     const response = await api.get('/productos');
-    return response.data; 
+    
+    // CORRECCIÓN HATEOAS:
+    // Verificamos si la respuesta tiene la estructura "_embedded.productoDTOList"
+    if (response.data._embedded && response.data._embedded.productoDTOList) {
+        return response.data._embedded.productoDTOList;
+    }
+    
+    // Fallback: Si por alguna razón el backend devolviera un array directo
+    if (Array.isArray(response.data)) {
+        return response.data;
+    }
+
+    return []; // Retorna lista vacía si no encuentra nada
   },
 
-  // Obtener un producto por ID (Para la vista de detalle)
-  // GET http://localhost:8080/api/v2/productos/{id}
+  // Obtener por ID
   getById: async (id: string) => {
     const response = await api.get(`/productos/${id}`);
     return response.data;
   },
 
-  // === FUNCIONES DE ADMINISTRADOR ===
-
-  // Crear nuevo producto
-  // POST http://localhost:8080/api/v2/productos
+  // Crear
   create: async (producto: Producto) => {
     const response = await api.post('/productos', producto);
     return response.data;
   },
 
-  // Actualizar producto existente
-  // PUT http://localhost:8080/api/v2/productos/{id}
+  // Actualizar
   update: async (id: string, producto: Partial<Producto>) => {
     const response = await api.put(`/productos/${id}`, producto);
     return response.data;
   },
 
-  // Eliminar producto
-  // DELETE http://localhost:8080/api/v2/productos/{id}
+  // Eliminar
   delete: async (id: string) => {
     await api.delete(`/productos/${id}`);
   }
