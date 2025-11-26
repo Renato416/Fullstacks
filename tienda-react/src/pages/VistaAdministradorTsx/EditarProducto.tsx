@@ -13,15 +13,16 @@ const EditarProducto: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  // 2. Inicializamos con la estructura correcta (usando imagenUrl)
   const [formData, setFormData] = useState<Producto>({
     id: "",
     categoria: "",
     nombre: "",
     precio: 0,
-    imagen: "",
+    imagenUrl: "", // <--- CAMBIO: Usamos imagenUrl
   });
 
-  // 2. Cargar los datos del producto real al entrar
+  // 3. Cargar los datos del producto real al entrar
   useEffect(() => {
     if (id) {
       cargarProducto(id);
@@ -39,8 +40,8 @@ const EditarProducto: React.FC = () => {
         id: String(data.id),
         nombre: data.nombre,
         precio: data.precio,
-        // El backend manda "imagenUrl", el form usa "imagen"
-        imagen: data.imagenUrl || data.imagen || "",
+        // El backend manda "imagenUrl", el form usa "imagenUrl"
+        imagenUrl: data.imagenUrl || data.imagen || "", 
         // El backend manda "nombreCategoria", el form usa "categoria"
         categoria: data.nombreCategoria || data.categoria || ""
       });
@@ -73,14 +74,12 @@ const EditarProducto: React.FC = () => {
 
     try {
       // AJUSTE DE MAPEO (Formulario -> Backend)
-      // Preparamos el objeto tal como lo espera el DTO de Java
       const payloadBackend = {
         nombre: formData.nombre,
         precio: formData.precio,
-        imagenUrl: formData.imagen, // Devolvemos el nombre correcto al backend
+        imagenUrl: formData.imagenUrl, // <--- CAMBIO: Usamos imagenUrl
         nombreCategoria: formData.categoria,
-        categoriaId: 1 // IMPORTANTE: Por ahora hardcodeamos ID 1 para que no falle si tu backend pide ID.
-                       // (Idealmente deberías cargar la lista de categorías y dejar elegir el ID)
+        categoriaId: 1 // Hardcodeado temporalmente, idealmente dinámico
       };
 
       // Llamada al Backend: PUT /api/v2/productos/{id}
@@ -155,18 +154,20 @@ const EditarProducto: React.FC = () => {
         <div className="col-12">
           <label className="form-label">
             Imagen (URL):
+            {/* CAMBIO: name="imagenUrl" */}
             <input
               type="text"
-              name="imagen"
-              value={formData.imagen}
+              name="imagenUrl"
+              value={formData.imagenUrl}
               onChange={handleChange}
               className="form-control"
             />
           </label>
           {/* Previsualización de la imagen */}
-          {formData.imagen && (
+          {/* CAMBIO: Usamos formData.imagenUrl */}
+          {formData.imagenUrl && (
             <div className="mt-2">
-                <img src={formData.imagen} alt="Previsualización" style={{height: '100px', objectFit: 'contain'}} 
+                <img src={formData.imagenUrl} alt="Previsualización" style={{height: '100px', objectFit: 'contain'}} 
                      onError={(e) => (e.target as HTMLImageElement).style.display = 'none'}/>
             </div>
           )}
