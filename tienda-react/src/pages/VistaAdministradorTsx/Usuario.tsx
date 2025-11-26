@@ -1,11 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
 import AdminSidebar from "../../components/administrador/AdminSidebar";
-import { usuarios } from "../../assets/data/data.ts";
+import { UsuarioService } from "../../services/UsuarioService";
 
 export default function Usuarios() {
   const navigate = useNavigate();
+
+  const [listaUsuarios, setListaUsuarios] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    cargarUsuarios();
+  }, []);
+
+  const cargarUsuarios = async () => {
+    try {
+      setLoading(true);
+      const data = await UsuarioService.getAll();
+      setListaUsuarios(data);
+    } catch (err) {
+      console.error("Error al cargar usuarios:", err);
+      setError("No se pudo conectar con el servidor.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const calcularEdad = (fecha: string) => {
+    if (!fecha) return "N/A";
+    const hoy = new Date();
+    const nacimiento = new Date(fecha);
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+    const m = hoy.getMonth() - nacimiento.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < nacimiento.getDate())) {
+      edad--;
+    }
+    return isNaN(edad) ? "N/A" : edad;
+  };
 
   return (
     <div className="admin-app">
@@ -26,46 +59,51 @@ export default function Usuarios() {
             </button>
           </div>
 
-          <div className="table-responsive">
-            <table className="table table-striped user-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Edad</th>
-                  <th>Teléfono</th>
-                  <th>Dirección</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {usuarios.map((usuario) => (
-                  <tr key={usuario.id}>
-                    <td>{usuario.id}</td>
-                    <td>{usuario.nombre}</td>
-                    <td>{usuario.email}</td>
-                    <td>{usuario.edad}</td>
-                    <td>{usuario.telefono}</td>
-                    <td>{usuario.direccion}</td>
-                    <td>
-                      <button
-                        className="btn btn-warning btn-sm me-2"
-                        onClick={() =>
-                          navigate(`/usuarios/editar/${usuario.id}`)
-                        }
-                      >
-                        Editar
-                      </button>
-                      <button className="btn btn-info btn-sm">
-                        Ver Historial
-                      </button>
-                    </td>
+          {loading && <p className="text-center mt-3">Cargando lista de usuarios...</p>}
+          {error && <p className="text-center text-danger mt-3">{error}</p>}
+
+          {!loading && !error && (
+            <div className="table-responsive">
+              <table className="table table-striped user-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nombre Usuario</th>
+                    <th>Email</th>
+                    <th>Rol</th>
+                    <th>Edad</th>
+                    <th>RUT</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {listaUsuarios.map((usuario) => (
+                    <tr key={usuario.id}>
+                      <td>{usuario.id}</td>
+                      <td>{usuario.nombreUsuario}</td>
+                      <td>{usuario.correoElectronico}</td>
+                      <td>{usuario.rol}</td>
+                      <td>{calcularEdad(usuario.fechaNacimiento)} años</td>
+                      <td>{usuario.run || "-"}</td>
+                      <td>{usuario.direccion || "-"}</td>
+                      <td>
+                        <button
+                          className="btn btn-warning btn-sm me-2"
+                          onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
+                        >
+                          Editar
+                        </button>
+                        <button className="btn btn-info btn-sm">
+                          Historial
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </section>
       </main>
     </div>
