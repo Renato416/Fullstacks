@@ -50,10 +50,9 @@ const LoginUser: React.FC = () => {
     } catch (error: any) {
       console.error("Error de login:", error);
 
-      // Mostrar mensaje del backend si existe, si no, genérico
-      const msg =
-        error.response?.data?.message ||
-        "Correo o contraseña incorrectos, o error de conexión ❌";
+      // Ahora el mensaje es fijo y seguro
+      const msg = "Correo o contraseña incorrectos"; 
+      
       alert(msg);
     } finally {
       setCargando(false);
