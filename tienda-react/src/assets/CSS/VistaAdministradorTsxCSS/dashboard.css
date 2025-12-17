@@ -1,8 +1,7 @@
-/*dashboard.css*/
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
 /* ===============================
-   Tabla de Dashboard
+   TABLA DASHBOARD (Estilo Unificado)
 =============================== */
 .table-responsive {
   overflow-x: auto;
@@ -12,27 +11,33 @@
   width: 100%;
   border-collapse: collapse;
   font-family: 'Roboto', sans-serif;
+  background-color: #121212; /* Fondo gris oscuro consistente */
 }
 
 .dashboard-table th,
 .dashboard-table td {
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid #333; /* Borde gris oscuro (antes blanco fuerte) */
   padding: 12px 15px;
   text-align: left;
   color: #FFFFFF;
 }
 
+/* Encabezado Estilo Orbitron */
 .dashboard-table th {
   background-color: #000000;
+  color: #1E90FF; /* Celeste corporativo */
   font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
 }
 
+/* Filas Interactivas */
 .clickable-row {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 .clickable-row:hover {
-  background-color: #1E90FF;
-  color: #FFFFFF;
+  background-color: #1E90FF; /* Fondo celeste al pasar mouse */
+  color: #000000; /* Texto negro para contraste */
 }

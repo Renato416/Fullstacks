@@ -1,7 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css"; // Importamos el CSS global del layout
-import AdminSidebar from "../../components/administrador/AdminSidebar"; // Importamos el Sidebar
+import "../../assets/CSS/VistaAdministradorTsxCSS/ordenes.css";
+// Importamos el Layout unificado
+import AdminLayout from "../../components/administrador/AdminLayout";
 
 export default function Ordenes() {
   const navigate = useNavigate();
@@ -13,41 +14,33 @@ export default function Ordenes() {
   ];
 
   return (
-    <div className="admin-app">
-      <AdminSidebar /> {/* Reemplazamos el sidebar anterior */}
-
-      <main className="main">
-        <header className="topbar">
-          <h1>Vista Administrador - Órdenes</h1>
-        </header>
-
-        <section className="content container mt-4">
-          <div className="table-responsive">
-            <table className="table table-striped orders-table">
-              <thead className="table-dark">
-                <tr>
-                  <th>ID Orden</th>
-                  <th>Usuario</th>
-                  <th>Fecha</th>
-                  <th>Total</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ordenes.map((orden) => (
-                  <tr key={orden.id}>
-                    <td>{orden.id}</td>
-                    <td>{orden.usuario}</td>
-                    <td>{orden.fecha}</td>
-                    <td>{orden.total}</td>
-                    <td>{orden.estado}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-    </div>
+    <AdminLayout title="Vista Administrador - Órdenes" activePage="ordenes">
+      <div className="table-responsive">
+        {/* Quitamos las clases de bootstrap 'table-dark' o 'table-striped' 
+            para que mande nuestro CSS personalizado (.orders-table) */}
+        <table className="table orders-table">
+          <thead>
+            <tr>
+              <th>ID Orden</th>
+              <th>Usuario</th>
+              <th>Fecha</th>
+              <th>Total</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ordenes.map((orden) => (
+              <tr key={orden.id}>
+                <td>{orden.id}</td>
+                <td>{orden.usuario}</td>
+                <td>{orden.fecha}</td>
+                <td>{orden.total}</td>
+                <td>{orden.estado}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </AdminLayout>
   );
 }

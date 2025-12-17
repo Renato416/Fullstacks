@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
+import "../../assets/CSS/VistaAdministradorTsxCSS/ProductoNuevo.css";
 import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css";
 import AdminSidebar from "../../components/administrador/AdminSidebar";
 

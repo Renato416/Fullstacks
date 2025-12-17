@@ -1,56 +1,106 @@
-.main,
-.main-usuarios {
-  flex: 1;
-  padding: 20px 30px;
-  background-color: #121212;
-  color: #ffffff;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
-.topbar,
-.topbar-usuarios {
-  margin-bottom: 20px;
-}
+/* ===============================
+   ESTRUCTURA DE USUARIOS
+=============================== */
 
-.content,
-.content-usuarios {
+/* Contenedor del botón: Se asegura de empujarlo a la derecha */
+.button-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
+  justify-content: flex-end; /* Alineación a la derecha */
+  width: 100%;
+  margin-bottom: 20px; /* Separación con la tabla */
 }
 
-.button-container,
-.button-container-usuarios {
-  display: flex;
-  justify-content: flex-end;
+/* ===============================
+   TABLA DE USUARIOS
+=============================== */
+.table-responsive {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .user-table {
   width: 100%;
-  color: #ffffff;
-  background-color: #1e1e1e;
   border-collapse: collapse;
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212;
 }
 
 .user-table th,
 .user-table td {
-  padding: 10px;
-  border: 1px solid #333;
+  border-bottom: 1px solid #333;
+  padding: 12px 15px;
+  text-align: left;
+  color: #FFFFFF;
 }
 
 .user-table th {
-  background-color: #007bff;
-  color: white;
+  background-color: #000000;
+  color: #1E90FF;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.user-table tr:nth-child(even) {
-  background-color: #2a2a2a;
+.user-table tbody tr:hover {
+  background-color: #1E90FF;
+  color: #000000;
 }
 
-.user-table tr:hover {
-  background-color: #3a3a3a;
+.user-table tbody tr:nth-child(even) {
+  background-color: #1a1a1a;
 }
 
-.form-usuario {
-  max-width: 600px;
-  margin: 0 auto;
+/* ===============================
+   BOTONES
+=============================== */
+
+/* Agregar Usuario */
+.btn-add-user {
+  background-color: #1E90FF;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-add-user:hover {
+  background-color: #39FF14;
+}
+
+/* Editar */
+.btn-edit-user {
+  background-color: #1E90FF;
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  margin-right: 8px;
+  transition: background 0.3s;
+}
+
+.btn-edit-user:hover {
+  background-color: #39FF14;
+}
+
+/* Historial */
+.btn-history-user {
+  background-color: #1E90FF;
+  color: #000;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+.btn-history-user:hover {
+  background-color: #39FF14;
 }

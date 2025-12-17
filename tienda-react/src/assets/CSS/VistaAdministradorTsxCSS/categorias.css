@@ -1,169 +1,52 @@
-/*categorias.css*/
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
 /* ===============================
-   RESET GENERAL
-=============================== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  background-color: #000;
-  color: #fff;
-}
-
-/* ===============================
-   ESTRUCTURA PRINCIPAL
-=============================== */
-.admin-app {
-  display: flex;
-  min-height: 100vh;
-}
-
-/* ===============================
-   SIDEBAR
-=============================== */
-.sidebar {
-  width: 240px;
-  background-color: #000;
-  border-right: 1px solid #1E90FF;
-  display: flex;
-  flex-direction: column;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.brand .logo {
-  width: 50px;
-  height: 50px;
-}
-
-.brand-text .title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.5rem;
-  color: #1E90FF;
-}
-
-/* ===============================
-   NAVEGACIÓN
-=============================== */
-.nav.flex-column {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.nav-link {
-  padding: 0.6rem 1rem;
-  color: #fff;
-  text-decoration: none;
-  font-size: 1rem;
-  display: block;
-  border-radius: 4px;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.nav-link:hover,
-.nav-link.active {
-  background-color: #1E90FF;
-  color: #fff !important;
-}
-
-/* ===============================
-   BOTÓN CERRAR SESIÓN
-=============================== */
-.sidebar-foot {
-  margin-top: auto;
-}
-
-.sidebar-foot .btn {
-  background-color: #1E90FF;
-  color: #fff;
-  border: none;
-  padding: 0.6rem 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  width: 100%;
-  transition: background 0.2s;
-}
-
-.sidebar-foot .btn:hover {
-  background-color: #39FF14;
-  color: #000;
-}
-
-/* ===============================
-   CONTENIDO PRINCIPAL
-=============================== */
-.main {
-  margin-left: 240px;
-  flex: 1;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.topbar h1 {
-  font-family: 'Orbitron', sans-serif;
-  color: #1E90FF;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-/* ===============================
-   TABLAS GENERALES (REUTILIZABLES)
+   TABLA DE CATEGORÍAS (Estilo Unificado)
 =============================== */
 .table-responsive {
   overflow-x: auto;
 }
 
-.admin-table {
+.category-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
-  background-color: #111;
+  font-family: 'Roboto', sans-serif;
+  background-color: #121212; /* Fondo gris oscuro consistente */
 }
 
-.admin-table th,
-.admin-table td {
-  padding: 0.75rem 1rem;
+.category-table th,
+.category-table td {
+  border-bottom: 1px solid #333; /* Borde sutil oscuro */
+  padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #fff;
-  color: #fff;
+  color: #FFFFFF;
 }
 
-.admin-table thead {
-  background-color: #1E90FF;
-  color: #fff;
+/* Encabezado estilo Orbitron */
+.category-table th {
+  background-color: #000000;
+  color: #1E90FF; /* Celeste corporativo */
   font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.admin-table tbody tr:nth-child(even) {
-  background-color: #111;
+/* Efecto Hover */
+.category-table tbody tr:hover {
+  background-color: #1E90FF;
+  color: #000000;
+  cursor: default; /* O pointer si fuera clicable */
 }
 
-.admin-table tbody tr:hover {
-  background-color: #1A1A1A;
+/* Filas alternadas para legibilidad */
+.category-table tbody tr:nth-child(even) {
+  background-color: #1a1a1a;
 }
 
-.admin-table tbody td[colspan] {
+/* Mensaje vacío */
+.category-table tbody td[colspan] {
   text-align: center;
   color: #D3D3D3;
   font-style: italic;
+  padding: 20px;
 }

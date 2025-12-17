@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
+import "../../assets/CSS/VistaAdministradorTsxCSS/UsuarioNuevo.css";
 import AdminSidebar from "../../components/administrador/AdminSidebar";
 // 1. Importamos el servicio de Autenticación (que tiene el método registro)
 import { AuthService } from "../../services/AuthService";

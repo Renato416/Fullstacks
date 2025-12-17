@@ -1,35 +1,39 @@
-/*reportes.css*/
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
-/* Reportes vista similar a Productos */
-.admin-app {
+/* ===============================
+   ESTRUCTURA DE REPORTES
+=============================== */
+
+/* Contenedor principal que apila las tablas verticalmente */
+.reports-container {
   display: flex;
-  font-family: 'Roboto', sans-serif;
-  background-color: #000000;
-  color: #ffffff;
-  min-height: 100vh;
-  flex-direction: row;
-  box-sizing: border-box;
-  margin-left: 220px; /* Para que el contenido no se cubra con el sidebar */
+  flex-direction: column; /* Uno debajo del otro */
+  gap: 40px; /* Espacio grande entre cada tabla */
+  width: 100%;
 }
 
-.main {
-  flex: 1;
-  padding: 20px 30px;
-}
-
-.topbar h1 {
-  font-family: 'Orbitron', sans-serif;
-  color: #1E90FF;
-  margin-bottom: 20px;
+/* Diseño de "Tarjeta" para cada tabla */
+.report-block {
+  background-color: #121212; /* Fondo gris oscuro */
+  padding: 25px;
+  border-radius: 8px;
+  border: 1px solid #333; /* Borde sutil */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .report-block h2 {
   font-family: 'Orbitron', sans-serif;
   color: #1E90FF;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #1E90FF; /* Línea decorativa bajo el título */
+  padding-bottom: 10px;
+  display: inline-block;
 }
 
+/* ===============================
+   TABLA DE REPORTES (Estilo Unificado)
+=============================== */
 .table-responsive {
   overflow-x: auto;
 }
@@ -37,29 +41,30 @@
 .report-table {
   width: 100%;
   border-collapse: collapse;
+  font-family: 'Roboto', sans-serif;
 }
 
 .report-table th,
 .report-table td {
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid #333;
   padding: 12px 15px;
   text-align: left;
+  color: #FFFFFF;
 }
 
 .report-table th {
-  font-family: 'Orbitron', sans-serif;
-  color: #1E90FF;
   background-color: #000000;
+  color: #1E90FF;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.report-table tr:hover {
+.report-table tbody tr:hover {
   background-color: #1E90FF;
   color: #000000;
 }
 
-/* Aseguramos que body no centre nada */
-body {
-  display: block !important;
-  margin: 0;
-  padding: 0;
+.report-table tbody tr:nth-child(even) {
+  background-color: #1a1a1a;
 }

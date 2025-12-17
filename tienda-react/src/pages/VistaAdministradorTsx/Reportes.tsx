@@ -1,8 +1,7 @@
-/*Reportes.tsx*/
 import React from "react";
 import "../../assets/CSS/VistaAdministradorTsxCSS/reportes.css";
-import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css";
-import AdminSidebar from "../../components/administrador/AdminSidebar";
+// Importamos el Layout unificado
+import AdminLayout from "../../components/administrador/AdminLayout";
 
 export default function Reportes() {
   const ventasPorCategoria = [
@@ -24,90 +23,88 @@ export default function Reportes() {
   ];
 
   return (
-    <div style={{ display: "block" }}>
-      <div className="admin-app">
-        <AdminSidebar activePage="reportes" />
+    // Usamos AdminLayout para mantener el diseño consistente y arreglar márgenes
+    <AdminLayout title="Vista Administrador - Reportes" activePage="reportes">
+      
+      {/* Contenedor Flex Columna definido en CSS */}
+      <div className="reports-container">
 
-        <main className="main">
-          <header className="topbar">
-            <h1>Vista Administrador - Reportes</h1>
-          </header>
+        {/* --- TABLA 1 --- */}
+        <div className="report-block">
+          <h2>Ventas por Categoría</h2>
+          <div className="table-responsive">
+            <table className="report-table">
+              <thead>
+                <tr>
+                  <th>Categoría</th>
+                  <th>Productos Vendidos</th>
+                  <th>Total en CLP</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ventasPorCategoria.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.categoria}</td>
+                    <td>{item.vendidos}</td>
+                    <td>{item.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-          <section className="content container mt-4">
-            <div className="report-block mb-4">
-              <h2>Ventas por Categoría</h2>
-              <div className="table-responsive">
-                <table className="table report-table">
-                  <thead>
-                    <tr>
-                      <th>Categoría</th>
-                      <th>Productos Vendidos</th>
-                      <th>Total en CLP</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ventasPorCategoria.map((item, index) => (
-                      <tr key={index}>
-                        <td>{item.categoria}</td>
-                        <td>{item.vendidos}</td>
-                        <td>{item.total}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        {/* --- TABLA 2 --- */}
+        <div className="report-block">
+          <h2>Ventas por Producto</h2>
+          <div className="table-responsive">
+            <table className="report-table">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Cantidad Vendida</th>
+                  <th>Total en CLP</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ventasPorProducto.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.producto}</td>
+                    <td>{item.cantidad}</td>
+                    <td>{item.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-            <div className="report-block mb-4">
-              <h2>Ventas por Producto</h2>
-              <div className="table-responsive">
-                <table className="table report-table">
-                  <thead>
-                    <tr>
-                      <th>Producto</th>
-                      <th>Cantidad Vendida</th>
-                      <th>Total en CLP</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {ventasPorProducto.map((item, index) => (
-                      <tr key={index}>
-                        <td>{item.producto}</td>
-                        <td>{item.cantidad}</td>
-                        <td>{item.total}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+        {/* --- TABLA 3 --- */}
+        <div className="report-block">
+          <h2>Usuarios con Compras</h2>
+          <div className="table-responsive">
+            <table className="report-table">
+              <thead>
+                <tr>
+                  <th>Usuario</th>
+                  <th>Email</th>
+                  <th>Total Comprado</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usuariosConCompras.map((usuario, index) => (
+                  <tr key={index}>
+                    <td>{usuario.nombre}</td>
+                    <td>{usuario.email}</td>
+                    <td>{usuario.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-            <div className="report-block mb-4">
-              <h2>Usuarios con Compras</h2>
-              <div className="table-responsive">
-                <table className="table report-table">
-                  <thead>
-                    <tr>
-                      <th>Usuario</th>
-                      <th>Email</th>
-                      <th>Total Comprado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {usuariosConCompras.map((usuario, index) => (
-                      <tr key={index}>
-                        <td>{usuario.nombre}</td>
-                        <td>{usuario.email}</td>
-                        <td>{usuario.total}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </section>
-        </main>
       </div>
-    </div>
+    </AdminLayout>
   );
 }

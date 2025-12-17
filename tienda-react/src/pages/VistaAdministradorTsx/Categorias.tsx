@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../assets/CSS/VistaAdministradorTsxCSS/categorias.css";
 import { obtenerProductos } from "../../assets/data/data";
 import type { Producto } from "../../assets/data/data";
-import AdminSidebar from "../../components/administrador/AdminSidebar";
+import AdminLayout from "../../components/administrador/AdminLayout";
 
 interface CategoriaContada {
   codigo: string;
@@ -33,43 +33,34 @@ export default function Categorias() {
   }, []);
 
   return (
-    <div className="admin-app container-fluid">
-      <AdminSidebar />
-
-      <main className="main">
-        <header className="topbar mb-3">
-          <h1>Vista Administrador - Categorías</h1>
-        </header>
-
-        <section className="content">
-          <div className="table-responsive">
-            <table className="table table-striped category-table">
-              <thead className="thead-dark">
-                <tr>
-                  <th>Código</th>
-                  <th>Nombre de Categoría</th>
-                  <th>Número de Productos</th>
+    <AdminLayout title="Vista Administrador - Categorías" activePage="categorias">
+      <div className="table-responsive">
+        {/* Usamos directamente nuestra clase .category-table sin bootstrap */}
+        <table className="category-table">
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nombre de Categoría</th>
+              <th>Número de Productos</th>
+            </tr>
+          </thead>
+          <tbody>
+            {categorias.length > 0 ? (
+              categorias.map((cat) => (
+                <tr key={cat.codigo}>
+                  <td>{cat.codigo}</td>
+                  <td>{cat.nombre}</td>
+                  <td>{cat.productos}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {categorias.length > 0 ? (
-                  categorias.map((cat) => (
-                    <tr key={cat.codigo}>
-                      <td>{cat.codigo}</td>
-                      <td>{cat.nombre}</td>
-                      <td>{cat.productos}</td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan={3}>No hay categorías registradas</td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </section>
-      </main>
-    </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={3}>No hay categorías registradas</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </AdminLayout>
   );
 }

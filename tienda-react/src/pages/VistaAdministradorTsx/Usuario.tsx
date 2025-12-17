@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/usuario.css";
-import AdminSidebar from "../../components/administrador/AdminSidebar";
+import AdminLayout from "../../components/administrador/AdminLayout";
 import { UsuarioService } from "../../services/UsuarioService";
 
 export default function Usuarios() {
@@ -41,71 +41,66 @@ export default function Usuarios() {
   };
 
   return (
-    <div className="admin-app">
-      <AdminSidebar activePage="usuarios" />
+    <AdminLayout title="Vista Administrador - Usuarios" activePage="usuarios">
+      {/* CORRECCIÓN: Este div asegura que los elementos se apilen verticalmente */}
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+        
+        {/* Contenedor del botón alineado a la derecha */}
+        <div className="button-wrapper">
+          <button
+            className="btn-add-user"
+            onClick={() => navigate("/usuarios-nuevo")}
+          >
+            Agregar Usuario
+          </button>
+        </div>
 
-      <main className="main">
-        <header className="topbar">
-          <h1>Vista Administrador - Usuarios</h1>
-        </header>
+        {loading && <p className="text-center mt-3">Cargando lista de usuarios...</p>}
+        {error && <p className="text-center text-danger mt-3">{error}</p>}
 
-        <section className="content">
-          <div className="button-container">
-            <button
-              className="btn btn-primary"
-              onClick={() => navigate("/usuarios-nuevo")}
-            >
-              Agregar Usuario
-            </button>
-          </div>
-
-          {loading && <p className="text-center mt-3">Cargando lista de usuarios...</p>}
-          {error && <p className="text-center text-danger mt-3">{error}</p>}
-
-          {!loading && !error && (
-            <div className="table-responsive">
-              <table className="table table-striped user-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre Usuario</th>
-                    <th>Email</th>
-                    <th>Rol</th>
-                    <th>Edad</th>
-                    <th>RUT</th>
-                    <th>Dirección</th>
-                    <th>Acciones</th>
+        {!loading && !error && (
+          <div className="table-responsive">
+            <table className="user-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre Usuario</th>
+                  <th>Email</th>
+                  <th>Rol</th>
+                  <th>Edad</th>
+                  <th>RUT</th>
+                  <th>Dirección</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listaUsuarios.map((usuario) => (
+                  <tr key={usuario.id}>
+                    <td>{usuario.id}</td>
+                    <td>{usuario.nombreUsuario}</td>
+                    <td>{usuario.correoElectronico}</td>
+                    <td>{usuario.rol}</td>
+                    <td>{calcularEdad(usuario.fechaNacimiento)} años</td>
+                    <td>{usuario.run || "-"}</td>
+                    <td>{usuario.direccion || "-"}</td>
+                    <td>
+                      <button
+                        className="btn-edit-user"
+                        onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
+                      >
+                        Editar
+                      </button>
+                      <button className="btn-history-user">
+                        Historial
+                      </button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {listaUsuarios.map((usuario) => (
-                    <tr key={usuario.id}>
-                      <td>{usuario.id}</td>
-                      <td>{usuario.nombreUsuario}</td>
-                      <td>{usuario.correoElectronico}</td>
-                      <td>{usuario.rol}</td>
-                      <td>{calcularEdad(usuario.fechaNacimiento)} años</td>
-                      <td>{usuario.run || "-"}</td>
-                      <td>{usuario.direccion || "-"}</td>
-                      <td>
-                        <button
-                          className="btn btn-warning btn-sm me-2"
-                          onClick={() => navigate(`/usuarios/editar/${usuario.id}`)}
-                        >
-                          Editar
-                        </button>
-                        <button className="btn btn-info btn-sm">
-                          Historial
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-      </main>
-    </div>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </AdminLayout>
   );
 }

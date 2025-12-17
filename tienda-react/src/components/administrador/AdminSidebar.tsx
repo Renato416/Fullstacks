@@ -1,10 +1,8 @@
-/*AdminSidebar.tsx*/
 import React from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../assets/IMG/icon-level-up.png";
 import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css";
 
-// Definimos las props que acepta el componente
 interface AdminSidebarProps {
   activePage?: string;
 }
@@ -25,19 +23,19 @@ export default function AdminSidebar({ activePage }: AdminSidebarProps) {
   return (
     <aside className="sidebar">
       <div className="brand">
-        <Link to="/dashboard">
-          <img src={Logo} alt="Logo" className="logo img-fluid" />
+        <Link to="/dashboard" style={{ display: 'contents' }}>
+            <img src={Logo} alt="Logo" className="logo" />
+            <div className="brand-text">
+            <div className="title">Level-Up Gamer</div>
+            </div>
         </Link>
-        <div className="brand-text">
-          <div className="title">Level-Up Gamer</div>
-        </div>
       </div>
 
-      <nav className="nav flex-column">
+      <nav className="nav">
         {menuItems.map((item) => (
           <Link
             key={item.path}
-            className={`nav-item nav-link ${
+            className={`nav-item ${
               location.pathname === item.path || activePage === item.name.toLowerCase()
                 ? "active"
                 : ""
@@ -49,9 +47,9 @@ export default function AdminSidebar({ activePage }: AdminSidebarProps) {
         ))}
       </nav>
 
-      <div className="sidebar-foot mt-auto">
+      <div className="sidebar-foot">
         <button
-          className="btn btn-danger w-100"
+          className="btn-logout"
           onClick={() => {
             localStorage.removeItem("usuarioActivo");
             navigate("/");

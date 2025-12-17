@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;500&display=swap');
 
 /* ===============================
-   Tabla de órdenes
+   TABLA DE ÓRDENES (Estilo Unificado)
 =============================== */
 .table-responsive {
   overflow-x: auto;
@@ -12,26 +12,34 @@
   width: 100%;
   border-collapse: collapse;
   font-family: 'Roboto', sans-serif;
+  background-color: #121212; /* Fondo gris oscuro consistente */
 }
 
 .orders-table th,
 .orders-table td {
-  border-bottom: 1px solid #FFFFFF;
+  border-bottom: 1px solid #333; /* Borde sutil (antes era blanco fuerte) */
   padding: 12px 15px;
   text-align: left;
   color: #FFFFFF;
 }
 
+/* Encabezado igual a Productos/Reportes */
 .orders-table th {
-  background-color: #1E90FF;
+  background-color: #000000;
+  color: #1E90FF; /* Celeste corporativo */
+  font-family: 'Orbitron', sans-serif;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
-.orders-table tbody tr:nth-child(even) {
-  background-color: #111111;
-}
-
+/* Hover igual a las otras vistas */
 .orders-table tbody tr:hover {
-  background-color: #1A1A1A;
+  background-color: #1E90FF;
+  color: #000000;
   cursor: pointer;
+}
+
+/* Filas alternadas (opcional, para legibilidad) */
+.orders-table tbody tr:nth-child(even) {
+  background-color: #1a1a1a;
 }
