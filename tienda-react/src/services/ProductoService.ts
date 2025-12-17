@@ -3,44 +3,83 @@ import type { Producto } from '../assets/data/data';
 
 export const ProductoService = {
 
-  // Obtener todos los productos
+  // ======================================
+  // Obtener todos los productos (PÚBLICO)
+  // ======================================
   getAll: async () => {
     const response = await api.get('/productos');
     
-    // CORRECCIÓN HATEOAS:
-    // Verificamos si la respuesta tiene la estructura "_embedded.productoDTOList"
+    // Corrección HATEOAS
     if (response.data._embedded && response.data._embedded.productoDTOList) {
-        return response.data._embedded.productoDTOList;
-    }
-    
-    // Fallback: Si por alguna razón el backend devolviera un array directo
-    if (Array.isArray(response.data)) {
-        return response.data;
+      return response.data._embedded.productoDTOList;
     }
 
-    return []; // Retorna lista vacía si no encuentra nada
+    if (Array.isArray(response.data)) {
+      return response.data;
+    }
+
+    return [];
   },
 
-  // Obtener por ID
+  // ======================================
+  // Obtener producto por ID (PÚBLICO)
+  // ======================================
   getById: async (id: string) => {
     const response = await api.get(`/productos/${id}`);
     return response.data;
   },
 
-  // Crear
+  // ======================================
+  // Crear producto (ADMIN)
+  // ======================================
   create: async (producto: Producto) => {
-    const response = await api.post('/productos', producto);
+    const token = localStorage.getItem('token');
+
+    const response = await api.post(
+      '/productos',
+      producto,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     return response.data;
   },
 
-  // Actualizar
+  // ======================================
+  // Actualizar producto (ADMIN) ✅ FIX
+  // ======================================
   update: async (id: string, producto: Partial<Producto>) => {
-    const response = await api.put(`/productos/${id}`, producto);
+    const token = localStorage.getItem('token');
+
+    const response = await api.put(
+      `/productos/${id}`,
+      producto,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
     return response.data;
   },
 
-  // Eliminar
+  // ======================================
+  // Eliminar producto (ADMIN)
+  // ======================================
   delete: async (id: string) => {
-    await api.delete(`/productos/${id}`);
+    const token = localStorage.getItem('token');
+
+    await api.delete(
+      `/productos/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
   }
 };
