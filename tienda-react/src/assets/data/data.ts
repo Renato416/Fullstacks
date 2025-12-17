@@ -33,6 +33,7 @@ export interface RegistroUsuarioDTO {
   direccion?: string;          // opcional
   fechaNacimiento?: string;    // opcional, ISO string
   run?: string;                // opcional
+  rol : string;
 }
 
 

@@ -15,7 +15,7 @@ const RegisterUser: React.FC = () => {
   const [correo, setCorreo] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [fechaNacimiento, setFechaNacimiento] = useState(""); // Nueva
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [cargando, setCargando] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,8 +39,9 @@ const RegisterUser: React.FC = () => {
         correoElectronico: correo,
         contraseña: password,
         direccion: "",
-        fechaNacimiento: fechaNacimiento, // Ahora se envía
+        fechaNacimiento: fechaNacimiento,
         run: "",
+        rol: "cliente", // 🔹 Asignamos rol "cliente" por defecto
       };
 
       const response = await AuthService.registro(nuevoUsuario);
