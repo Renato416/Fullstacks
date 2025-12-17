@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
+import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/carrito_com.css";
 
 interface ProductoCarrito {
@@ -10,109 +10,216 @@ interface ProductoCarrito {
   nombre: string;
   precio: number;
   cantidad: number;
+  imagen?: string;
 }
 
-interface Usuario {
-  id: string;
-  nombre: string;
-  rol: "admin" | "cliente";
-}
+const STORAGE_KEY = "carrito";
 
 const Carrito: React.FC = () => {
   const [carrito, setCarrito] = useState<ProductoCarrito[]>([]);
-  const [usuarioActivo, setUsuarioActivo] = useState<Usuario | null>(null);
+  const [discountApplied, setDiscountApplied] = useState(false);
   const navigate = useNavigate();
 
+  /* =============================
+     CARGAR CARRITO DESDE LOCAL
+  ============================== */
   useEffect(() => {
-    const usuario = localStorage.getItem("usuarioActivo");
-    if (usuario) setUsuarioActivo(JSON.parse(usuario));
+    const carritoGuardado = localStorage.getItem(STORAGE_KEY);
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
+    }
+
+    const syncCarrito = () => {
+      const actualizado = localStorage.getItem(STORAGE_KEY);
+      setCarrito(actualizado ? JSON.parse(actualizado) : []);
+    };
+
+    window.addEventListener("carrito-actualizado", syncCarrito);
+    return () =>
+      window.removeEventListener("carrito-actualizado", syncCarrito);
   }, []);
 
-  const fetchCarrito = async () => {
-    if (!usuarioActivo) return;
+  /* =============================
+     GUARDAR CARRITO
+  ============================== */
+  const guardarCarrito = (nuevoCarrito: ProductoCarrito[]) => {
+    setCarrito(nuevoCarrito);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(nuevoCarrito));
+    window.dispatchEvent(new Event("carrito-actualizado"));
+  };
 
-    try {
-      const res = await axios.get(`/api/v2/carritos/usuario/${usuarioActivo.id}`);
-      const detalles = res.data.detalles || [];
+  /* =============================
+     CANTIDAD
+  ============================== */
+  const handleIncrement = (id: string) => {
+    guardarCarrito(
+      carrito.map((p) =>
+        p.id === id ? { ...p, cantidad: p.cantidad + 1 } : p
+      )
+    );
+  };
 
-      const productosConDetalle: ProductoCarrito[] = detalles.map((d: any) => ({
-        id: d.productoId.toString(),
-        nombre: d.nombreProducto,
-        precio: d.precioProducto,
-        cantidad: d.cantidad,
-      }));
+  const handleDecrement = (id: string) => {
+    guardarCarrito(
+      carrito.map((p) =>
+        p.id === id && p.cantidad > 1
+          ? { ...p, cantidad: p.cantidad - 1 }
+          : p
+      )
+    );
+  };
 
-      setCarrito(productosConDetalle);
-    } catch (err) {
-      console.error(err);
-      setCarrito([]);
+  const handleQuantityChange = (id: string, value: number) => {
+    if (value < 1) value = 1;
+    guardarCarrito(
+      carrito.map((p) =>
+        p.id === id ? { ...p, cantidad: value } : p
+      )
+    );
+  };
+
+  /* =============================
+     ELIMINAR
+  ============================== */
+  const handleRemove = (id: string) => {
+    guardarCarrito(carrito.filter((p) => p.id !== id));
+  };
+
+  /* =============================
+     CUPÓN
+  ============================== */
+  const handleApplyCoupon = (code: string) => {
+    if (code === "Level-up") {
+      setDiscountApplied(true);
+      alert("Cupón aplicado: 20% de descuento ✅");
+    } else {
+      setDiscountApplied(false);
+      alert("Cupón inválido ❌");
     }
   };
 
-  useEffect(() => {
-    fetchCarrito();
-    window.addEventListener("carrito-actualizado", fetchCarrito);
-    return () => window.removeEventListener("carrito-actualizado", fetchCarrito);
-  }, [usuarioActivo]);
+  /* =============================
+     TOTAL
+  ============================== */
+  const subtotal = carrito.reduce(
+    (acc, p) => acc + p.precio * p.cantidad,
+    0
+  );
 
-  const handleQuantityChange = async (productoId: string, cantidad: number) => {
-    if (!usuarioActivo || cantidad < 1) return;
+  const total = discountApplied ? subtotal * 0.8 : subtotal;
 
-    try {
-      await axios.put(
-        `/api/v2/carritos/usuario/${usuarioActivo.id}/producto/${productoId}`,
-        null,
-        { params: { cantidad } }
-      );
-      fetchCarrito();
-    } catch (err) {
-      console.error(err);
+  /* =============================
+     COMPRAR
+  ============================== */
+  const handleBuy = () => {
+    if (carrito.length === 0) {
+      alert("Tu carrito está vacío 🛒");
+      return;
     }
+    localStorage.setItem("descuento", JSON.stringify(discountApplied));
+    navigate("/checkout");
   };
-
-  const handleRemove = async (productoId: string) => {
-    if (!usuarioActivo) return;
-    try {
-      await axios.delete(`/api/v2/carritos/usuario/${usuarioActivo.id}/producto/${productoId}`);
-      fetchCarrito();
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const total = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
 
   return (
     <>
       <Header />
-      <main className="carrito-main">
-        <h1>Mi carrito de compras</h1>
 
-        {carrito.length === 0 ? (
-          <p className="carrito-vacio">Tu carrito está vacío 🛒</p>
-        ) : (
-          <div className="carrito-lista">
-            {carrito.map((p) => (
-              <div key={p.id} className="producto-carrito">
-                <div className="producto-info">
-                  <span>{p.nombre}</span>
-                  <span>Precio: ${p.precio}</span>
-                  <span>Subtotal: ${p.precio * p.cantidad}</span>
-                  <div>
-                    <button onClick={() => handleQuantityChange(p.id, p.cantidad - 1)} disabled={p.cantidad <= 1}>-</button>
-                    <span>{p.cantidad}</span>
-                    <button onClick={() => handleQuantityChange(p.id, p.cantidad + 1)}>+</button>
-                    <button onClick={() => handleRemove(p.id)}>Eliminar</button>
+      <main>
+        <h1 style={{ color: "var(--primary-color)", marginBottom: "1rem" }}>
+          Mi carrito de compras
+        </h1>
+
+        <div className="cart-container">
+          <div className="products">
+            {carrito.length === 0 ? (
+              <p style={{ textAlign: "center" }}>
+                Tu carrito está vacío 🛒
+              </p>
+            ) : (
+              carrito.map((p) => (
+                <div className="product" key={p.id}>
+                  <img
+                    src={
+                      p.imagen ||
+                      "https://via.placeholder.com/100?text=Producto"
+                    }
+                    alt={p.nombre}
+                    className="product-image"
+                  />
+
+                  <div className="product-info">
+                    <h2>{p.nombre}</h2>
+                    <p>Precio: ${p.precio.toLocaleString()}</p>
+                  </div>
+
+                  <div className="product-price">
+                    <div className="quantity">
+                      <button onClick={() => handleDecrement(p.id)}>
+                        -
+                      </button>
+                      <input
+                        type="number"
+                        value={p.cantidad}
+                        min={1}
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            p.id,
+                            parseInt(e.target.value) || 1
+                          )
+                        }
+                      />
+                      <button onClick={() => handleIncrement(p.id)}>
+                        +
+                      </button>
+                    </div>
+
+                    <p>
+                      Subtotal: $
+                      {(p.precio * p.cantidad).toLocaleString()}
+                    </p>
+
+                    <button
+                      className="remove"
+                      onClick={() => handleRemove(p.id)}
+                    >
+                      Eliminar
+                    </button>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
-        )}
 
-        <h2>Total: ${total}</h2>
-        <button onClick={() => navigate("/checkout")}>Ir a pagar</button>
+          <div className="summary">
+            <h2>Resumen</h2>
+            <p className="total-amount">
+              Total: ${total.toLocaleString()} CLP
+            </p>
+
+            <input
+              type="text"
+              placeholder="Ingrese cupón"
+              id="coupon"
+            />
+            <button
+              className="apply"
+              onClick={() =>
+                handleApplyCoupon(
+                  (document.getElementById("coupon") as HTMLInputElement)
+                    .value
+                )
+              }
+            >
+              APLICAR
+            </button>
+
+            <button className="buy" onClick={handleBuy}>
+              COMPRAR
+            </button>
+          </div>
+        </div>
       </main>
+
       <Footer />
     </>
   );

@@ -4,16 +4,15 @@ import "../../assets/CSS/VistaAdministradorTsxCSS/productos.css";
 import "../../assets/CSS/VistaAdministradorTsxCSS/admin-layout.css";
 import AdminSidebar from "../../components/administrador/AdminSidebar";
 
-// 1. Usamos el servicio real
+// Servicio real
 import { ProductoService } from "../../services/ProductoService";
 
 export default function Productos() {
   const navigate = useNavigate();
-  // 2. Estado para los productos del backend
+
   const [productos, setProductos] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 3. Cargar al iniciar
   useEffect(() => {
     cargarProductos();
   }, []);
@@ -23,17 +22,15 @@ export default function Productos() {
       setLoading(true);
       const data = await ProductoService.getAll();
 
-      // AJUSTE DE MAPEO: Adaptamos los nombres del Backend a lo que usa tu tabla
+      // Mapeo Backend -> Frontend
       const dataMapeada = data.map((p: any) => ({
         ...p,
         id: String(p.id),
-        // Backend devuelve "imagenUrl", frontend usa "imagen"
         imagen: p.imagenUrl || p.imagen,
-        // Backend devuelve "nombreCategoria", frontend usa "categoria"
         categoria: p.nombreCategoria || p.categoria,
+        cantidad: p.cantidad ?? 0, // ✅ NUEVO (seguro si viene null)
       }));
 
-      // CORRECCIÓN: Usamos setProductos correctamente (reemplazando el estado)
       setProductos(dataMapeada);
     } catch (error) {
       console.error("Error cargando productos:", error);
@@ -43,17 +40,10 @@ export default function Productos() {
     }
   };
 
-  // 4. Eliminar Producto REAL
   const handleEliminar = async (id: string) => {
-    if (
-      window.confirm(
-        "¿Estás seguro de eliminar este producto de la Base de Datos?"
-      )
-    ) {
+    if (window.confirm("¿Estás seguro de eliminar este producto?")) {
       try {
-        await ProductoService.delete(id); // Llamada al backend
-
-        // Recargamos la lista para ver el cambio
+        await ProductoService.delete(id);
         cargarProductos();
         alert("Producto eliminado correctamente.");
       } catch (error) {
@@ -92,6 +82,7 @@ export default function Productos() {
                   <th>Imagen</th>
                   <th>Nombre</th>
                   <th>Precio</th>
+                  <th>Cantidad</th> {/* ✅ NUEVA COLUMNA */}
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -113,6 +104,9 @@ export default function Productos() {
                     </td>
                     <td>{prod.nombre}</td>
                     <td>${prod.precio.toLocaleString()} CLP</td>
+                    <td>
+                      <strong>{prod.cantidad}</strong>
+                    </td>
                     <td className="d-flex gap-2 flex-wrap">
                       <button
                         className="btn-edit"

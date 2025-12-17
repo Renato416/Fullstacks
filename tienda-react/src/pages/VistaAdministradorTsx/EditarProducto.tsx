@@ -2,27 +2,28 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../../assets/CSS/VistaAdministradorTsxCSS/EditarProducto.css";
 
-// 1. Usamos el servicio real
+// Servicio
 import { ProductoService } from "../../services/ProductoService";
 import type { Producto } from "../../assets/data/data";
 
 const EditarProducto: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // 2. Inicializamos con la estructura correcta (usando imagenUrl)
+  // 🔹 Estado inicial con CANTIDAD
   const [formData, setFormData] = useState<Producto>({
     id: "",
     categoria: "",
     nombre: "",
     precio: 0,
-    imagenUrl: "", // <--- CAMBIO: Usamos imagenUrl
+    cantidad: 0,
+    imagenUrl: "",
   });
 
-  // 3. Cargar los datos del producto real al entrar
+  // 🔹 Cargar producto
   useEffect(() => {
     if (id) {
       cargarProducto(id);
@@ -32,20 +33,16 @@ const EditarProducto: React.FC = () => {
   const cargarProducto = async (productoId: string) => {
     try {
       setLoading(true);
-      // Llamada al Backend: GET /api/v2/productos/{id}
       const data = await ProductoService.getById(productoId);
-      
-      // AJUSTE DE MAPEO (Backend -> Formulario)
+
       setFormData({
         id: String(data.id),
         nombre: data.nombre,
         precio: data.precio,
-        // El backend manda "imagenUrl", el form usa "imagenUrl"
-        imagenUrl: data.imagenUrl || data.imagen || "", 
-        // El backend manda "nombreCategoria", el form usa "categoria"
-        categoria: data.nombreCategoria || data.categoria || ""
+        cantidad: data.cantidad ?? 0,
+        imagenUrl: data.imagenUrl || data.imagen || "",
+        categoria: data.nombreCategoria || data.categoria || "",
       });
-      
     } catch (err) {
       console.error("Error cargando producto:", err);
       setError("No se pudo encontrar el producto en la base de datos.");
@@ -54,35 +51,38 @@ const EditarProducto: React.FC = () => {
     }
   };
 
+  // 🔹 Manejo de cambios
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: name === "precio" ? parseFloat(value) : value,
+      [name]:
+        name === "precio" || name === "cantidad"
+          ? Number(value)
+          : value,
     }));
   };
 
+  // 🔹 Envío del formulario
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.nombre.trim()) {
       alert("El nombre del producto no puede estar vacío");
       return;
     }
 
     try {
-      // AJUSTE DE MAPEO (Formulario -> Backend)
       const payloadBackend = {
         nombre: formData.nombre,
         precio: formData.precio,
-        imagenUrl: formData.imagenUrl, // <--- CAMBIO: Usamos imagenUrl
+        cantidad: formData.cantidad,
+        imagenUrl: formData.imagenUrl,
         nombreCategoria: formData.categoria,
-        categoriaId: 1 // Hardcodeado temporalmente, idealmente dinámico
       };
 
-      // Llamada al Backend: PUT /api/v2/productos/{id}
       if (id) {
         await ProductoService.update(id, payloadBackend as any);
         alert("Producto actualizado con éxito en la Base de Datos ✅");
@@ -94,18 +94,36 @@ const EditarProducto: React.FC = () => {
     }
   };
 
-  if (loading) return <div className="container mt-5 text-center">Cargando datos del producto...</div>;
-  if (error) return <div className="container mt-5 text-center text-danger">{error}</div>;
+  if (loading)
+    return (
+      <div className="container mt-5 text-center">
+        Cargando datos del producto...
+      </div>
+    );
+
+  if (error)
+    return (
+      <div className="container mt-5 text-center text-danger">
+        {error}
+      </div>
+    );
 
   return (
     <div className="editar-producto-container container mt-4">
       <h2 className="mb-3">Editar Producto</h2>
-      
+
       <form onSubmit={handleSubmit} className="editar-producto-form row g-3">
         <div className="col-md-6">
           <label className="form-label">
             ID (No editable):
-            <input type="text" value={formData.id} name="id" readOnly className="form-control" disabled />
+            <input
+              type="text"
+              value={formData.id}
+              name="id"
+              readOnly
+              disabled
+              className="form-control"
+            />
           </label>
         </div>
 
@@ -151,10 +169,25 @@ const EditarProducto: React.FC = () => {
           </label>
         </div>
 
+        {/* 🔹 NUEVO CAMPO CANTIDAD */}
+        <div className="col-md-6">
+          <label className="form-label">
+            Cantidad:
+            <input
+              type="number"
+              name="cantidad"
+              value={formData.cantidad}
+              onChange={handleChange}
+              className="form-control"
+              min={0}
+              required
+            />
+          </label>
+        </div>
+
         <div className="col-12">
           <label className="form-label">
             Imagen (URL):
-            {/* CAMBIO: name="imagenUrl" */}
             <input
               type="text"
               name="imagenUrl"
@@ -163,12 +196,17 @@ const EditarProducto: React.FC = () => {
               className="form-control"
             />
           </label>
-          {/* Previsualización de la imagen */}
-          {/* CAMBIO: Usamos formData.imagenUrl */}
+
           {formData.imagenUrl && (
             <div className="mt-2">
-                <img src={formData.imagenUrl} alt="Previsualización" style={{height: '100px', objectFit: 'contain'}} 
-                     onError={(e) => (e.target as HTMLImageElement).style.display = 'none'}/>
+              <img
+                src={formData.imagenUrl}
+                alt="Previsualización"
+                style={{ height: "100px", objectFit: "contain" }}
+                onError={(e) =>
+                  ((e.target as HTMLImageElement).style.display = "none")
+                }
+              />
             </div>
           )}
         </div>

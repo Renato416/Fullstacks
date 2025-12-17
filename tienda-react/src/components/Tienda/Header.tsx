@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import "../../assets/CSS/Tienda/styles.css";
 import Logo from "../../assets/IMG/icon-level-up.png";
 import Carr from "../../assets/IMG/carrito-icon.png";
@@ -11,44 +10,59 @@ interface Usuario {
   rol: "admin" | "cliente";
 }
 
+interface ProductoCarrito {
+  id: string;
+  nombre: string;
+  precio: number;
+  cantidad: number;
+}
+
+const STORAGE_KEY = "carrito";
+
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [totalProductos, setTotalProductos] = useState(0);
   const [menuActivo, setMenuActivo] = useState(false);
   const [usuarioActivo, setUsuarioActivo] = useState<Usuario | null>(null);
 
+  /* 🔐 Usuario activo */
   useEffect(() => {
     const usuario = localStorage.getItem("usuarioActivo");
     if (usuario) setUsuarioActivo(JSON.parse(usuario));
   }, []);
 
-  const actualizarContadorCarrito = async () => {
+  /* 🛒 Calcular total desde localStorage */
+  const calcularTotalCarrito = () => {
     if (!usuarioActivo || usuarioActivo.rol !== "cliente") {
       setTotalProductos(0);
       return;
     }
-    try {
-      const response = await axios.get(`/api/v2/carritos/usuario/${usuarioActivo.id}`);
-      const carritoBackend: { id: string; cantidad: number }[] =
-        response.data._embedded?.carritoDTOList || [];
-      const total = carritoBackend.reduce((acc, p) => acc + p.cantidad, 0);
-      setTotalProductos(total);
-    } catch (error) {
-      console.error("Error al obtener carrito:", error);
-      setTotalProductos(0);
-    }
+
+    const carritoGuardado = localStorage.getItem(STORAGE_KEY);
+    const carrito: ProductoCarrito[] = carritoGuardado
+      ? JSON.parse(carritoGuardado)
+      : [];
+
+    const total = carrito.reduce((acc, p) => acc + p.cantidad, 0);
+    setTotalProductos(total);
   };
 
+  /* 🔄 Escuchar cambios del carrito */
   useEffect(() => {
-    actualizarContadorCarrito();
-    const intervalo = setInterval(actualizarContadorCarrito, 5000);
-    return () => clearInterval(intervalo);
+    calcularTotalCarrito();
+
+    const actualizar = () => calcularTotalCarrito();
+    window.addEventListener("carrito-actualizado", actualizar);
+
+    return () => window.removeEventListener("carrito-actualizado", actualizar);
   }, [usuarioActivo]);
 
+  /* 🚪 Logout */
   const handleLogout = () => {
     localStorage.removeItem("usuarioActivo");
     localStorage.removeItem("usuario");
     localStorage.removeItem("token");
+    localStorage.removeItem(STORAGE_KEY);
     setUsuarioActivo(null);
     setTotalProductos(0);
     navigate("/");
@@ -63,7 +77,10 @@ const Header: React.FC = () => {
         <h1 className="Nombre-empresa">LEVEL-UP GAMER</h1>
       </div>
 
-      <button className="nav-toggle" onClick={() => setMenuActivo(!menuActivo)}>
+      <button
+        className="nav-toggle"
+        onClick={() => setMenuActivo(!menuActivo)}
+      >
         ☰
       </button>
 
@@ -76,9 +93,11 @@ const Header: React.FC = () => {
       </nav>
 
       <div className="Carrito">
-        {/* Carrito siempre visible */}
+        {/* 🛒 Carrito local */}
         <Link to="/carrito_compras" className="button-carrito">
-          <span className="carrito-text">Productos ({totalProductos})</span>
+          <span className="carrito-text">
+            Productos ({totalProductos})
+          </span>
           <img src={Carr} alt="Icono del carrito" className="icono-carrito" />
         </Link>
 
@@ -89,8 +108,12 @@ const Header: React.FC = () => {
             </button>
           ) : (
             <>
-              <Link to="/login" className="btn-login">Inicio de sesión</Link>
-              <Link to="/register" className="btn-register">Registrar usuario</Link>
+              <Link to="/login" className="btn-login">
+                Inicio de sesión
+              </Link>
+              <Link to="/register" className="btn-register">
+                Registrar usuario
+              </Link>
             </>
           )}
         </div>

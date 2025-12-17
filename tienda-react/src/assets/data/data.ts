@@ -55,6 +55,7 @@ export interface Producto {
   categoria: string;
   nombre: string;
   precio: number;
+  cantidad: number
   imagenUrl: string;
 }
 

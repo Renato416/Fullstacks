@@ -1,99 +1,219 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Tienda/Header";
 import Footer from "../../components/Tienda/Footer";
+import { productos } from "../../assets/data/data";
+import type { Producto } from "../../assets/data/data";
 import axios from "axios";
+import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/checkout.css";
 
-interface ProductoDetalle {
+interface ProductoCarrito {
   id: string;
-  nombre: string;
-  precio: number;
-  imagenUrl: string;
   cantidad: number;
 }
 
 interface Usuario {
   id: string;
   nombre: string;
+  rol: string;
 }
 
-const Checkout: React.FC<{ usuario?: Usuario }> = ({ usuario }) => {
-  const [carrito, setCarrito] = useState<ProductoDetalle[]>([]);
+const Checkout: React.FC = () => {
+  const [carrito, setCarrito] = useState<ProductoCarrito[]>([]);
+  const [productosEnCarrito, setProductosEnCarrito] = useState<
+    (Producto & { cantidad: number })[]
+  >([]);
+  const [discountApplied, setDiscountApplied] = useState(false);
   const [address, setAddress] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("");
   const [cardNumber, setCardNumber] = useState("");
   const [resultMessage, setResultMessage] = useState("");
+  const [usuarioActivo, setUsuarioActivo] = useState<Usuario | null>(null);
 
-  const fetchCarrito = async () => {
-    if (!usuario) return;
-    const res = await axios.get(`/api/v2/carritos/usuario/${usuario.id}`);
-    const backendItems = res.data._embedded?.carritoDTOList || [];
-    const productosConDetalle = await Promise.all(
-      backendItems.map(async (item: { id: string; cantidad: number }) => {
-        const prodRes = await axios.get(`/api/v2/productos/${item.id}`);
-        return { ...prodRes.data, cantidad: item.cantidad };
-      })
-    );
-    setCarrito(productosConDetalle);
-  };
-
+  // =============================
+  // Cargar usuario, carrito y descuento
+  // =============================
   useEffect(() => {
-    fetchCarrito();
-  }, [usuario]);
+    const usuario = localStorage.getItem("usuarioActivo");
+    if (usuario) setUsuarioActivo(JSON.parse(usuario));
 
-  const total = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0);
+    const carritoLocal = JSON.parse(localStorage.getItem("carrito") || "[]");
+    setCarrito(carritoLocal);
 
+    const descuento = localStorage.getItem("descuento") === "true";
+    setDiscountApplied(descuento);
+  }, []);
+
+  // =============================
+  // Mapear productos reales con cantidad
+  // =============================
+  useEffect(() => {
+    const detalles = carrito
+      .map((item) => {
+        const productoInfo = productos.find(
+          (p) => p.id.toString() === item.id
+        );
+        return productoInfo
+          ? { ...productoInfo, cantidad: item.cantidad }
+          : null;
+      })
+      .filter(Boolean) as (Producto & { cantidad: number })[];
+
+    setProductosEnCarrito(detalles);
+  }, [carrito]);
+
+  // =============================
+  // Calcular total con descuento
+  // =============================
+  const total =
+    productosEnCarrito.reduce(
+      (acc, p) => acc + p.precio * p.cantidad,
+      0
+    ) * (discountApplied ? 0.8 : 1);
+
+  // =============================
+  // Finalizar compra
+  // =============================
   const handleFinalize = async () => {
-    if (!usuario) return alert("Debes iniciar sesión para comprar");
-    if (!address || !paymentMethod) return alert("Completa dirección y método de pago");
+    if (!usuarioActivo) {
+      setResultMessage("Debes iniciar sesión ❌");
+      return;
+    }
+
+    if (!address || !paymentMethod) {
+      setResultMessage("Completa dirección y método de pago ❌");
+      return;
+    }
+
+    if (paymentMethod === "tarjeta" && cardNumber.length < 16) {
+      setResultMessage("Número de tarjeta inválido ❌");
+      return;
+    }
+
+    // Preparar detalles de boleta
+    const detalles = productosEnCarrito.map((p) => ({
+      producto: { id: p.id },
+      cantidad: p.cantidad,
+      precioUnitario: p.precio,
+    }));
 
     try {
-      await axios.post(`/api/v2/boletas/usuario/${usuario.id}`, carrito);
-      setResultMessage("¡Compra realizada con éxito!");
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setResultMessage("No estás autenticado ❌");
+        return;
+      }
+
+      const res = await axios.post(
+        `http://localhost:8080/api/v2/boletas/usuario/${usuarioActivo.id}`,
+        detalles,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log("✅ Boleta creada:", res.data);
+
+      // Limpiar carrito
+      localStorage.removeItem("carrito");
+      localStorage.removeItem("descuento");
+      window.dispatchEvent(new Event("carrito-actualizado"));
+
       setCarrito([]);
-    } catch (err) {
-      console.error(err);
-      setResultMessage("No se pudo completar la compra ❌");
+      setProductosEnCarrito([]);
+      setResultMessage("¡Compra realizada con éxito! ✅");
+    } catch (error: any) {
+      console.error("Error al crear boleta:", error);
+      setResultMessage(
+        error.response?.data?.message || "Error al crear la boleta ❌"
+      );
     }
   };
 
   return (
     <>
       <Header />
+
       <main className="checkout-container">
         <h1>Finalizar Compra</h1>
 
-        {carrito.length === 0 ? (
-          <p>Tu carrito está vacío 🛒</p>
-        ) : (
-          <>
-            {carrito.map((p) => (
-              <div key={p.id}>
-                <img src={p.imagenUrl} alt={p.nombre} width={80} />
-                <span>{p.nombre} x {p.cantidad} — ${p.precio * p.cantidad}</span>
-              </div>
-            ))}
-            <h2>Total: ${total}</h2>
-          </>
-        )}
+        {/* 🛍️ Productos en carrito */}
+        <div className="checkout-products">
+          {productosEnCarrito.length === 0 ? (
+            <p>Tu carrito está vacío 🛒</p>
+          ) : (
+            <>
+              {productosEnCarrito.map((p) => (
+                <div className="checkout-product" key={p.id}>
+                  <img
+                    src={p.imagenUrl}
+                    alt={p.nombre}
+                    className="checkout-image"
+                  />
+                  <span>
+                    {p.nombre} x {p.cantidad} —{" "}
+                    <strong>${(p.precio * p.cantidad).toLocaleString()}</strong>
+                  </span>
+                </div>
+              ))}
 
-        <div>
-          <label>Dirección</label>
-          <input value={address} onChange={(e) => setAddress(e.target.value)} />
-          <label>Método de pago</label>
-          <select value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
-            <option value="">Seleccione</option>
-            <option value="tarjeta">Tarjeta</option>
-            <option value="paypal">PayPal</option>
-          </select>
-          {paymentMethod === "tarjeta" && (
-            <input value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} placeholder="Número tarjeta" />
+              <div className="checkout-total">
+                <strong>Total: ${total.toLocaleString()} CLP</strong>
+                {discountApplied && (
+                  <p>(Incluye 20% de descuento aplicado)</p>
+                )}
+              </div>
+            </>
           )}
-          <button onClick={handleFinalize}>Finalizar Compra</button>
         </div>
 
-        {resultMessage && <p>{resultMessage}</p>}
+        {/* 💳 Formulario de pago */}
+        <div className="checkout-form">
+          <label>Dirección</label>
+          <input
+            type="text"
+            placeholder="Ingrese su dirección"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+
+          <label>Método de pago</label>
+          <select
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+          >
+            <option value="">Seleccione</option>
+            <option value="tarjeta">Tarjeta de crédito</option>
+            <option value="paypal">PayPal</option>
+            <option value="transferencia">Transferencia</option>
+          </select>
+
+          {paymentMethod === "tarjeta" && (
+            <input
+              type="text"
+              placeholder="Número de tarjeta"
+              maxLength={16}
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value)}
+            />
+          )}
+
+          <button id="finalize" onClick={handleFinalize}>
+            Finalizar Compra
+          </button>
+        </div>
+
+        {/* 📩 Resultado */}
+        {resultMessage && (
+          <div className="checkout-result">
+            <p>{resultMessage}</p>
+          </div>
+        )}
       </main>
+
       <Footer />
     </>
   );

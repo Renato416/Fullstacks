@@ -4,7 +4,6 @@ import Footer from "../../components/Tienda/Footer";
 import ProductCard from "../../components/Tienda/ProductoCard";
 import { ProductoService } from "../../services/ProductoService";
 import type { Producto } from "../../assets/data/data";
-import axios from "axios";
 
 import "../../assets/CSS/Tienda/styles.css";
 import "../../assets/CSS/Tienda/listaProducto.css";
@@ -15,6 +14,14 @@ interface Usuario {
   rol: "admin" | "cliente";
 }
 
+interface ProductoCarrito {
+  id: string;
+  nombre: string;
+  precio: number;
+  cantidad: number;
+  imagen?: string;
+}
+
 const ListaProductos: React.FC = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,11 +29,13 @@ const ListaProductos: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [usuarioActivo, setUsuarioActivo] = useState<Usuario | null>(null);
 
+  /* 🔐 Usuario activo */
   useEffect(() => {
     const usuario = localStorage.getItem("usuarioActivo");
     if (usuario) setUsuarioActivo(JSON.parse(usuario));
   }, []);
 
+  /* 📦 Cargar productos */
   useEffect(() => {
     const fetchProductos = async () => {
       try {
@@ -43,31 +52,44 @@ const ListaProductos: React.FC = () => {
     fetchProductos();
   }, []);
 
-  const handleAddToCart = async (productoId: number) => {
+  /* 🛒 AGREGAR AL CARRITO (LOCAL + IMAGEN) */
+  const handleAddToCart = (producto: Producto) => {
     if (!usuarioActivo || usuarioActivo.rol !== "cliente") {
       alert("Debes iniciar sesión como cliente para agregar productos al carrito");
       return;
     }
 
-    try {
-      await axios.post(
-        `/api/v2/carritos/usuario/${usuarioActivo.id}/producto/${productoId}`,
-        null,
-        { params: { cantidad: 1 } }
-      );
-      alert("Producto agregado al carrito ✅");
-      window.dispatchEvent(new Event("carrito-actualizado"));
-    } catch (err) {
-      console.error(err);
-      alert("No se pudo agregar el producto al carrito");
+    const carritoGuardado = localStorage.getItem("carrito");
+    let carrito: ProductoCarrito[] = carritoGuardado
+      ? JSON.parse(carritoGuardado)
+      : [];
+
+    const existente = carrito.find(
+      (p) => p.id === producto.id.toString()
+    );
+
+    if (existente) {
+      existente.cantidad += 1;
+    } else {
+      carrito.push({
+        id: producto.id.toString(),
+        nombre: producto.nombre,
+        precio: producto.precio,
+        cantidad: 1,
+        imagen: producto.imagenUrl, // ✅ IMAGEN GUARDADA
+      });
     }
+
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+
+    window.dispatchEvent(new Event("carrito-actualizado"));
+    alert("Producto agregado al carrito 🛒");
   };
 
-  const filteredProductos = Array.isArray(productos)
-    ? productos.filter((p) =>
-        p.nombre.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : [];
+  /* 🔎 Filtro */
+  const filteredProductos = productos.filter((p) =>
+    p.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -99,13 +121,12 @@ const ListaProductos: React.FC = () => {
               />
               <button
                 className="btn-agregar-carrito"
-                onClick={() => handleAddToCart(p.id)}
+                onClick={() => handleAddToCart(p)}
               >
                 Agregar al carrito
               </button>
             </div>
           ))}
-          {!loading && filteredProductos.length === 0 && <p>No se encontraron productos.</p>}
         </section>
       </main>
       <Footer />
